@@ -1,0 +1,599 @@
+﻿@using Tipoul.Framework.DataAccessLayer
+@using Tipoul.Framework.Utilities.Extentions
+@using static Tipoul.Framework.StorageModels.WalletDepositRequestStatusHistory
+@model Tipoul.AdminPanel.WebUI.Models.Settlements.SettlementsListViewModel
+@inject TipoulFrameworkDbContext dbContext
+@inject Tipoul.Athentication.Agent.Services.AthenticationProvider athenticationProvider
+
+@{
+	var user = athenticationProvider.GetUser();
+}
+
+@section styles {
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="~/css/ToastStyle.css">
+	<script type="text/javascript" src="~/js/Tools.js"></script>
+}
+
+	<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+		<div class="d-flex flex-column-fluid">
+			<div class=" container-fluid ">
+				<div class="card card-custom">
+					<div class="card-header flex-wrap border-0 pt-6 pb-0">
+						<div class="card-title">
+							<h3 class="card-label">
+								تسویه ها
+								<span class="text-muted pt-2 font-size-sm d-block">گزارش بلادرنگ تسویه ها</span>
+							</h3>
+						</div>
+					</div>
+					<div class="card-body">
+						<!--begin: جستجو Form-->
+						<!--begin::جستجو Form-->
+						<div class="mb-7">
+							<div class="row align-items-center">
+								<div class="col-lg-12 col-xl-12">
+									<form class="row align-items-center">
+										<div class="col-md-3 my-2 my-md-0">
+											<table class="w-100">
+												<tbody>
+													<tr>
+														<td><label>مبلغ</label></td>
+														<td class="w-25">
+															<span class="min">@Model.MinAmount.ToString("n0")</span>
+														</td>
+													@if (Model.MinAmount != Model.MaxAmount)
+													{
+														<td class="w-50">
+															<div class="slider"></div>
+														</td>
+														<td class="w-25">
+															<span class="max">@Model.MaxAmount.ToString("n0")</span>
+														</td>
+													}
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-1 my-2 my-md-0 d-none">
+										<table class="w-100">
+											<tbody>
+												<tr>
+													<td class="w-25"><label>مبلغ از</label></td>
+													<td>
+														<input type="number" class="form-control" name="minAmount" min="0" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-1 my-2 my-md-0 d-none">
+										<table class="w-100">
+											<tbody>
+												<tr>
+													<td class="w-25"><label>مبلغ تا</label></td>
+													<td>
+														<input type="number" class="form-control" name="maxAmount" min="0" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-4 my-2 my-md-0">
+										<table class="w-100">
+											<tbody>
+												<tr>
+													<td><label>حساب تیپول</label></td>
+													<td>
+														<select class="form-control mx-2" name="walletId">
+															<option selected value="">نمایش همه</option>
+															@foreach (var wallet in await dbContext.Wallets.Where(f => f.UserId == user.Id).ToListAsync())
+															{
+																<option value="@wallet.Id" selected="@(Model.WalletId.HasValue && Model.WalletId.Value == wallet.Id)">@wallet.Title</option>
+															}
+														</select>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-3 my-2 my-md-0">
+										<table class="w-100">
+											<tbody>
+												<tr>
+													<td><label>درگاه</label></td>
+													<td>
+														<select class="form-control mx-2" name="gateWayId">
+															<option selected value="">نمایش همه</option>
+															@foreach (var bankAccount in await dbContext.BankAccounts.Where(f => f.UserId == user.Id).ToListAsync())
+															{
+																<option value="@bankAccount.Id" selected="@(Model.BankAccountId.HasValue && Model.BankAccountId.Value == bankAccount.Id)">@bankAccount.FullName @bankAccount.Iban</option>
+															}
+														</select>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									@*<div class="col-md-2 my-2 my-md-0">
+									<table class="w-100">
+									<tbody>
+									<tr>
+									<td><label>مشتری</label></td>
+									<td>
+									<select class="form-control mx-2" name="customerKey">
+									<option selected value="">نمایش همه</option>
+									@foreach (var customer in await dbContext.Transactions.Where(f => f.GateWay.Wallet.UserId == user.Id)
+									.GroupBy(f => new { f.TransactionModel.PayerMobile, f.TransactionModel.PayerName, f.TransactionModel.PayerUserId })
+									.Select(f => f.Key).ToListAsync())
+									{
+									var key = customer.PayerUserId + customer.PayerName + customer.PayerMobile;
+
+									<option value="@key" selected="@(Model.CustomerKey == key)">@customer.PayerUserId @customer.PayerName @customer.PayerMobile</option>
+									}
+									</select>
+									</td>
+									</tr>
+									</tbody>
+									</table>
+									</div>*@
+									<div class="col-md-1 my-2 my-md-0">
+										<button type="submit" class="btn btn-light-primary px-6 font-weight-bold">جستجو</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!--end::جستجو Form-->
+					<!--begin: جدول داده ها-->
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><span>مبلغ کل</span></th>
+									<th><span>تاریخ ارسال</span></th>
+									<th><span>تاریخ انجام</span></th>
+									<th><span>نوع تسویه</span></th>
+									<th><span>وضعیت</span></th>
+									<th style="min-width:140px;"><span>کاربر درخواست کننده</span></th>
+									<th style="max-width:100px;"><span>موجودی تیپول بعد تسویه</span></th>
+									<th style="max-width:100px;"><span>موجودی بانک بعد تسویه</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model.Items)
+								{
+									var color = "#ffffff";
+									if (item.LastStatus == "انجام شده")
+										color = "#e3f9eb";
+									else if (item.LastStatus == "رد شده")
+										color = "#fde9e7";
+									<tr style="background-color:@color">
+										<td><span>@item.Amount.ToString("n0")</span></td>
+										<td dir="ltr"><span class="date-container">@item.CreateDate</span></td>
+										<td dir="ltr"><span class="date-container">@item.SelectedDate</span></td>
+										<td><span style="color:@(@item.QuickSettlement ? "#28a15d" : "blue")">@(@item.QuickSettlement ? "سریع" : "عادی")</span></td>
+										<td><span>@item.LastStatus</span></td>
+										<td><span>@item.UserFullName</span></td>
+										<td><span>@item.AmountInTipoulAfterSettlement.ToString("n0")</span></td>
+										<td><span>@item.AmountInBankAfterSettlement.ToString("n0")</span></td>
+										<td style="min-width:230px;margin:0;padding:0;padding-top:5px;vertical-align:middle;">
+											<a style="width:50px;display:inline-block;margin:0;padding:3px;" href="#" data-toggle="modal" data-target="#settlemntsDetailsModal" onclick="showSettlemntsDetailsModal('@item.Id');" class="btn btn-block btn-light-info">جزئیات</a>
+											<a style="width:80px;display:inline-block;margin:0;padding:3px;" href="#" data-toggle="modal" data-target="#statementListModal" onclick="showStatementListModal('@item.Id','@item.CreateDate');" class="btn btn-block btn-light-danger">گردش حساب</a>
+											@if (item.LastStatus != "انجام شده" && item.LastStatus != "رد شده")
+											{
+												<a style="width:90px;display:inline-block;margin:0;padding:3px;" href="#" data-toggle="modal" data-target="#changeStatusModal" onclick="showChangeStatusModal('@item.Id','@item.LastStatus');" class="btn btn-block btn-light-warning">تعیین وضعیت</a>
+											}
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+						@if (Model.Items.Count == 0)
+						{
+							<div class="alert alert-warning text-center mt-5">هیچ رکوردی برای نمایش وجود ندارد</div>
+						}
+						@await Html.PartialAsync("_Paging", new Tipoul.AdminPanel.WebUI.Models.Common.PagingModel { PageNumber = Model.PageNumber, PagesCount = Model.PagesCount })
+					</div>
+					<!--end: جدول داده ها-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="settlemntsDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+		<form class="modal-content">
+			<div class="modal-header">جزئیات تسویه</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>نوع تسویه:</label>
+							<label class="form-control" id="txtQuickSettlement"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>کیف پول:</label>
+							<label class="form-control" id="txtWallet"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label for="txtLastStatus">آخرین وضعیت</label>
+							<div class="row">
+								<div class="col-md-8">
+									<label class="form-control  me-1" id="txtLastStatus"></label>
+								</div>
+								<div class="col-md-4">
+									<a id="btnInquiryTransaction" class="btn btn-light-primary font-weight-bold">استعلام</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>مبلغ:</label>
+							<label class="form-control" id="txtAmount"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>کارمزد:</label>
+							<label class="form-control" id="txtWage"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>مبلغ کل:</label>
+							<label class="form-control" id="txtAmountTotal"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>حساب بانکی:</label>
+							<label class="form-control" id="txtBankAccount"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>موجودی حساب تیپول بعد تسویه:</label>
+							<label class="form-control" id="txtAmountInTipoulAfterSettlement"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>موجودی حساب بانک بعد تسویه:</label>
+							<label class="form-control" id="AmountInBankAfterSettlement"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>کاربر درخواست کننده:</label>
+							<label class="form-control" id="txtUserFullName"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>تاریخ درخواست:</label>
+							<label class="form-control" id="txtCreateDate" dir="ltr"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>تاریخ انجام:</label>
+							<label class="form-control" id="txtSelectedDate" dir="ltr"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>شماره شبا مقصد:</label>
+							<label class="form-control" id="txtDestIban"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>نام و نام خانوادگی دارنده حساب:</label>
+							<label type="text" class="form-control" id="txtOwnerName"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>شماره حساب:</label>
+							<label type="text" class="form-control" id="txtAccountNumber"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>شماره کارت:</label>
+							<label type="text" class="form-control" id="txtCardNumber"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>کد ملی:</label>
+							<label type="text" class="form-control" id="txtNationalCode"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>بابت:</label>
+							<label type="text" class="form-control" id="txtBabat"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>بانک مقصد:</label>
+							<label type="text" class="form-control" id="txtDestnitionBank"></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group mb-2">
+							<label>شرح:</label>
+							<label type="text" class="form-control" id="txtSharh"></label>
+						</div>
+					</div>
+				</div>
+				<span class="text-danger" style="text-align:right;width:100%;display:block;padding-top:10px" id="lblError"></span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">بستن</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="modal fade" id="statementListModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered  modal-xl" role="document">
+		<form class="modal-content">
+			<input type="hidden" id="SettlementId" />
+			<div class="modal-header">استعلام لیست تراکنش ها</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group mb-2">
+							<label>تاریخ شروع:</label>
+							<input type="text" class="form-control" id="txtFromDate" value="14010715" maxlength="8" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group mb-2">
+							<label>ساعت شروع:</label>
+							<input type="text" class="form-control" id="txtFromTime" value="000000" maxlength="6" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group mb-2">
+							<label>تاریخ پایان:</label>
+							<input type="text" class="form-control" id="txtToDate" value="14010717" maxlength="8" readonly="readonly" style="pointer-events: none;" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group mb-2">
+							<label>ساعت پایان:</label>
+							<input type="text" class="form-control" id="txtToTime" value="235959" maxlength="6" readonly="readonly" style="pointer-events: none;" />
+						</div>
+					</div>
+					<div class="col-md-4 mt-8">
+						<a onclick="GetAccountStatement();" class="btn btn-light-danger font-weight-bold">استعلام گردش حساب</a>
+					</div>
+				</div>
+				<hr />
+				<div class="table-responsive" style="max-height:500px;overflow:auto;">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th><span>تاریخ تراکنش</span></th>
+								<th><span>ساعت تراکنش</span></th>
+								<th><span>برداشت</span></th>
+								<th><span>واریز</span></th>
+								<th><span>مانده</span></th>
+								<th><span>کد رهگیری</span></th>
+								<th><span>وضعیت</span></th>
+								<th><span>حساب مبدا</span></th>
+								<th><span>حساب مقصد</span></th>
+							</tr>
+						</thead>
+						<tbody id="TBodyInquiry">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">بستن</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<form class="modal-content">
+			<input type="hidden" id="SettlementId" />
+			<div class="modal-header">تعیین وضعیت تسویه</div>
+			<div class="modal-body">
+				<div class="form-group mb-2">
+					تغییر وضعیت تسویه از
+					<select class="form-control" id="cmbSettlementStatusOld" disabled="disabled">
+					</select>
+					به
+					<select class="form-control" id="cmbSettlementStatusNew">
+						<option value="">انتخاب کنید</option>
+						@foreach (System.Data.DataRow item in new Tipoul.Framework.StorageModels.SettlementStatusHistory.SettlementStatus().ToDataTable().Rows)
+						{
+							<option value="@item["Key"]">@item["Value"]</option>
+						}
+					</select>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a id="btnChangeStatus" class="btn btn-light-success font-weight-bold" style="margin-left:20px;">تغییر وضعیت</a>
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">بستن</button>
+				<span class="text-danger" style="text-align:right;width:100%;display:block;padding-top:10px" id="lblError"></span>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section scripts {
+	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+	<script>
+		$(document).ready(function () {
+
+			var model = {
+				range: true,
+				min: parseInt('@Model.MinAmount'),
+				max: parseInt('@Model.MaxAmount'),
+				values: [parseInt('@(Model.SelectedMinAmount.HasValue ? Model.SelectedMinAmount.Value : Model.MinAmount)'), parseInt('@(Model.SelectedMaxAmount.HasValue ? Model.SelectedMaxAmount.Value : Model.MaxAmount)')],
+				slide: function (event, ui) {
+					$("input[name=minAmount]").val(ui.values[0]);
+					$("input[name=maxAmount]").val(ui.values[1]);
+				}
+			};
+			$(".slider").slider(model);
+		});
+		function showSettlemntsDetailsModal(Id) {
+			try {
+				$.ajax({
+					url: '@Url.Action("GetSettlement")',
+					data: { 'SettlementId': Id },
+					type: 'POST',
+					success: function (data) {
+						$("#settlemntsDetailsModal").find("#txtAmount").text(data.message.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+						$("#settlemntsDetailsModal").find("#txtWage").text(data.message.wage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+						$("#settlemntsDetailsModal").find("#txtAmountTotal").text((data.message.amount + data.message.wage).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+						$("#settlemntsDetailsModal").find("#txtWallet").text(data.message.wallet);
+						$("#settlemntsDetailsModal").find("#txtLastStatus").text(data.message.lastStatus);
+						$("#settlemntsDetailsModal").find("#txtQuickSettlement").text(data.message.quickSettlement == true ? 'سریع' : 'عادی');
+						$("#settlemntsDetailsModal").find("#txtCreateDate").text(data.message.createDate);
+						$("#settlemntsDetailsModal").find("#txtSelectedDate").text(data.message.selectedDate);
+						$("#settlemntsDetailsModal").find("#txtUserFullName").text(data.message.userFullName);
+						$("#settlemntsDetailsModal").find("#txtAmountInTipoulAfterSettlement").text(data.message.amountInTipoulAfterSettlement.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+						$("#settlemntsDetailsModal").find("#AmountInBankAfterSettlement").text(data.message.amountInBankAfterSettlement.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+						$("#settlemntsDetailsModal").find("#txtBankAccount").text(data.message.bankAccount);
+						$("#settlemntsDetailsModal").find("#txtDestIban").text(data.message.destIban);
+						$("#settlemntsDetailsModal").find("#txtOwnerName").text(data.message.ownerName);
+						$("#settlemntsDetailsModal").find("#txtAccountNumber").text(data.message.accountNumber);
+						$("#settlemntsDetailsModal").find("#txtCardNumber").text(data.message.cardNumber);
+						$("#settlemntsDetailsModal").find("#txtNationalCode").text(data.message.nationalCode);
+						$("#settlemntsDetailsModal").find("#txtBabat").text(data.message.babat);
+						$("#settlemntsDetailsModal").find("#txtDestnitionBank").text(data.message.destnitionBank);
+						$("#settlemntsDetailsModal").find("#txtSharh").text(data.message.sharh);
+						if (data.message.requestedUuid == null || data.message.requestedUuid == '' || data.message.lastStatus == 'انجام شده' || data.message.lastStatus == 'رد شده')
+							$("#settlemntsDetailsModal").find("#btnInquiryTransaction").hide();
+						else {
+							$("#settlemntsDetailsModal").find("#btnInquiryTransaction").show();
+							$("#settlemntsDetailsModal").find("#btnInquiryTransaction").click(function () {
+								$.ajax({
+									url: '@Url.Action("TransactionInquiry")',
+									data: {
+										'RequestedUuid': data.message.requestedUuid,
+									},
+									type: 'POST',
+									success: function (data) {
+										if (data.status == 'error')
+											$("#settlemntsDetailsModal").find("#lblError").text(data.message);
+										else if (data.status == 'success') {
+											if (data.message == true)
+												location.reload();
+											else
+												$("#settlemntsDetailsModal").find("#lblError").text(data.message);
+										}
+									}
+								});
+
+							});
+						}
+					}
+				});
+			}
+			catch (e) {
+				alert(e);
+			}
+		}
+		function showStatementListModal(Id, CreateDate) {
+			$("#SettlementId").val(Id);
+			var datepart = CreateDate.split(' ')[0].split('/');
+			$("#txtFromDate").val(datepart[0] + datepart[1].padStart(2, '0') + datepart[2].padStart(2, '0'));
+			$("#txtToDate").val(datepart[0] + datepart[1].padStart(2, '0') + datepart[2].padStart(2, '0'));
+			$("#TBodyInquiry").html('');
+		}
+		function GetAccountStatement() {
+			$.ajax({
+				url: '@Url.Action("GetAccountStatement")',
+				data: {
+					'fromDate': $("#txtFromDate").val(),
+					'fromTime': $("#txtFromTime").val(),
+					'toDate': $("#txtToDate").val(),
+					'toTime': $("#txtToTime").val(),
+				},
+				type: 'POST',
+				success: function (data) {
+					var html = '';
+					Array.prototype.forEach.call(data.message, child => {
+						html += '<tr>'
+							+ '<td>' + child.transactionDate + '</td>'
+							+ '<td>' + child.transactionTime + '</td>'
+							+ '<td>' + child.debit + '</td>'
+							+ '<td>' + child.credit + '</td>'
+							+ '<td>' + child.balance + '</td>'
+							+ '<td>' + child.transactionTrace + '</td>'
+							+ '<td>' + child.statementStatus + '</td>'
+							+ '<td>' + child.sourceAccount + '</td>'
+							+ '<td>' + child.destinationAccount + '</td>'
+							+ '</tr>';
+					});
+					$("#TBodyInquiry").html(html);
+				}
+			});
+		}
+		function showChangeStatusModal(Id, LastStatus) {
+			$('#changeStatusModal').find("#cmbSettlementStatusOld").html('');
+			$('#changeStatusModal').find("#cmbSettlementStatusNew").val('');
+			$('#changeStatusModal').find("#cmbSettlementStatusOld").append('<option>' + LastStatus + '</option>');
+			$("#changeStatusModal").find("#btnChangeStatus").click(function () {
+				$("#changeStatusModal").find("#lblError").text('');
+				var err = '';
+				if ($("#cmbSettlementStatusNew").val() == '') {
+					$("#cmbSettlementStatusNew").focus();
+					err = "وضعیت جدید تسویه را انتخاب کنید";
+				}
+				if (err.length > 0) {
+					$("#changeStatusModal").find("#lblError").text(err);
+					return;
+				}
+				$.ajax({
+					url: '@Url.Action("ChangeSettlementStatus")',
+					data: {
+						'SettlementId': Id,
+						'status': $("#changeStatusModal").find("#cmbSettlementStatusNew").val(),
+					},
+					type: 'POST',
+					success: function (data) {
+						if (data.status == 'error')
+							$("#changeStatusModal").find("#lblError").text(data.message);
+						else if (data.status == 'success') {
+							if (data.message == true)
+								location.reload();
+							else
+								$("#changeStatusModal").find("#lblError").text(data.message);
+						}
+					}
+				});
+
+			});
+
+		}
+	</script>
+}

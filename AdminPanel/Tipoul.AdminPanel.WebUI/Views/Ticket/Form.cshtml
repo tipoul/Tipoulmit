@@ -1,0 +1,108 @@
+﻿@model Tipoul.AdminPanel.WebUI.Models.Ticket.TicketFormViewModel
+
+@inject Tipoul.Framework.DataAccessLayer.TipoulFrameworkDbContext dbContext
+
+@await Html.PartialAsync("builder/form", Model)
+
+@if (Model.Id != 0)
+    return;
+
+@{
+    var messages = await dbContext.TicketMessages.Where(f => f.TicketId == Model.Id).ToListAsync();
+}
+
+<div class="d-flex flex-column-fluid mt-5">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::چت-->
+        <div class="d-flex flex-row">
+            <!--begin::Content-->
+            <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
+                <!--begin::Card-->
+                <div class="card card-custom">
+                    <!--begin::Header-->
+                    <div class="card-header align-items-center px-4 py-3">
+                        <div class="text-center flex-grow-1">
+                            <div class="text-dark-75 font-weight-bold font-size-h5">بررسی لاگ پیام های تیکت</div>
+                        </div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body">
+                        <!--begin::Scroll-->
+                        <div class="scroll scroll-pull" data-mobile-height="350">
+                            <!--begin::پیامs-->
+                            <div class="messages">
+                                <!--begin::پیام In-->
+                                <div class="d-flex flex-column mb-5 align-items-start">
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-circle symbol-40 mr-3">
+                                            <i class="flaticon2-user icon-2x"></i>
+                                        </div>
+                                        <div>
+                                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">شما</a>
+                                            <span class="text-muted font-size-sm date-time">@DateConverter.ToShamsy(DateTime.Now.AddHours(-2), true)</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
+                                        چقدر احتمال دارید که شرکت ما را توصیه کنید
+                                        به دوستان و خانواده خود؟
+                                        <p class="text-right">
+                                            <a class="btn btn-info btn-sm" href="#" title="دانلود فایل"><i class="flaticon-file-2"></i></a>
+                                            <a class="btn btn-info btn-sm" href="#" title="مشاهده تصویر"><i class="flaticon2-image-file"></i></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--end::پیام In-->
+                                <!--begin::پیام Out-->
+                                <div class="d-flex flex-column mb-5 align-items-end">
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <span class="text-muted font-size-sm date-time">@DateConverter.ToShamsy(DateTime.Now.AddHours(-1), true)</span>
+                                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">شما</a>
+                                        </div>
+                                        <div class="symbol symbol-circle symbol-40 ml-3">
+                                            <i class="flaticon2-user icon-2x"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                                        سلام در آنجا ، ما فقط می نویسیم تا به شما اطلاع دهیم
+                                        که در مخزن گیت هاب مشترک شده اید.
+                                    </div>
+                                </div>
+                                <!--end::پیام Out-->
+                            </div>
+                            <!--end::پیامs-->
+                        </div>
+                        <!--end::Scroll-->
+                    </div>
+                    <!--end::Body-->
+                    <!--begin::Footer-->
+                    <div class="card-footer align-items-center">
+                        <!--begin::Compose-->
+                        <textarea class="form-control border-0 p-0" rows="2" placeholder="تایپ یک پیام"></textarea>
+                        <div class="d-flex align-items-center justify-content-between mt-5">
+                            <div class="mr-3">
+                                <a href="#" class="btn btn-clean btn-icon btn-md mr-1"><i class="flaticon2-photograph icon-lg"></i></a>
+                                <a href="#" class="btn btn-clean btn-icon btn-md"><i class="flaticon2-photo-camera  icon-lg"></i></a>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">ارسال</button>
+                            </div>
+                        </div>
+                        <!--begin::Compose-->
+                    </div>
+                    <!--end::Footer-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end::Content-->
+        </div>
+        <!--end::چت-->
+    </div>
+    <!--end::Container-->
+</div>
+
+@section scripts {
+<script src="~/js/chat.js"></script>
+}

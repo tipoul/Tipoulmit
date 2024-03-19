@@ -1,0 +1,5 @@
+D:\Samodi\V2\src\src\Tipoul.Shaparak.BehPardakhtGateWay\obj\Debug\net5.0\Tipoul.Shaparak.BehPardakhtGateWay.csproj.AssemblyReference.cache
+D:\Samodi\V2\src\src\Tipoul.Shaparak.BehPardakhtGateWay\obj\Debug\net5.0\Tipoul.Shaparak.BehPardakhtGateWay.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samodi\V2\src\src\Tipoul.Shaparak.BehPardakhtGateWay\obj\Debug\net5.0\Tipoul.Shaparak.BehPardakhtGateWay.AssemblyInfoInputs.cache
+D:\Samodi\V2\src\src\Tipoul.Shaparak.BehPardakhtGateWay\obj\Debug\net5.0\Tipoul.Shaparak.BehPardakhtGateWay.AssemblyInfo.cs
+D:\Samodi\V2\src\src\Tipoul.Shaparak.BehPardakhtGateWay\obj\Debug\net5.0\Tipoul.Shaparak.BehPardakhtGateWay.csproj.CoreCompileInputs.cache

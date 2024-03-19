@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ighan.DbHelpers" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Tipoul.Framework.DataAccessLayer\Tipoul.Framework.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\..\Framework\Tipoul.Framework.StorageModels\Tipoul.Framework.StorageModels.csproj" />
+    <ProjectReference Include="..\..\Framework\Tipoul.Framework.Utilities\Tipoul.Framework.Utilities.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Tipoul.Infrastructure.RequestLog\Tipoul.Infrastructure.RequestLog.csproj" />
+    <ProjectReference Include="..\..\Services\Tipoul.Services.Agent\Tipoul.Services.Agent.csproj" />
+  </ItemGroup>
+
+</Project>

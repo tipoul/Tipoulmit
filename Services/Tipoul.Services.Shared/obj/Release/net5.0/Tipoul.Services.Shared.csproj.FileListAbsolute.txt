@@ -1,0 +1,12 @@
+C:\Projects\src\Services\Tipoul.Services.Shared\bin\Release\net5.0\Tipoul.Services.Shared.deps.json
+C:\Projects\src\Services\Tipoul.Services.Shared\bin\Release\net5.0\Tipoul.Services.Shared.dll
+C:\Projects\src\Services\Tipoul.Services.Shared\bin\Release\net5.0\Tipoul.Services.Shared.pdb
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\Tipoul.Services.Shared.csproj.AssemblyReference.cache
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\Tipoul.Services.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\Tipoul.Services.Shared.AssemblyInfoInputs.cache
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\Tipoul.Services.Shared.AssemblyInfo.cs
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\Tipoul.Services.Shared.csproj.CoreCompileInputs.cache
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\Tipoul.Services.Shared.dll
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\refint\Tipoul.Services.Shared.dll
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\Tipoul.Services.Shared.pdb
+C:\Projects\src\Services\Tipoul.Services.Shared\obj\Release\net5.0\ref\Tipoul.Services.Shared.dll

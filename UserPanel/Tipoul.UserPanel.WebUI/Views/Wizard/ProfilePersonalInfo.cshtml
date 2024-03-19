@@ -1,0 +1,118 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.Wizard.Profile.PersonalInfoModel
+
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <div class="card card-custom">
+                <div class="card-body p-0">
+                    <!--begin::ویزارد-->
+                    <div class="wizard wizard-1" id="kt_wizard_v1" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_header")
+
+                    </div>
+                    <div class="wizard wizard-2" id="kt_wizard_v2" data-wizard-state="first" data-wizard-clickable="false">
+                        
+                        @await Html.PartialAsync("_profileSidebar")
+
+                        <!--begin::ویزارد Body-->
+                        <div class="wizard-body py-8 px-8 py-lg-20 px-lg-10">
+                            <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="post" enctype="multipart/form-data">
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-right">آواتار</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <div class="image-input image-input-outline" id="kt_profile_avatar" style="background-image: url(/img/blank.png)">
+                                            <div class="image-input-wrapper" style="background-image: url(@(!string.IsNullOrWhiteSpace(Model.AvatarURL) ? Model.AvatarURL : string.Empty))"></div>
+                                            <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر آواتار">
+                                                <i class="fa fa-pen icon-sm text-muted"></i>
+                                                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                                                <input type="hidden" name="profile_avatar_remove">
+                                            </label>
+                                        </div>
+                                        <span class="form-text text-muted">فایل های مجاز:  png, jpg, jpeg.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">نام</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg persian-text" type="text" name="FirstName" value="@Model.FirstName" @(string.IsNullOrWhiteSpace(Model.NationalCode) ? string.Empty : "readonly") required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">نام خانوادگی</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg persian-text" type="text" name="LastName" value="@Model.LastName" @(string.IsNullOrWhiteSpace(Model.NationalCode) ? string.Empty : "readonly") required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">تاریخ تولد</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg @(string.IsNullOrWhiteSpace(Model.NationalCode) ? "date-picker" : string.Empty)" type="text" name="BirthDate" value="@(Model.BirthDate.HasValue ? Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(Model.BirthDate.Value) : string.Empty)" readonly required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">نام پدر</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg persian-text" type="text" name="FatherName" value="@Model.FatherName" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">ایمیل</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg" type="email" name="Email" value="@Model.Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">موبایل</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg numeric" type="text" name="MobileNumber" value="@Model.MobileNumber" required data-max-length="11">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">کد ملی</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg numeric" type="text" name="NationalCode" value="@Model.NationalCode" @(string.IsNullOrWhiteSpace(Model.NationalCode) ? string.Empty : "readonly") required data-max-length="10">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--begin::ویزارد اقدامات-->
+                                <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                    <div class="mr-2">
+                                        <button type="button" class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-prev">
+                                            قبلی
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-submit">
+                                            ارسال
+                                        </button>
+                                        <button type="submit" class="btn btn-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-next">
+                                            بعد (اطلاعات سکونتی)
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--end::ویزارد اقدامات-->
+                                <div></div><div></div><div></div><div></div>
+                            </form>
+                        </div>
+                        <!--end::ویزارد Body-->
+                    </div>
+                    <!--end::ویزارد-->
+                </div>
+                <!--end::ویزارد-->
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>

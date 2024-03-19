@@ -1,0 +1,96 @@
+﻿@inject Tipoul.Athentication.Agent.Services.AthenticationProvider athenticationProvider
+@inject TipoulFrameworkDbContext dbContext
+
+@{
+    var user = athenticationProvider.GetUser();
+
+    var ticketData = await dbContext.Tickets.Where(f => f.UserId == user.Id).Select(f => new
+    {
+        f.CreateDate,
+        f.Title,
+        LastMessage = f.TicketMessages.OrderByDescending(x => x.CreateDate).Select(x => x.Message).FirstOrDefault(),
+        LastStatus = f.TicketStatusHistories.OrderByDescending(x => x.CreateDate).Select(x => x.Status).FirstOrDefault()
+    }).ToListAsync();
+
+    var TotalTickets = ticketData.Count;
+    var NewTickets = ticketData.Count(f => f.LastStatus != Tipoul.Framework.StorageModels.TicketStatusHistory.StatusType.Closed);
+    var LastTicketTitle = ticketData.OrderByDescending(f => f.CreateDate).Select(f => f.Title).FirstOrDefault();
+    var LastTicketMessage = ticketData.OrderByDescending(f => f.CreateDate).Select(f => f.LastMessage).FirstOrDefault();
+}
+
+<div class="sidebar sidebar-left d-flex flex-row-auto flex-column " id="kt_sidebar">
+    <div class="sidebar-content flex-column-fluid mt-10 pb-10 pt-9 px-5 px-lg-10">
+        <div class="card card-custom card-shadowless gutter-b bg-light">
+            <div class="card-header border-0 @(TotalTickets == 0 ? "bg-info" : NewTickets != 0 ? "bg-warning" : "bg-success")">
+                <h3 class="card-title font-weight-bolder text-dark">تیکت ها</h3>
+                <div class="card-toolbar">
+                    <div class="dropdown dropdown-inline">
+                        <a href="/notification/tickets" class="btn btn-light btn-sm font-size-sm font-weight-bolder text-dark-75">مشاهده همه</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-2">
+                <div class="d-flex align-items-center">
+                    @if (TotalTickets == 0)
+                    {
+                        <div class="alert alert-warning">هیچ تیکتی برای نمایش وجود ندارد</div>
+                    }
+                    else
+                    {
+                        <div class="d-flex flex-column flex-grow-1">
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg mb-1">تعداد کل تیکت ها:  @TotalTickets.ToString("n0")</a>
+                            @if (NewTickets > 0)
+                            {
+                                <span class="text-muted font-weight-bold">تیکت های باز: @NewTickets</span>
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="d-flex align-items-center mt-10">
+                    <span class="bullet bullet-bar bg-success align-self-stretch"></span>
+                    <div class="d-flex flex-column flex-grow-1 ml-4">
+                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg mb-1">@LastTicketTitle</a>
+                        <span class="text-muted font-weight-bold">@LastTicketMessage</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-custom card-shadowless gutter-b bg-light">
+            <div class="card-header border-0 bg-info">
+                <h3 class="card-title font-weight-bolder text-dark">اطلاعیه ها</h3>
+                <div class="card-toolbar">
+                    <div class="dropdown dropdown-inline">
+                        <a href="#" class="btn btn-light btn-sm font-size-sm font-weight-bolder text-dark-75" title="به زودی">مشاهده همه</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-2">
+                <div class="text-center">هیچ اطلاعیه ای برای نمایش وجود ندارد</div>
+                @*<div class="d-flex align-items-center">
+                    @if (TotalTickets == 0)
+                    {
+                        <div class="alert alert-warning">هیچ تیکتی برای نمایش وجود ندارد</div>
+                    }
+                    else
+                    {
+                        <div class="d-flex flex-column flex-grow-1">
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg mb-1">تعداد کل تیکت ها:  @TotalTickets.ToString("n0")</a>
+                            @if (NewTickets > 0)
+                            {
+                                <span class="text-muted font-weight-bold">تیکت های باز: @NewTickets</span>
+                            }
+                        </div>
+                    }
+                </div>*@
+                @*<div class="d-flex align-items-center mt-10">
+                    <span class="bullet bullet-bar bg-success align-self-stretch"></span>
+                    <div class="d-flex flex-column flex-grow-1 ml-4">
+                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg mb-1">@LastTicketTitle</a>
+                        <span class="text-muted font-weight-bold">@LastTicketMessage</span>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+        
+    </div>
+</div>

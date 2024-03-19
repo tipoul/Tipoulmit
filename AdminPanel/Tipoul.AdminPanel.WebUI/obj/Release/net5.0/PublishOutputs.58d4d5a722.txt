@@ -1,0 +1,192 @@
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.AdminPanel.WebUI.exe
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\fullcalendar.bundle.rtl.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\Google.fonts.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\persian-datepicker.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\plugins.bundle.rtl.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\prismjs.bundle.rtl.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\Site.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\style.bundle.rtl.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\ToastStyle.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\css\wickedpicker.min.css
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\favicon.ico
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک آینده.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک اقتصادنوین.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک ایران زمین.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک تجارت.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک توسعه تعاون.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک توسعه صادرات ایران.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک خاورمیانه.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک دی.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک رفاه کارگران.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک سامان.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک سرمایه.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک سپه.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک سینا.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک شهر.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک صادرات ایران.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک صنعت و معدن.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک قرض‌الحسنه رسالت.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک قرض‌الحسنه مهر ایران.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک مسکن.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک ملت.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک ملی ایران.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک پارسیان.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک پاسارگاد.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک کارآفرین.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک کشاورزی.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\بانک گردشگری.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\مؤسسه اعتباری غیربانکی توسعه.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\مؤسسه اعتباری غیربانکی كاسپین.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\مؤسسه اعتباری غیربانکی ملل.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\موسسه اعتباری غیربانکی نور.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\Files\BankIcons\پست بانک ایران.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\fa-solid-900.ttf
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\fa-solid-900.woff
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\fa-solid-900.woff2
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\Flaticon.ttf
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\Flaticon.woff
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\Flaticon2.ttf
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\Flaticon2.woff
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\fontello.eot
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\fontello.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\fontello.ttf
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\fontello.woff
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\IRANSansWeb.ttf
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\IRANSansWeb.woff
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\Ki.ttf
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\fonts\Ki.woff
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\003-puzzle.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\005-bebo.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\006-plurk.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\007-boy-2.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\014-kickstarter.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\015-telegram.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\063-japan.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\128-spain.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\162-germany.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\195-france.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\226-united-states.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\300_12.jpg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\300_21.jpg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\custom-3.svg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\img-19.jpg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\img-20.jpg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\img-24.jpg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\img-25.jpg
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\img\logo-letter-1.png
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\chat.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\fullcalendar.bundle.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\layout.script.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\persian-date.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\persian-datepicker.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\plugins.bundle.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\prismjs.bundle.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\script.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\scripts.bundle.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\Tools.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\wickedpicker.min.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\wwwroot\js\widgets.js
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\web.config
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\appsettings.json
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.AdminPanel.WebUI.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.AdminPanel.WebUI.runtimeconfig.json
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.AdminPanel.WebUI.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Ighan.DbHelpers.Core.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Ighan.SimpleExcel.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Authorization.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Metadata.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.CodeAnalysis.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.CodeAnalysis.CSharp.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.CodeAnalysis.Razor.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Caching.Memory.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.DependencyModel.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Logging.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Options.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Primitives.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Identity.Client.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Protocols.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Tokens.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\NPOI.OOXML.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\NPOI.OpenXml4Net.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\NPOI.OpenXmlFormats.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\NPOI.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\BouncyCastle.Crypto.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\ICSharpCode.SharpZipLib.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.Collections.Immutable.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.Configuration.ConfigurationManager.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.Diagnostics.DiagnosticSource.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.Drawing.Common.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.Runtime.Caching.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.Runtime.CompilerServices.Unsafe.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\de\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\es\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\it\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Athentication.Agent.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.DataAccessLayer.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.ShahinService.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.StorageModels.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.Utilities.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Infrastructure.RequestLog.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Athentication.Agent.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.DataAccessLayer.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.StorageModels.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.Utilities.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Infrastructure.RequestLog.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.Framework.ShahinService.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.AdminPanel.WebUI.Views.dll
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.AdminPanel.WebUI.Views.pdb
+C:\Projects\src\AdminPanel\Tipoul.AdminPanel.WebUI\obj\Release\net5.0\PubTmp\Out\Tipoul.AdminPanel.WebUI.deps.json

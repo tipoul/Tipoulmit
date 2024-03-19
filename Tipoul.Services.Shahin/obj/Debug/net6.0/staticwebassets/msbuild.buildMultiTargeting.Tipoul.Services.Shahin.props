@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Tipoul.Services.Shahin.props" />
+</Project>

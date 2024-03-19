@@ -1,0 +1,184 @@
+﻿@model Tipoul.Framework.StorageModels.Transaction
+
+<style>
+
+    .timeline-content table tbody tr td {
+        border-bottom: 1px solid gray;
+    }
+
+        .timeline-content table tbody tr td:first-child {
+            margin-left: 5px;
+            font-weight: bolder;
+            padding-bottom: 3px;
+        }
+
+    .hover-expandable:not(:hover) {
+        overflow: hidden;
+        height: 14px;
+        white-space: nowrap;
+    }
+
+    .hover-expandable td {
+        overflow: hidden;
+    }
+</style>
+
+<div class="timeline timeline-3">
+    <div class="timeline-items">
+
+        @if (Model.InvalidReferer || Model.InvalidCallbackUrl)
+        {
+            <div class="timeline-item">
+                <div class="timeline-media">
+                    <i class="flaticon2-layers text-warning"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="mr-2">
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">خطا در درخواست</a>
+                            <span class="text-muted ml-2 date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToAccurateShamsy(Model.CreateDate)</span>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger">@(Model.InvalidReferer ? "ارسال کننده نامعتبر، درخواست باید از آدرس درگاه ثبت شده باشد" : "آدرس بازگشت نامعتبر، آدرس بازگشت باید یکی از صفحات آدرس درگاه ثبت شده باشد")</div>
+                </div>
+            </div>
+        }
+        @if (Model.TransactionConfirmResult != null)
+        {
+            <div class="timeline-item">
+                <div class="timeline-media">
+                    <i class="flaticon2-layers text-warning"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="mr-2">
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">تأیید تراکنش</a>
+                            <span class="text-muted ml-2 date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToAccurateShamsy(Model.TransactionConfirmResult.CreateDate)</span>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-striped w-100">
+                        @GetRow("کد رهگیری تیپول", Model.TransactionConfirmResult.TipoulTrackNumber)
+                        @GetRow("پیام", Model.TransactionConfirmResult.Message)
+                        @GetRow("وضعیت", Tipoul.Framework.StorageModels.TransactionConfirmResult.GetConfirmStatusName(Model.TransactionConfirmResult.Status))
+                        @*@GetRow("شماره رسید بازگشت", Model.TransactionConfirmResult.ReturnId)*@
+                    </table>
+                </div>
+            </div>
+        }
+        @if (Model.TransactionResponse != null)
+        {
+            <div class="timeline-item">
+                <div class="timeline-media">
+                    <i class="flaticon2-layers text-warning"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="mr-2">
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">دریافت نتیجه از تیپول</a>
+                            <span class="text-muted ml-2 date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToAccurateShamsy(Model.TransactionResponse.CreateDate)</span>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-striped w-100">
+                        @GetRow("کد رهگیری تیپول", Model.TransactionResponse.TipoulTrackNumber)
+                        @GetRow("مبلغ", Model.TransactionResponse.Amount.ToString("n0"))
+                        @GetRow("شماره کارت", Model.TransactionResponse.CardNumber)
+                        @GetRow("تاریخ پرداخت", Model.TransactionResponse.DatePaid)
+                        @GetRow("رسید دیجیتال", Model.TransactionResponse.DigitalReceipt)
+                        @GetRow("InvoiceId", Model.TransactionResponse.InvoiceId)
+                        @GetRow("بانک", Model.TransactionResponse.IssuerBank)
+                        @GetRow("Payload", Model.TransactionResponse.Payload)
+                        @GetRow("متن پاسخ", Model.TransactionResponse.RespMsg)
+                        @GetRow("RRN", Model.TransactionResponse.RRN.ToString())
+                        @GetRow("شماره ترمینال", Model.TransactionResponse.TerminalId.ToString())
+                        @GetRow("کد پیگیری", Model.TransactionResponse.TraceNumber.ToString())
+                    </table>
+                </div>
+            </div>
+        }
+        @if (Model.GetTokenResult != null)
+        {
+            <div class="timeline-item">
+                <div class="timeline-media">
+                    <i class="flaticon2-layers text-warning"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="mr-2">
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">دریافت توکن از تیپول</a>
+                            <span class="text-muted ml-2 date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToAccurateShamsy(Model.CreateDate)</span>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-striped w-100" style="table-layout: fixed;">
+                        @GetRow("توکن", Model.GetTokenResult.TipoulAccessToken, "hover-expandable")
+                        @GetRow("کد رهگیری تیپول", Model.GetTokenResult.TipoulTrackNumber)
+                    </table>
+                </div>
+            </div>
+        }
+        @if (Model.GetTokenModel != null)
+        {
+            <div class="timeline-item">
+                <div class="timeline-media">
+                    <i class="flaticon2-layers text-warning"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="mr-2">
+                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">ارسال اطلاعات به تیپول</a>
+                            <span class="text-muted ml-2 date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToAccurateShamsy(Model.CreateDate)</span>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-striped w-100" style="table-layout: fixed;">
+                        @GetRow("کد کاربری", Model.GetTokenModel.PayerUserId?.ToString())
+                        @GetRow("نام کاربر", Model.GetTokenModel.PayerName)
+                        @GetRow("شماره موبایل کاربر", Model.GetTokenModel.PayerMobile)
+                        @GetRow("ایمیل کاربر", Model.GetTokenModel.PayerMail)
+                        @GetRow("توکن درگاه", Model.GetTokenModel.GateToken, "hover-expandable")
+                        @GetRow("آدرس بازگشت", Model.GetTokenModel.CallBackUrl)
+                        @GetRow("شماره فاکتور", Model.GetTokenModel.FactorNumber)
+                        @GetRow("مبلغ", Model.GetTokenModel.Amount.ToString("n0"))
+                        @GetRow("بانک انتخابی", Model.GetTokenModel.BlankForPayer)
+                        @GetRow("بانک انتخابی", Model.GetTokenModel.BlankForTransaction)
+                        @GetRow(string.Empty, Model.GetTokenModel.IPG)
+                        @GetRow("شماره کارت معتبر", Model.GetTokenModel.ValidCardNum)
+                        @GetRow("توضیحات", Model.GetTokenModel.Description)
+                    </table>
+                </div>
+            </div>
+        }
+        <div class="timeline-item">
+            <div class="timeline-media">
+                <i class="flaticon2-notification fl text-primary"></i>
+            </div>
+            <div class="timeline-content">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="mr-2">
+                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold">شروع تراکنش</a>
+                        <span class="text-muted ml-2 date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToAccurateShamsy(Model.CreateDate)</span>
+                    </div>
+                </div>
+                <p class="p-0">
+                    <div><b>درگاه: </b>@Model.GateWay.Title</div>
+                    <div class="mt-2"><b>کد پیگیری تیپول: </b>@Model.TipoulTraceNumber</div>
+                </p>
+                <p class="p-0 mt-2">توضیحات: </p>
+                <textarea class="form-control input-description" data-id="@Model.Id">@Model.Description</textarea>
+                <div class="text-center mt-2">
+                    <button class="btn btn-success btn-sm btn-save-description" style="width: 75px;">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@functions {
+    private Microsoft.AspNetCore.Html.HtmlString GetRow(string title, string value, string customClass = "")
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Microsoft.AspNetCore.Html.HtmlString.Empty;
+
+        else
+            return new Microsoft.AspNetCore.Html.HtmlString($"<tr class='{customClass}'><td>{title}: </td><td style='word-wrap: anywhere;'>{value}</td></tr>");
+    }
+}

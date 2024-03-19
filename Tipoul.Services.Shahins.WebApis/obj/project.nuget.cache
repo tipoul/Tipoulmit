@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "+xW2wSj3PgbznF7CtXCk7eJ+NiZMBRtp+jCMVE1mRqCLaM8QNmjZcbriuyYih4GjKpKn5aJ5CFMXgfi4nkrvlg==",
+  "success": false,
+  "projectFilePath": "D:\\Samodi\\V2\\src\\src\\Tipoul.Services.Shahins.WebApis\\Tipoul.Services.Shahins.WebApis.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project Tipoul.Framework.Services.OpenBanking is not compatible with net5.0 (.NETCoreApp,Version=v5.0). Project Tipoul.Framework.Services.OpenBanking supports: net6.0 (.NETCoreApp,Version=v6.0)",
+      "libraryId": "Tipoul.Framework.Services.OpenBanking",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}

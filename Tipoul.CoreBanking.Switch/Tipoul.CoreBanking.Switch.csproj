@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Tipoul.Framework.Services.OpenBanking\Tipoul.Framework.Services.OpenBanking.csproj" />
+    <ProjectReference Include="..\Tipoul.CoreBanking.Services.KYC\Tipoul.CoreBanking.Services.KYC.csproj" />
+  </ItemGroup>
+
+</Project>

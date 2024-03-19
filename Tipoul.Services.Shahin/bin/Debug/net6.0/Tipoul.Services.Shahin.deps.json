@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Tipoul.Services.Shahin/1.0.0": {
+        "runtime": {
+          "Tipoul.Services.Shahin.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Tipoul.Services.Shahin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

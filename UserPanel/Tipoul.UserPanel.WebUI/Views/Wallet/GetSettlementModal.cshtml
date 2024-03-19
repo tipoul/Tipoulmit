@@ -1,0 +1,36 @@
+﻿@model int
+
+@inject TipoulFrameworkDbContext dbContext
+@inject Tipoul.Athentication.Agent.Services.AthenticationProvider athenticationProvider
+
+@{
+    var user = athenticationProvider.GetUser();
+
+    var wallet = await dbContext.Wallets.FirstOrDefaultAsync(f => f.Id == Model);
+    long WageHistories = (from uwh in dbContext.UserWageHistories.Where(f => f.UserId == user.Id)
+                                   join trs in dbContext.Transactions on uwh.Id equals trs.UserWageHistoryId
+                                   join tcr in dbContext.TransactionConfirmResult.Where(t=>t.Status==0) on trs.TransactionConfirmResult.Id equals tcr.Id
+                                   join cgw in dbContext.CommertialGateWays.Where(t => t.WalletId == wallet.Id) on trs.GateWayId equals cgw.Id
+                                   select new
+                                   {
+                                       Amount = uwh.Amount,
+                                   }).Sum(f => f.Amount);
+}
+
+
+<input hidden name="walletId" value="@Model" />
+<div class="form-group">
+    <label for="exampleانتخاب1">حساب بانکی</label>
+    <select class="form-control" id="exampleانتخاب1" name="bankAccountId">
+        @foreach (var bankAccount in await dbContext.BankAccounts.Where(f => f.UserId == user.Id).ToListAsync())
+        {
+            <option value="@bankAccount.Id">@bankAccount.FullName (@bankAccount.Iban)</option>
+        }
+    </select>
+</div>
+@{ var AmountSettlementable = wallet.AmountSettlementable - WageHistories;}
+<div class="form-group">
+    <label>مبلغ تسویه (موجودی قابل برداشت: @AmountSettlementable.ToString("n0"))</label>
+    <input type="number" class="form-control" name="amount" value="@AmountSettlementable" max="@AmountSettlementable">
+    <span class="form-text text-danger max-amount-error" style="display: none;">مبلغ تسویه نمیتواند بیشتر از موجودی قابل برداشت باشد</span>
+</div>

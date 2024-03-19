@@ -1,0 +1,56 @@
+﻿@inject Tipoul.Framework.DataAccessLayer.TipoulFrameworkDbContext dbContext
+
+@model string
+
+@{
+    var id = new Random().Next(10, 1000);
+
+	var selectedBusinessCategoryId = Model == "0" ? 0 : await dbContext.BusinessSubCategories.Where(f => f.Id.ToString() == Model).Select(f => f.BusinessCategoryId).FirstOrDefaultAsync();
+}
+
+<div class="row">
+    <div class="col-6 ">
+        <select class="selectpicker w-100" onchange="@("businessCategoryChanged" + id + "()")" id="business-category-@id" data-live-search="true">
+            <option value="" disabled selected="@(selectedBusinessCategoryId == 0)">انتخاب کنید</option>
+            @foreach (var businessCategory in await dbContext.BusinessCategories.ToListAsync())
+            {
+                <option value="@businessCategory.Id" selected=@(businessCategory.Id == selectedBusinessCategoryId)>@businessCategory.Title</option>
+            }
+        </select>
+    </div>
+    <div class="col-6">
+        <select class="selectpicker w-100" name="BusinessSubCategoryId" id="business-sub-category-@id" required data-live-search="true">
+            @if (selectedBusinessCategoryId == 0)
+            {
+                <option value="" disabled selected>لطفا ابتدا گروه صنفی را انتخاب کنید</option>
+            }
+            else
+            {
+                <option value="" disabled>انتخاب کنید</option>
+                foreach (var businessSubCategory in await dbContext.BusinessSubCategories.Where(f => f.BusinessCategoryId == selectedBusinessCategoryId).ToListAsync())
+                {
+                    <option value="@businessSubCategory.Id" selected="@(businessSubCategory.Id.ToString() == Model)">@businessSubCategory.Title</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+<div id="all-options-@id" style="display: none;">
+    @foreach (var businessSubCategory in await dbContext.BusinessSubCategories.ToListAsync())
+    {
+        <span data-business-category-id="@businessSubCategory.BusinessCategoryId"><option value="@businessSubCategory.Id">@businessSubCategory.Title</option></span>
+    }
+</div>
+
+<script>
+    window['businessCategoryChanged@(id)'] = function() {
+        var businessCategoryId = $("#business-category-@id").val();
+        var businesSubCategoryOptions = "<option value='' disabled selected>انتخاب کنید</option>";
+        $("#all-options-@id").find("span").each(function() {
+            if($(this).data("business-category-id") == businessCategoryId)
+            businesSubCategoryOptions += $(this).html();
+        });
+        $("#business-sub-category-@id").html(businesSubCategoryOptions).selectpicker('refresh');
+    }
+</script>

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Tipoul.CoreBanking.Switch": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55652;http://localhost:55653"
+    }
+  }
+}

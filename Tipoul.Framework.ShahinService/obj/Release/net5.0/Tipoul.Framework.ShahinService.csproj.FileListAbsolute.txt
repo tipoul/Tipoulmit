@@ -1,0 +1,15 @@
+C:\Projects\src\Tipoul.Framework.ShahinService\bin\Release\net5.0\Tipoul.Framework.ShahinService.deps.json
+C:\Projects\src\Tipoul.Framework.ShahinService\bin\Release\net5.0\Tipoul.Framework.ShahinService.dll
+C:\Projects\src\Tipoul.Framework.ShahinService\bin\Release\net5.0\Tipoul.Framework.ShahinService.pdb
+C:\Projects\src\Tipoul.Framework.ShahinService\bin\Release\net5.0\Tipoul.Framework.Utilities.dll
+C:\Projects\src\Tipoul.Framework.ShahinService\bin\Release\net5.0\Tipoul.Framework.Utilities.pdb
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.csproj.AssemblyReference.cache
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.AssemblyInfoInputs.cache
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.AssemblyInfo.cs
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.csproj.CoreCompileInputs.cache
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.csproj.CopyComplete
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.dll
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\refint\Tipoul.Framework.ShahinService.dll
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\Tipoul.Framework.ShahinService.pdb
+C:\Projects\src\Tipoul.Framework.ShahinService\obj\Release\net5.0\ref\Tipoul.Framework.ShahinService.dll

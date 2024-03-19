@@ -1,0 +1,70 @@
+﻿@model List<Tipoul.Framework.StorageModels.Notification>
+
+    @{
+    Model.Add(new Tipoul.Framework.StorageModels.Notification
+            {
+                Description = "توضیحات تست برای پیام از اپراتور به کاربر",
+                Link = "#",
+                Title = "عنوان تست برای پیام",
+                Priority = Tipoul.Framework.StorageModels.Notification.PriorityType.Medium
+            });
+}
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::صندوق ورودی-->
+            <div class="d-flex flex-row">
+
+                @await Html.PartialAsync("_SideBar")
+
+                <!--begin::لیست-->
+                <div class="flex-row-fluid ml-lg-8 d-block" id="kt_صندوق ورودی_list">
+                    <!--begin::Card-->
+                    <div class="card card-custom card-stretch">
+                        <!--begin::Body-->
+                        <div class="card-body table-responsive px-0">
+                            <!--begin::Items-->
+                            <div class="list list-hover min-w-500px" data-صندوق="" ورودی="list">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="d-flex align-items-start list-item card-spacer-x py-3" data-صندوق="" ورودی="message">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex align-items-center flex-wrap w-xxl-200px mr-3" data-toggle="view">
+                                                <span class="symbol symbol-35 mr-3">
+                                                    <span class="symbol-label" style="background-image: url('assets/media/users/100_13.jpg')"></span>
+                                                </span>
+                                                <a href="#" class="font-weight-bold text-dark-75 text-hover-primary">محسن پیربادی</a>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 mt-2 mr-2" data-toggle="view">
+                                            <div>
+                                                <span class="font-weight-bolder font-size-lg mr-2">@item.Title</span>
+                                                <span class="text-muted">@item.Description</span>
+                                            </div>
+                                            <div class="mt-2">
+                                                <span class="label label-light-@(item.Priority == Tipoul.Framework.StorageModels.Notification.PriorityType.Low ? "info" : item.Priority == Tipoul.Framework.StorageModels.Notification.PriorityType.Medium ? "warning" : "danger") font-weight-bold label-inline mr-1">
+                                                    @(item.Priority == Tipoul.Framework.StorageModels.Notification.PriorityType.Low ? "اولویت پایین" : item.Priority == Tipoul.Framework.StorageModels.Notification.PriorityType.Medium ? "اولویت متوسط" : "اولویت بالا")
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 mr-3 font-weight-bolder w-150px text-right date-container" data-toggle="view">@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(item.CreateDate, true)</div>
+                                    </div>
+                                }
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Card-->
+                </div>
+                <!--end::لیست-->
+            </div>
+            <!--end::صندوق ورودی-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>

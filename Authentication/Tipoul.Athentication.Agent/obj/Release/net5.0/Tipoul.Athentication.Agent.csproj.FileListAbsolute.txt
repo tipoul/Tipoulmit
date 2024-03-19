@@ -1,0 +1,12 @@
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\bin\Release\net5.0\Tipoul.Athentication.Agent.deps.json
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\bin\Release\net5.0\Tipoul.Athentication.Agent.dll
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\bin\Release\net5.0\Tipoul.Athentication.Agent.pdb
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\Tipoul.Athentication.Agent.csproj.AssemblyReference.cache
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\Tipoul.Athentication.Agent.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\Tipoul.Athentication.Agent.AssemblyInfoInputs.cache
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\Tipoul.Athentication.Agent.AssemblyInfo.cs
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\Tipoul.Athentication.Agent.csproj.CoreCompileInputs.cache
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\Tipoul.Athentication.Agent.dll
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\refint\Tipoul.Athentication.Agent.dll
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\Tipoul.Athentication.Agent.pdb
+C:\Projects\src\Authentication\Tipoul.Athentication.Agent\obj\Release\net5.0\ref\Tipoul.Athentication.Agent.dll

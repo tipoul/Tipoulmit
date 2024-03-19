@@ -1,0 +1,81 @@
+﻿@using Tipoul.Framework.ShahinService.ShahinOperation.Enums
+@using Tipoul.Framework.Utilities.Enums
+@using static Tipoul.Framework.Utilities.Extentions.DataTableExtentionMethods
+@model int
+
+<input hidden name="walletId" id="walletId" value="@Model" />
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label>مبلغ:</label>
+			<input type="number" class="form-control" name="amount" value="">
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label>کد رهگیری:</label>
+			<input type="text" class="form-control" name="transactionTrace" value="">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label>حساب مبدا (شبا):</label>
+			<div class="row">
+				<input type="text" class="form-control p-2 m-0" name="sourceIban" value="IR" maxlength="26" style="text-align:left;">
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label>حساب مقصد (شبا):</label>
+			<div class="row">
+				<input type="text" class="form-control p-2 m-0" name="destIban" value="IR" maxlength="26" style="text-align:left;">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label for="depositType">نوع واریز</label>
+			<select class="form-control" name="depositType">
+				<option value="">انتخاب کنید</option>
+				@foreach (System.Data.DataRow item in new TransferTypeEnum().ToDataTable().Rows)
+				{
+					<option value="@item["Key"]">@item["Value"]</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label>تاریخ واریز:</label>
+			<input type="text" class="form-control" name="transactionDate" value="">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label>نام و نام خانوادگی واریز کننده:</label>
+			<input type="text" class="form-control" name="depositerName" value="">
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group mb-2">
+			<label>کد ملی واریز کننده:</label>
+			<input type="text" class="form-control" name="depositerNationalCode" value="">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="form-group mb-2">
+			<label>توضیحات:</label>
+			<textarea type="text" class="form-control" name="description" value="" rows="2"></textarea>
+		</div>
+	</div>
+</div>
+<span class="text-danger" style="text-align:right;width:100%;display:block;padding-top:10px" id="lblError"></span>

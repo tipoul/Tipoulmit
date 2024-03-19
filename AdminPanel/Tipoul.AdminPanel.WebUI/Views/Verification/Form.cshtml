@@ -1,0 +1,117 @@
+﻿@model Tipoul.AdminPanel.WebUI.Models.Verification.VerificationFormViewModel
+
+@section styles {
+    <style>
+        form .card-footer {
+            display: none;
+        }
+    </style>
+}
+
+@await Html.PartialAsync("builder/form", Model)
+
+<div class="modal verification-reject-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ملاحظات</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>لطفا دلیل رد شدن تصویر را توضیح دهید</p>
+        <input type="hidden" class="verification-reject-id" />
+        <input type="hidden" class="verification-reject-type" />
+        <input type="hidden" class="verification-reject-button-id" />
+        <textarea class="form-control verification-reject-description"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary verification-reject-button" onclick="RejectConfirm()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            if($("input[name=VerificationStatus]").val() != "Pending")
+                $("button[data-type=Verification]").hide();
+
+            if($("input[name=BirthCertificateStatus]").val() != "Pending")
+                $("button[data-type=BirthCertificate]").hide();
+
+            if($("input[name=NationalCardStatus]").val() != "Pending")
+                $("button[data-type=NationalCard]").hide();
+
+            if($("input[name=NewsLetterStatus]").val() != "Pending")
+                $("button[data-type=NewsLetter]").hide();
+
+            $("input[type=file]").change(function () {
+                $("input[name=Id]").val($("input[name=UserId]").val());
+                $(this).parents("form:eq(0)").submit();
+            });
+        });
+
+        function Confirm(type, userId, uniqeId) {
+            var button = $("button[data-uniqe-id=" + uniqeId + "]");
+            var oldHtml = button.html();
+            button
+                .prop("disabled", true)
+                .html("<span class='fa fa-spin fa-spinner'></span>");
+
+            $.ajax({
+                method: "post",
+                url: "/verification/confirm",
+                data: {
+                    type,
+                    userId
+                },
+                success: function () {
+                    button
+                    .prop("disabled", false)
+                    .html(oldHtml);
+                }
+            });
+        }
+
+        function Reject(type, userId, uniqeId) {
+            $(".verification-reject-id").val(userId);
+            $(".verification-reject-type").val(type);
+            $(".verification-reject-button-id").val(uniqeId);
+            $(".verification-reject-description").val("");
+            $(".verification-reject-modal").modal("show");
+        }
+
+        function RejectConfirm() {
+            var userId = $(".verification-reject-id").val();
+            var type = $(".verification-reject-type").val();
+            var uniqeId = $(".verification-reject-button-id").val();
+            var description = $(".verification-reject-description").val();
+
+            var button = $("button[data-uniqe-id=" + uniqeId + "]");
+            var oldHtml = button.html();
+            button
+                .prop("disabled", true)
+                .html("<span class='fa fa-spin fa-spinner'></span>");
+
+            $.ajax({
+                method: "post",
+                url: "/verification/reject",
+                data: {
+                    type,
+                    userId,
+                    description
+                },
+                success: function () {
+                    $(".verification-reject-modal").modal("hide");
+                    button
+                        .prop("disabled", false)
+                        .html(oldHtml);
+                }
+            });
+        }
+    </script>
+}

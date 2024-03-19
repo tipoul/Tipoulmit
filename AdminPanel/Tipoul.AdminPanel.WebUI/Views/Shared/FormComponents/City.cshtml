@@ -1,0 +1,58 @@
+﻿@inject Tipoul.Framework.DataAccessLayer.TipoulFrameworkDbContext dbContext
+
+@model string
+
+@{
+    var id = new Random().Next(10, 1000);
+
+    var selectedStateId = Model == "0" ? 0 : await dbContext.Cities.Where(f => f.Id.ToString() == Model).Select(f => f.StateId).FirstOrDefaultAsync();
+
+    var name = ViewBag.PropertyName ?? "CityId";
+}
+
+<div class="row">
+    <div class="col-6">
+        <select class="selectpicker w-100" onchange="@("stateChanged" + id + "()")" id="state-@id" data-live-search="true">
+            <option value="" disabled selected="@(selectedStateId == 0)">انتخاب کنید</option>
+            @foreach (var state in await dbContext.States.ToListAsync())
+            {
+                <option value="@state.Id" selected="@(state.Id == selectedStateId)">@state.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-6">
+        <select class="selectpicker w-100" name="@name" id="city-@id" required data-live-search="true">
+            @if (selectedStateId == 0)
+            {
+                <option value="" disabled selected>ابتدا استان را انتخاب کنید</option>
+            }
+            else
+            {
+                <option value="" disabled>انتخاب کنید</option>
+                foreach (var city in await dbContext.Cities.Where(f => f.StateId == selectedStateId).ToListAsync())
+                {
+                    <option value="@city.Id" selected="@(city.Id.ToString() == Model)">@city.Name</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+<div id="all-options-@id" style="display: none;">
+    @foreach (var city in await dbContext.Cities.ToListAsync())
+    {
+        <span data-state-id="@city.StateId"><option value="@city.Id">@city.Name</option></span>
+    }
+</div>
+
+<script>
+    window['stateChanged@(id)'] = function() {
+        var stateId = $("#state-@id").val();
+        var cityOptions = "<option value='' disabled selected>انتخاب کنید</option>";
+        $("#all-options-@id").find("span").each(function() {
+            if($(this).data("state-id") == stateId)
+            cityOptions += $(this).html();
+        });
+        $("#city-@id").html(cityOptions).selectpicker('refresh');
+    }
+</script>

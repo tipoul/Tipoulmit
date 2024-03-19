@@ -1,0 +1,12 @@
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\bin\Release\net5.0\Tipoul.Framework.StorageModels.deps.json
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\bin\Release\net5.0\Tipoul.Framework.StorageModels.dll
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\bin\Release\net5.0\Tipoul.Framework.StorageModels.pdb
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\Tipoul.Framework.StorageModels.csproj.AssemblyReference.cache
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\Tipoul.Framework.StorageModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\Tipoul.Framework.StorageModels.AssemblyInfoInputs.cache
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\Tipoul.Framework.StorageModels.AssemblyInfo.cs
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\Tipoul.Framework.StorageModels.csproj.CoreCompileInputs.cache
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\Tipoul.Framework.StorageModels.dll
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\refint\Tipoul.Framework.StorageModels.dll
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\Tipoul.Framework.StorageModels.pdb
+C:\Projects\src\Framework\Tipoul.Framework.StorageModels\obj\Release\net5.0\ref\Tipoul.Framework.StorageModels.dll

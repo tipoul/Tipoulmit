@@ -1,0 +1,15 @@
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\bin\Release\net5.0\Tipoul.Framework.DataAccessLayer.deps.json
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\bin\Release\net5.0\Tipoul.Framework.DataAccessLayer.dll
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\bin\Release\net5.0\Tipoul.Framework.DataAccessLayer.pdb
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\bin\Release\net5.0\Tipoul.Framework.StorageModels.dll
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\bin\Release\net5.0\Tipoul.Framework.StorageModels.pdb
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.csproj.AssemblyReference.cache
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.AssemblyInfoInputs.cache
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.AssemblyInfo.cs
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.csproj.CopyComplete
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.dll
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\refint\Tipoul.Framework.DataAccessLayer.dll
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\Tipoul.Framework.DataAccessLayer.pdb
+C:\Projects\src\Framework\Tipoul.Framework.DataAccessLayer\obj\Release\net5.0\ref\Tipoul.Framework.DataAccessLayer.dll

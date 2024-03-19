@@ -1,0 +1,226 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.Wizard.Profile.LegalProfileModel
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <div class="card card-custom">
+                <div class="card-body p-0">
+                    <!--begin::ویزارد-->
+                    <div class="wizard wizard-1" id="kt_wizard_v1" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_header")
+
+                    </div>
+                    <div class="wizard wizard-2" id="kt_wizard_v2" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_profileSidebar")
+
+                        <!--begin::ویزارد Body-->
+                        <div class="wizard-body py-8 px-8 py-lg-20 px-lg-10">
+                            <form id="personal-info-form" class="form" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">لوگو</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <div class="image-input image-input-outline" id="kt_profile_avatar" style="background-image: url(/img/blank.png)">
+                                                <div class="image-input-wrapper" style="background-image: url(@(!string.IsNullOrWhiteSpace(Model.LogoURL) ? Model.LogoURL : string.Empty))"></div>
+
+                                                <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر لوگو">
+                                                    <i class="fa fa-pen icon-sm text-muted"></i>
+                                                    <input type="file" name="logo" accept=".png, .jpg, .jpeg">
+                                                    <input type="hidden" name="profile_avatar_remove">
+                                                </label>
+
+                                            </div>
+                                            <span class="form-text text-muted">فایل های مجاز:  png, jpg, jpeg.</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">روزنامه رسمی</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            @if (!string.IsNullOrWhiteSpace(Model.NewsleterPictureRejectReason))
+                                            {
+                                                <div class="alert alert-danger">@Model.NewsleterPictureRejectReason</div>
+                                            }
+                                            <div class="@(Model.IsNewsleterPictureAccepted ? "bg-success d-inline-block pt-2 px-2 rounded" : string.Empty)">
+                                                <div class="image-input image-input-outline" id="kt_image_1">
+                                                    <div class="image-input-wrapper" style="background-image: url(@(string.IsNullOrWhiteSpace(Model.NewsleterPictureUrl) ? "/img/blank.png" : Model.NewsleterPictureUrl))"></div>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.NewsleterPictureRejectReason) || string.IsNullOrWhiteSpace(Model.NewsleterPictureUrl))
+                                                    {
+                                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر تصویر روزنامه رسمی">
+                                                            <i class="fa fa-pen icon-sm text-muted"></i>
+                                                            <input type="file" name="identityNewsletter" accept=".png, .jpg, .jpeg">
+                                                            <input type="hidden" name="profile_avatar_remove">
+                                                        </label>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">نام شرکت</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg" type="text" name="CompanyName" value="@Model.CompanyName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">نام تجاری</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg" type="text" name="CommertialName" value="@Model.CommertialName" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-3 col-form-label text-right">صنف</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control selectpicker" name="BusinessCategoryId" data-live-search="true">
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var businessCategory in Model.BusinessCategories)
+                                                {
+                                                    <option value="@businessCategory.Id" selected="@(Model.BusinessCategoryId.HasValue && Model.BusinessCategoryId.Value == businessCategory.Id)">@businessCategory.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-3 col-form-label text-right">زیر صنف</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control selectpicker" name="BusinessSubCategoryId" data-live-search="true" required>
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var businessSubCategory in Model.SelectedBusinessCategoryBusinessSubCategories)
+                                                {
+                                                    <option value="@businessSubCategory.Id" selected="@(Model.BusinessSubCategoryId.HasValue && Model.BusinessSubCategoryId.Value == businessSubCategory.Id)">@businessSubCategory.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">آدرس سایت</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg website-url" type="text" name="WebSiteURL" value="@Model.WebSiteURL" required>
+                                            <span class="text-danger invalid-website-url" style="display: none;">آدرس وبسایت باید با http یا https شروع شود</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">تلفن ثابت</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control form-control-lg numeric" type="text" name="PhoneNumberValue" value="@Model.PhoneNumberValue" required data-max-length="9">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input class="form-control form-control-lg numeric" type="text" name="PhoneNumberCode" value="@Model.PhoneNumberCode" required data-max-length="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">شناسه ملی</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg numeric" type="text" name="NatitonalCode" value="@Model.NatitonalCode" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">شماره ثبت</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg numeric" type="text" name="RegisterNumber" value="@Model.RegisterNumber" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label text-right">تاریخ ثبت</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control form-control-lg date-picker" type="text" name="RegisterDate" value="@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(Model.RegisterDate ?? DateTime.Now)" readonly required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-3 col-form-label text-right">استان</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control selectpicker" name="StateId" data-live-search="true">
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var state in Model.States)
+                                                {
+                                                    <option value="@state.Id" selected="@(Model.StateId.HasValue && Model.StateId.Value == state.Id)">@state.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-3 col-form-label text-right">شهر</label>
+                                        <div class="col-lg-9">
+                                            <select class="form-control selectpicker" name="CityId" data-live-search="true" required>
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var city in Model.SelectedStateCities)
+                                                {
+                                                    <option value="@city.Id" selected="@(Model.CityId.HasValue && Model.CityId.Value == city.Id)">@city.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-3 col-form-label text-right">آدرس</label>
+                                        <div class="col-lg-9">
+                                            <textarea class="form-control form-control-lg" name="CompanyAddress" required>@Model.CompanyAddress</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-3 col-form-label text-right">توضیحات</label>
+                                        <div class="col-lg-9">
+                                            <textarea class="form-control form-control-lg" name="Description">@Model.Description</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                    <div class="mr-2">
+                                        <button type="button" class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-prev">
+                                            قبلی
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-submit">
+                                            ارسال
+                                        </button>
+                                        <button type="submit" class="btn btn-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-next">
+                                            بعد (اطلاعات حساب بانکی)
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--end::ویزارد Body-->
+                    </div>
+                    <!--end::ویزارد-->
+                </div>
+                <!--end::ویزارد-->
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#personal-info-form").submit(function() {
+                if ($(".website-url").val().startsWith("http://") || $(".website-url").val().startsWith("https://")) {
+                    return true;
+                } 
+                else {
+                    $(".invalid-website-url").show();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

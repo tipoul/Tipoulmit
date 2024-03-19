@@ -1,0 +1,109 @@
+﻿@model Tipoul.Framework.StorageModels.CommertialGateWay
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="@Model.?.Title,تیپول,درگاه پرداخت,درگاه پرداخت تیپول,درگاه پرداخت @Model.Title" />
+    <meta name="description" content="درگاه پرداخت @Model.Title با میزبانی تیپول" />
+    <meta name="subject" content="درگاه پرداخت @Model.Title">
+    <meta name="copyright" content="تیپول">
+    <meta name="language" content="fa">
+    <meta name="summary" content="پرداخت به @Model.Title">
+    <meta name="category" content="financial">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="rating" content="General">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>@Model.Title</title>
+    <!-- custom css file link  -->
+    <link href="~/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/style.css">
+    <script type="text/javascript">
+        function DisableButton() {
+            document.getElementById('submitbutton').disabled = true;
+        }
+        window.onbeforeunload = DisableButton;
+    </script>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="card-container">
+
+            <div class="front">
+                @if (!string.IsNullOrWhiteSpace(Model.LogoUrl))
+                {
+                    <div class="image">
+                        <img src="@Model.LogoUrl" alt="">
+                        @*<img src="image/logo.png" alt="">*@
+                    </div>
+                }
+                <div class="card-number-box">@Model.Title</div>
+                @*<div class="flexbox">
+                    <div class="box">
+                        <span>CCv2</span>
+                        <div class="card-holder-name">***</div>
+                    </div>
+                    <div class="box">
+                        <span>انقضا</span>
+                        <div class="expiration">
+                            <span class="exp-month">00</span>
+                            <span class="exp-year">00</span>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+
+        <form class="row" method="post">
+            @* <div class="col-md-6 inputBox">
+            <span>نام و نام خانوادگی</span>
+            <input type="text" class="form-control" name="PayerName" required>
+        </div>
+        @*<div class="col-md-6 inputBox">
+            <span>نام</span>
+            <input type="text" class="form-control" name="PayerFirstName">
+        </div>
+        <div class="col-md-6 inputBox">
+            <span>نام خانوادگی</span>
+            <input type="text" class="form-control" name="PayerLastName">
+        </div>*@
+            @*@  <div class="col-md-6 inputBox">
+            <span>شماره تماس</span>
+            <input type="text" class="form-control" name="PayerMobile">
+        </div>
+        @*<div class="col-md-6 inputBox">
+            <span>پست الکترونیک</span>
+            <input type="email" class="form-control" name="PayerMail">
+        </div>*@
+            @if (ViewBag.Amount == null)
+            {
+                <div class="col-md-4 inputBox">
+                    <span>مبلغ به ریال</span>
+                    <input type="number" class="form-control" name="Amount" min="0" required>
+                </div>
+            }
+
+            <button type="submit" class="submit-btn" id="submitbutton"
+                    onclick="document.getElementById('submitbutton').style.opacity='0.5'">
+                پرداخت
+            </button>
+        </form>
+        <a href="https://about.tipoul.com" rel="main" title="شبکه پرداخت تیپول">
+            <img class="logo" typeof="foaf:Image" src="https://about.tipoul.com/wp-content/uploads/2022/04/TiPoullogo.png" alt="Tipoul" title="شبکه پرداخت تیپول">
+        </a>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.BankAccount.FormViewModel
+
+@inject TipoulFrameworkDbContext dbContext
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="d-flex flex-row">
+                <div class="flex-row-fluid ml-lg-8">
+                    <!--begin::Card-->
+                    <div class="card card-custom">
+                        <!--begin::Form-->
+                        <form class="form" method="post">
+                            <input type="hidden" name="Id" value="@Model.Id" />
+                            <!--begin::Header-->
+                            <div class="card-header py-3">
+                                <div class="card-title align-items-start flex-column" style="display: inline-block;">
+                                    <h3 class="card-label font-weight-bolder text-dark">اطلاعات حساب بانکی</h3>
+                                    <span class="text-muted font-weight-bold font-size-sm mt-1">اطلاعات حساب بانکی خود را تغییر دهید</span>
+                                </div>
+                                <div class="card-toolbar" style="float: left; display: inline-block;">
+                                    <button type="submit" class="btn btn-success mr-2">ذخیره تغییرات</button>
+                                    <a href="~/bankAccount" class="btn btn-secondary">لغو</a>
+                                </div>
+                            </div>
+                            <!--end::Header-->
+                            <div class="card-body">
+                                <!--begin::Form گروه-->
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">نام کامل مالک حساب</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid" type="text" name="FullName" value="@Model.FullName" required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">کد ملی مالک حساب</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid numeric" type="text" name="NationalCode" value="@Model.NationalCode" required data-max-length="10" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">تاریخ تولد</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <input class="form-control form-control-lg form-control-solid date-picker" type="text" name="BirthDate" value="@Model.BirthDate" required />
+                                    </div>
+                                </div>
+                                <!--begin::Form گروه-->
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">بانک</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <select class="form-control form-control-lg form-control-solid selectpicker" name="BankId" required data-live-search="true">
+                                            <option value="" disabled selected="@(Model.BankId == 0)">لطفا انتخاب کنید</option>
+                                            @foreach (var bank in await dbContext.Banks.ToListAsync())
+                                            {
+                                                <option value="@bank.Id" selected="@(bank.Id == Model.BankId)">@bank.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--begin::Form گروه-->
+                                <div class="form-group row">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">شماره شبا</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <div class="input-group input-group-lg input-group-solid">
+                                            <input type="text" class="form-control form-control-lg form-control-solid" name="Iban" value="@Model.Iban" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--begin::Form گروه-->
+                                <div class="form-group row align-items-center" style="display: none;">
+                                    <label class="col-xl-3 col-lg-3 col-form-label">فعال</label>
+                                    <div class="col-lg-9 col-xl-6">
+                                        <span class="switch switch-success">
+							            	<label>
+							            		<input type="checkbox" value="true" name="IsActive" checked />
+							            		<span></span>
+							            	</label>
+							            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Card-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

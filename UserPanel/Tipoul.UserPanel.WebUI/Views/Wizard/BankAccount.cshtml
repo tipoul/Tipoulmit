@@ -1,0 +1,112 @@
+﻿@using Microsoft.EntityFrameworkCore
+
+@model Tipoul.UserPanel.WebUI.Models.Wizard.FormViewModel
+
+@inject Tipoul.Framework.DataAccessLayer.TipoulFrameworkDbContext dbContext
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <div class="card card-custom">
+                <div class="card-body p-0">
+                    <!--begin::ویزارد-->
+                    <div class="wizard wizard-1" id="kt_wizard_v1" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_header")
+
+                        <!--begin::ویزارد Body-->
+                        <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+                            @if(Context.Request.Query["saved"] == "True")
+                            {
+                                <div class="col-xl-12 col-xxl-7 mb-10 text-center"><div class="alert alert-success py-2">اطلاعات پروفایل شما با موفقیت ثبت شد.</div></div>
+                            }
+                            <div class="col-xl-12 col-xxl-7">
+                                <!--begin::ویزارد Form-->
+                                <form class="form" method="post">
+                                    <input type="hidden" name="Id" value="@Model.Id" />
+                                    <!--begin::Form گروه-->
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">نام کامل مالک حساب</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <input class="form-control form-control-lg form-control-solid" type="text" name="FullName" value="@Model.FullName" required />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">کد ملی مالک حساب</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <input class="form-control form-control-lg form-control-solid numeric" type="text" name="NationalCode" value="@Model.NationalCode" required data-max-length="10" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">تاریخ تولد</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <input class="form-control form-control-lg form-control-solid date-picker" type="text" name="BirthDate" value="@Model.BirthDate" required />
+                                        </div>
+                                    </div>
+                                    <!--begin::Form گروه-->
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">بانک</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <select class="form-control form-control-lg form-control-solid selectpicker" name="BankId" required data-live-search="true">
+                                                <option value="" disabled selected="@(Model.BankId == 0)">لطفا انتخاب کنید</option>
+                                                @foreach (var bank in await dbContext.Banks.ToListAsync())
+                                                {
+                                                    <option value="@bank.Id" selected="@(bank.Id == Model.BankId)">@bank.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--begin::Form گروه-->
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">شماره شبا</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <div class="input-group input-group-lg input-group-solid">
+                                                <input type="text" class="form-control form-control-lg form-control-solid" name="Iban" value="@Model.Iban" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--begin::Form گروه-->
+                                    <div class="form-group row align-items-center" style="display: none;">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">فعال</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <span class="switch switch-success">
+                                                <label>
+                                                    <input type="checkbox" value="true" name="IsActive" checked />
+                                                    <span></span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!--begin::ویزارد اقدامات-->
+                                    <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                        <div class="mr-2">
+                                            <button type="button" class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-prev">
+                                                قبلی
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-submit">
+                                                ارسال
+                                            </button>
+                                            <button type="submit" class="btn btn-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-next">
+                                                بعد (کد مالیاتی)
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--end::ویزارد اقدامات-->
+                                </form>
+                                <!--end::ویزارد Form-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::ویزارد Body-->
+                </div>
+                <!--end::ویزارد-->
+            </div>
+            <!--end::ویزارد-->
+        </div>
+    </div>
+    <!--end::Container-->
+</div>

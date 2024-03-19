@@ -1,0 +1,163 @@
+﻿@section styles{
+    <link href="~/css/highcharts.css" rel="stylesheet" />
+    <style>
+        .chart-form {
+            margin-top: 20px;
+        }
+    </style>
+}
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+
+            <div class="card card-custom">
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            داشبورد
+                            <span class="text-muted pt-2 font-size-sm d-block">تحلیل تراکنش ها</span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/transactionCount" data-chart-id="TransactionsCount">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">تعداد تراکنش های انجام شده</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @*<div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>درگاه</label>
+                                                <select name="GateWayId" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    @foreach (var gateWay in gateways)
+                                                    {
+                                                        <option value="@gateWay.Id">@gateWay.Title</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>PSP</label>
+                                                <select name="PSP" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    <option value="سپهر">سپهر</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>بانک</label>
+                                                <select name="bank" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    @foreach (var bank in banks)
+                                                    {
+                                                        if (!string.IsNullOrWhiteSpace(bank))
+                                                        {
+                                                            <option value="@bank">@bank</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>از تاریخ</label>
+                                                <input class="form-control date-picker" name="minDate" readonly data-value="@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(DateTime.Today.AddDays(-7)).Replace("/", "-")" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>تا تاریخ</label>
+                                                <input class="form-control date-picker" name="maxDate" readonly data-value="@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(DateTime.Today).Replace("/", "-")" required />
+                                            </div>
+                                        </div>*@
+                                    <div class="col-md-12"><div id="TransactionsCount"></div></div>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="card col-sm-12 col-md-12 chart-form" action="/analysis/transactionAmount" data-chart-id="TransactionsAmount">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">حجم تراکنش های انجام شده</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @*<div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>درگاه</label>
+                                                <select name="GateWayId" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    @foreach (var gateWay in gateways)
+                                                    {
+                                                        <option value="@gateWay.Id">@gateWay.Title</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>PSP</label>
+                                                <select name="PSP" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    <option value="سپهر">سپهر</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>بانک</label>
+                                                <select name="bank" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    @foreach (var bank in banks)
+                                                    {
+                                                        if (!string.IsNullOrWhiteSpace(bank))
+                                                        {
+                                                            <option value="@bank">@bank</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>*@
+                                    <div class="col-md-12"><div id="TransactionsAmount"></div></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+@section scripts{
+    <script src="~/js/highcharts.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".chart-form").each(function () {
+                var form = $(this);
+
+                form.submit(function () {
+
+                    $.get(form.prop("action") + "?" + form.serialize())
+                        .then(function (response) {
+                            response.tooltip.formatter = function () {
+                                //return "<span style='direction: rtl;'>" + 'The value for <b>' + this.x + '</b> is <b > ' + this.y + '</b >, in series ' + this.series.name + "<span>";
+                                return "<span style='direction: rtl'>" + "<span>" + this.series.name + "</span>" + "<br />" + "<span>برای " + this.x + ": " + this.y + "</span>" + "</span>";
+                            };
+                            Highcharts.chart(form.data("chart-id"), response);
+                        });
+
+                    return false;
+                });
+
+                form.submit();
+            });
+
+            $("select").change(function () { $(this).parents("form:eq(0)").submit() });
+        });
+    </script>
+}

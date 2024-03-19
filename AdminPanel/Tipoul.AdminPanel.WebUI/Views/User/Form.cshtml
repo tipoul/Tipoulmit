@@ -1,0 +1,85 @@
+﻿@model Tipoul.AdminPanel.WebUI.Models.User.UserFormViewModel
+@*@await Html.PartialAsync("builder/form", Model)*@
+
+<div class="card">
+    <div class="card-header">کاربر</div>
+    <div class="card-body">
+        <div class="card expandable mb-5">
+            <div class="card-header">پروفایل حقیقی</div>
+            <form class="card-body" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="row">
+                    <div class="col-6">
+                        @await Html.PartialAsync("builder/form", Model.PersonalInfo)
+                    </div>
+                    <div class="col-6">
+                        @await Html.PartialAsync("builder/form", Model.Files)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        @await Html.PartialAsync("builder/form", Model.AddressInfo)
+                    </div>
+                    <div class="col-6">
+                        @await Html.PartialAsync("builder/form", Model.BusinessInfo)
+                    </div>
+                </div>
+                <div class="text-center mt-5 bg-light p-5 rounded">
+                    <button type="submit" class="btn btn-success">ذخیره</button>
+                </div>
+            </form>
+        </div>
+        <div class="card expandable mt-5">
+            <div class="card-header">پروفایل حقوقی</div>
+            @if (Model.Id == 0)
+            {
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                            <div class="alert alert-danger text-center py-3">برای ثبت اطلاعات حقوقی ابتدا پروفایل حقیقی را تکمیل نمایید.</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <form class="card-body" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="row">
+                        <div class="col-6">
+                            @await Html.PartialAsync("builder/form", Model.LegalInfo)
+                        </div>
+                        <div class="col-6">
+                            @await Html.PartialAsync("builder/form", Model.LegalBusinessAddressInfo)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            @await Html.PartialAsync("builder/form", Model.LegalFiles)
+                        </div>
+                        <div class="col-6">
+                            @await Html.PartialAsync("builder/form", Model.LegalBusinessInfo)
+                        </div>
+                    </div>
+                    <div class="text-center mt-5 bg-light p-5 rounded">
+                        <button type="submit" class="btn btn-success">ذخیره</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".card.expandable").each(function () {
+                $(this).find(".card-body").first().hide();
+                $(this).find(".card-header").first().click(function () {
+                    $(this).parent().find(".card-body").first().toggle();
+                });
+            });
+        });
+    </script>
+}

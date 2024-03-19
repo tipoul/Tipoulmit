@@ -1,0 +1,184 @@
+﻿@model List<Tipoul.UserPanel.WebUI.Models.CommertialGateWay.ListViewModel>
+
+@inject Microsoft.Extensions.Configuration.IConfiguration configuration
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::زیر هدر-->
+    <div class="subheader py-2 py-lg-4  subheader-transparent " id="kt_subheader">
+        <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::جزئیات-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+
+                <!--begin::Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+                    درگاه تجاری
+                </h5>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+                <!--end::Separator-->
+                <!--begin::جستجو Form-->
+                <div class="d-flex align-items-center" id="kt_subheader_search">
+                    <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">
+                        تعداد @Model.Count
+                    </span>
+                </div>
+                <!--end::جستجو Form-->
+            </div>
+            <!--end::جزئیات-->
+            <!--begin::Toolbar-->
+            <div class="d-flex align-items-center">
+                <!--begin::دکمه-->
+                <a href="#" class="">
+
+                </a>
+                <!--end::دکمه-->
+                <!--begin::دکمه-->
+                <a href="~/commertialGateWay/Form" class="btn btn-light-primary font-weight-bold ml-2">افزودن درگاه تجاری</a>
+                <!--end::دکمه-->
+            </div>
+            <!--end::Toolbar-->
+        </div>
+    </div>
+    <!--end::زیر هدر-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::Row-->
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    var etrustLink = configuration["Tipoul:ETrustAddress"] + item.WebSiteURL.Replace("http://", string.Empty).Replace("https://", string.Empty);
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body pt-4">
+                                <div class="d-flex align-items-center mb-7">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="symbol symbol-circle symbol-lg-75">
+                                            @if (!string.IsNullOrWhiteSpace(item.LogoUrl))
+                                            {
+                                                <img src="@item.LogoUrl" alt="@item.Title">
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0 mx-5">@item.Title <span class="badge badge-success font-weight-lighter">@item.WalletTitle</span></a>
+                                    </div>
+                                </div>
+                                <div class="mb-7 row">
+                                    <div class="col-sm-12 col-lg-6 py-2">
+                                        <div class="d-flex justify-content-between align-items-cente my-1">
+                                            <span class="text-dark-75 font-weight-bolder mr-2">آدرس وبسایت:</span>
+                                            <a href="#" class="text-muted text-hover-primary">@item.WebSiteURL</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6 py-2">
+                                        <div class="d-flex justify-content-between align-items-cente my-1">
+                                            <span class="text-dark-75 font-weight-bolder mr-2">شماره تماس پشتیبانی:</span>
+                                            <a href="#" class="text-muted text-hover-primary">@item.SupportPhoneNumber</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6 py-2">
+                                        <div class="d-flex justify-content-between align-items-cente my-1">
+                                            <span class="text-dark-75 font-weight-bolder mr-2">کسر کارمزد:</span>
+                                            <a href="#" class="text-muted text-hover-primary">@item.WageSide</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6 py-2">
+                                        <div class="d-flex justify-content-between align-items-cente my-1">
+                                            <span class="text-dark-75 font-weight-bolder mr-2">تسویه:</span>
+                                            <a href="#" class="text-muted text-hover-primary">
+                                                <span>@item.Settlement - </span>
+                                                <span>@(string.IsNullOrWhiteSpace(item.SettlementPeriod) ? "دستی" : "اتوماتیک")</span>
+                                                @if (!string.IsNullOrWhiteSpace(item.SettlementPeriod))
+                                                {
+                                                    <span>( @item.SettlementPeriod )</span>
+                                                }
+                                            </a>
+                                        </div>
+                                    </div>
+                                    @if (!string.IsNullOrWhiteSpace(item.SettlementPeriod))
+                                    {
+                                        <div class="col-sm-12 col-lg-6 py-2">
+                                            <div class="d-flex justify-content-between align-items-cente my-1">
+                                                <span class="text-dark-75 font-weight-bolder mr-2">دوره تسویه:</span>
+                                                <a href="#" class="text-muted text-hover-primary">@item.SettlementPeriod</a>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-sm-12 col-lg-6 py-2">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-dark-75 font-weight-bolder mr-2">تعداد تراکنش ها:</span>
+                                            <a href="#" class="text-muted text-hover-primary">@item.TransactionsCount.ToString("n0")</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6 py-2">
+                                        <div class="d-flex justify-content-between align-items-cente my-1">
+                                            <span class="text-dark-75 font-weight-bolder mr-2">مجموع مبالغ:</span>
+                                            <a href="#" class="text-muted text-hover-primary">@item.TransactionsAmount.ToString("n0")</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-4"><a href="/report/transactions?gateWayId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder text-uppercase py-4">تراکنش ها</a></div>
+                                    <div class="col-4"><a href="/report/customers?gateWayId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder text-uppercase py-4">مشتری ها</a></div>
+                                    <div class="col-4"><a href="/report/settlements?gateWayId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder text-uppercase py-4">تسویه</a></div>
+                                </div>
+                                <div style="position: fixed; top: -10000px; left: -10000px;">
+                                    <input type="text" value="@item.Token" id="token-@item.Id" />
+                                    <input type="text" value="@etrustLink" id="etrust-@item.Id" />
+                                </div>
+                                <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder py-4 my-5 token-@item.Id-link" id="token-@item.Id-link" data-copy-link="true">برای کپی توکن کلیک کنید</a>
+                                <a href="@etrustLink" target="_blank" class="btn btn-block btn-sm btn-light-success font-weight-bolder py-4 my-5">
+                                    <span>@etrustLink.Replace("http://", string.Empty).Replace("https://", string.Empty)</span>
+                                    <span id="etrust-@item.Id-link" data-copy-link="true">(کپی)</span>
+                                </a>
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end:: Card-->
+                    </div>
+                }
+            </div>
+            <!--end::Row-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+@section scripts {
+    <script>
+
+        $("[data-copy-link=true]").each(function () {
+            var
+                link = $(this),
+                id = link.prop("id").replace("-link", "");
+
+            document.getElementById(id).onclick = function (e) {
+                e.target.select();
+                document.execCommand('copy');
+
+                setTempText(link, 'کپی شد');
+            }
+
+            link.click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $("#" + id).click();
+            });
+
+            function setTempText(jQueryElement, html) {
+                var oldHtml = jQueryElement.html();
+                jQueryElement.html(html);
+
+                setTimeout(function () {
+                    jQueryElement.html(oldHtml);
+                }, 3000);
+            }
+        });
+    </script>
+} 

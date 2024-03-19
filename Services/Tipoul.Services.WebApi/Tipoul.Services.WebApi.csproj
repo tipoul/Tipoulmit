@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ighan.DbHelpers" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.5.21301.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-preview.5.21301.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Tipoul.Framework.DataAccessLayer\Tipoul.Framework.DataAccessLayer.csproj" />
+    
+    <ProjectReference Include="..\..\Framework\Tipoul.Framework.Services.RequestLog\Tipoul.Framework.Services.RequestLog.csproj" />
+    <ProjectReference Include="..\..\Framework\Tipoul.Framework.Services\Tipoul.Framework.Services.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Tipoul.Infrastructure.RequestLog\Tipoul.Infrastructure.RequestLog.csproj" />
+    <ProjectReference Include="..\..\Tipoul.Framework.ShahinService\Tipoul.Framework.ShahinService.csproj" />
+    <ProjectReference Include="..\Tipoul.Services.Shared\Tipoul.Services.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

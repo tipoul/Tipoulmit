@@ -1,0 +1,12 @@
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.deps.json
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.dll
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.pdb
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.csproj.AssemblyReference.cache
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.AssemblyInfoInputs.cache
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.AssemblyInfo.cs
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.csproj.CoreCompileInputs.cache
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.dll
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\refint\Tipoul.CoreBanking.Services.KYC.dll
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.pdb
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Services.KYC\obj\Debug\net6.0\ref\Tipoul.CoreBanking.Services.KYC.dll

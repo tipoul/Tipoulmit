@@ -1,0 +1,219 @@
+﻿@using System.Reflection
+@using Tipoul.AdminPanel.WebUI.Infrastructure.Builder.Abstraction
+
+@model FormViewModel
+
+@{
+    var idPropertyInfo = Model.GetProperties().Where(f => f.Name == "Id").FirstOrDefault();
+
+    var controller = Context.GetRouteValue("controller");
+}
+
+@if (!Model.IsFormPart())
+{
+    @Html.Raw("<form class='form' method='post'>")
+    <input type="hidden" name="id" value="@idPropertyInfo.GetValue(Model)" />
+}
+
+<div class="card card-custom">
+    <div class="card-header">
+        <h3 class="card-title">
+            @Model.GetTitle()
+        </h3>
+        @if (Context.Session.Keys.Contains("message"))
+        {
+            <div class="alert @Context.Session.GetString("message-class") m-auto px-5">@Context.Session.GetString("message")</div>
+            Context.Session.Remove("message");
+        }
+    </div>
+    <div class="card-body">
+        @foreach (var propertyInfo in Model.GetProperties().Where(f => f.GetCustomAttribute<IgnoreAttribute>() == null).Where(propertyInfo => propertyInfo != idPropertyInfo))
+        {
+            var partialViewPath = propertyInfo.GetCustomAttribute<PartialAttribute>()?.Path;
+
+            if (IsHidden(propertyInfo))
+            {
+                <input type="hidden" value="@GetValue(propertyInfo)" name="@propertyInfo.Name" />
+            }
+            else
+            {
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">@Model.GetLabel(propertyInfo)</label>
+                    <div class="col-10 @(IsFileUpload(propertyInfo) ? "d-flex" : string.Empty)">
+                        @if (IsEnum(propertyInfo))
+                        {
+                            var value = GetValue(propertyInfo);
+                            var values = GetEnumValues(propertyInfo);
+
+                            <table>
+                                <tr>
+                                    @foreach (var enumValue in values)
+                                    {
+                                        <td style="min-width: 200px">
+                                            <label>
+                                                <input type="radio" value="@enumValue.Key" checked="@(enumValue.Key.ToString() == value)" name="@propertyInfo.Name" @(IsRequired(propertyInfo) ? "required" : string.Empty) />
+                                                <span>@enumValue.Value</span>
+                                            </label>
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        }
+                        else if (IsBool(propertyInfo))
+                        {
+                            <span class="switch switch-success">
+                                <label>
+                                    <input type="checkbox" checked="@(GetValue(propertyInfo)?.ToLower() == "true")" name="@propertyInfo.Name" value="true" data-temp="@GetValue(propertyInfo)?.ToLower()" />
+                                    <span></span>
+                                </label>
+                            </span>
+                        }
+                        else if (IsTextArea(propertyInfo))
+                        {
+                            <textarea class="form-control" name="@propertyInfo.Name" @(IsRequired(propertyInfo) ? "required" : string.Empty)>@GetValue(propertyInfo)</textarea>
+                        }
+                        else if (IsFileUpload(propertyInfo))
+                        {
+                            var value = GetValue(propertyInfo);
+
+                            <input type="hidden" value="@value" name="@propertyInfo.Name" />
+                            <input class="form-control" type="file" name="file-@propertyInfo.Name" @(IsRequired(propertyInfo) && string.IsNullOrWhiteSpace(value) ? "required" : string.Empty) />
+                            if (!string.IsNullOrWhiteSpace(value))
+                            {
+                                <img class="m-3" src="@value" alt="تصویر @propertyInfo.Name" width="64" />
+                            }
+                        }
+                        else if (string.IsNullOrWhiteSpace(partialViewPath))
+                        {
+                            <input class="form-control @(IsNumericString(propertyInfo) ? "numeric" : string.Empty) @GetClassBasedOnType(propertyInfo)" data-max-length="@GetMaxLength(propertyInfo)" type="@(IsFileUpload(propertyInfo) ? "file" : IsNumeric(propertyInfo) ? "number" : "text")" data-value="@GetValue(propertyInfo)" value="@GetValue(propertyInfo)" name="@propertyInfo.Name" @(IsRequired(propertyInfo) ? "required" : string.Empty) />
+                        }
+                        else
+                        {
+                            ViewBag.PropertyName = propertyInfo.Name;
+
+                            @await Html.PartialAsync(partialViewPath, GetValue(propertyInfo))
+                        }
+                    </div>
+                    @if (HasButton(propertyInfo))
+                    {
+                        <div class="col-12 mt-2 d-flex justify-content-end">
+                            @foreach (var button in GetButtons(propertyInfo))
+                            {
+                                <button type="button" data-uniqe-id="@button.UniqeId" @(!string.IsNullOrWhiteSpace(button.DataKey) ? $"data-{button.DataKey}={button.DataValue}" : string.Empty) class="btn btn-sm btn-@button.BootstrapColorClass mx-2" onclick="@button.MethodName.Replace("{id}", idPropertyInfo.GetValue(Model).ToString())">@button.Label</button>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+    @if (!Model.IsFormPart())
+    {
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-10">
+                    <button type="submit" class="btn btn-success mr-2">ذخیره</button>
+                    <a href="/@controller" class="btn btn-secondary">لغو</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.IsFormPart())
+{
+    @Html.Raw("</form>")
+}
+
+@functions {
+    private string GetValue(System.Reflection.PropertyInfo propertyInfo)
+    {
+        var value = propertyInfo.GetValue(Model);
+
+        if (IsEnum(propertyInfo))
+            value = (int)value;
+
+        if (propertyInfo.PropertyType == typeof(TimeSpan))
+            value = ((TimeSpan)value).ToString("hh\\:mm");
+
+        if (propertyInfo.PropertyType == typeof(DateTime) || (propertyInfo.PropertyType == typeof(DateTime?) && value != null))
+        {
+            value = Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy((DateTime)value).Replace("/", "-");
+        }
+
+        return value?.ToString();
+    }
+
+    private bool IsEnum(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.PropertyType.BaseType.Name == "Enum";
+    }
+
+    private string GetClassBasedOnType(System.Reflection.PropertyInfo propertyInfo)
+    {
+        if (propertyInfo.PropertyType == typeof(TimeSpan) || propertyInfo.PropertyType == typeof(TimeSpan?))
+            return "time-picker direction-ltr text-left";
+
+        if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
+            return "date-picker";
+
+        return string.Empty;
+    }
+
+    private Dictionary<int, string> GetEnumValues(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.ReflectedType.GetMethod($"Get{propertyInfo.Name}Values").Invoke(null, null) as Dictionary<int, string>;
+    }
+
+    private bool IsBool(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.PropertyType == typeof(bool);
+    }
+
+    private bool IsNumeric(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.PropertyType == typeof(int);
+    }
+
+    private bool IsNumericString(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttribute<NumericAttribute>() != null;
+    }
+
+    private int GetMaxLength(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttribute<MaxLengthAttribute>()?.MaxLength ?? -1;
+    }
+
+    private bool IsTextArea(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttribute<TextAreaAttribute>() != null;
+    }
+
+    private bool IsFileUpload(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttribute<FileAttribute>() != null;
+    }
+
+    private bool IsRequired(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttributes().All(f => f.GetType().FullName != "System.Runtime.CompilerServices.NullableAttribute") && !propertyInfo.PropertyType.Name.StartsWith("Nullable");
+    }
+
+    private bool HasButton(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttribute<FileAttribute>() != null;
+    }
+
+    private bool IsHidden(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttribute<HiddenAttribute>() != null;
+    }
+
+    private List<HasButtonAttribute> GetButtons(System.Reflection.PropertyInfo propertyInfo)
+    {
+        return propertyInfo.GetCustomAttributes<HasButtonAttribute>().ToList();
+    }
+}

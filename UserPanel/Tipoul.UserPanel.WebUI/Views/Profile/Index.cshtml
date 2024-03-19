@@ -1,0 +1,150 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.Profile.PersonalInfoModel
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::زیر هدر-->
+    <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
+        <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::اطلاعات-->
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <!--begin::Mobile Toggle-->
+                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
+                    <span></span>
+                </button>
+                <!--end::Mobile Toggle-->
+                <!--begin::Page Heading-->
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <!--begin::Page Title-->
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">
+                        پروفایل
+                    </h5>
+                    <!--end::Page Title-->
+                </div>
+                <!--end::Page Heading-->
+            </div>
+            <!--end::اطلاعات-->
+        </div>
+    </div>
+    <!--end::زیر هدر-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::پروفایل اطلاعات شخصی-->
+            <div class="d-flex flex-row">
+
+                @await Html.PartialAsync("_SideBar")
+
+                <!--begin::Content-->
+                <div class="flex-row-fluid ml-lg-8">
+                    <!--begin::Card-->
+                    <div class="card card-custom card-stretch">
+                        <!--begin::Form-->
+                        <form id="personal-info-form" class="form" method="post" enctype="multipart/form-data">
+                            <!--begin::Header-->
+                            <div class="card-header py-3">
+                                <div class="card-title align-items-start flex-column" style="display: inline-block;">
+                                    <h3 class="card-label font-weight-bolder text-dark">اطلاعات شخصی</h3>
+                                    <span class="text-muted font-weight-bold font-size-sm mt-1">اطلاعات شخصی خود را به روز کنید</span>
+                                </div>
+                                <div class="card-toolbar" style="display: inline-block; float: left;">
+                                    <button type="submit" class="btn btn-success mr-2">ذخیره تغییرات</button>
+                                </div>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-xl-5 col-lg-3 col-form-label text-right">آواتار</label>
+                                    <div class="col-lg-7 col-xl-6">
+                                        <div class="image-input image-input-outline" id="kt_profile_avatar" style="background-image: url(/img/blank.png)">
+                                            <div class="image-input-wrapper" style="background-image: url(@(!string.IsNullOrWhiteSpace(Model.AvatarURL) ? Model.AvatarURL : string.Empty))"></div>
+
+                                            <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر آواتار">
+                                                <i class="fa fa-pen icon-sm text-muted"></i>
+                                                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                                                <input type="hidden" name="profile_avatar_remove">
+                                            </label>
+
+                                            @*<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="" data-original-title="لغو avatar">
+                        <i class="ki ki-bold-close icon-xs text-muted"></i>
+                    </span>
+
+                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="" data-original-title="حذف آواتار">
+                        <i class="ki ki-bold-close icon-xs text-muted"></i>
+                    </span>*@
+                                        </div>
+                                        <span class="form-text text-muted">فایل های مجاز:  png, jpg, jpeg.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-5 col-lg-3 col-form-label text-right">نام</label>
+                                        <div class="col-lg-7">
+                                            <input class="form-control form-control-lg persian-text" type="text" name="FirstName" value="@Model.FirstName" @(string.IsNullOrWhiteSpace(Model.NationalCode) ? string.Empty : "readonly") required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-5 col-lg-3 col-form-label text-right">نام خانوادگی</label>
+                                        <div class="col-lg-7">
+                                            <input class="form-control form-control-lg persian-text" type="text" name="LastName" value="@Model.LastName" @(string.IsNullOrWhiteSpace(Model.NationalCode) ? string.Empty : "readonly") required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-5 col-lg-3 col-form-label text-right">تاریخ تولد</label>
+                                        <div class="col-lg-7">
+                                            <input class="form-control form-control-lg @(string.IsNullOrWhiteSpace(Model.NationalCode) ? "date-picker" : string.Empty)" type="text" name="BirthDate" value="@(Model.BirthDate.HasValue ? Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(Model.BirthDate.Value) : string.Empty)" readonly required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-5 col-lg-3 col-form-label text-right">نام پدر</label>
+                                        <div class="col-lg-7">
+                                            <input class="form-control form-control-lg persian-text" type="text" name="FatherName" value="@Model.FatherName" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-12 form-group row" style="padding-right:40px;">
+                                        <label class="col-lg-2 col-form-label text-right">ایمیل</label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control form-control-lg" type="email" name="Email" value="@Model.Email" required>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-5 col-lg-3 col-form-label text-right">موبایل</label>
+                                        <div class="col-lg-7">
+                                            <input class="form-control form-control-lg numeric" type="text" name="MobileNumber" value="@Model.MobileNumber" required data-max-length="11">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-5 col-lg-3 col-form-label text-right">کد ملی</label>
+                                        <div class="col-lg-7">
+                                            <input class="form-control form-control-lg numeric" type="text" name="NationalCode" value="@Model.NationalCode" @(string.IsNullOrWhiteSpace(Model.NationalCode) ? string.Empty : "readonly") required data-max-length="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-xl-5 col-lg-3 col-form-label text-right">کد مالیاتی</label>
+                                        <div class="col-lg-7">
+                                            <input class="form-control form-control-lg numeric" type="text" name="TaxCode" value="@Model.TaxCode" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Body-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::پروفایل اطلاعات شخصی-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>

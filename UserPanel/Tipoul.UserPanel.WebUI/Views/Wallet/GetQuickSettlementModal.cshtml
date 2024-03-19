@@ -1,0 +1,495 @@
+﻿@using Tipoul.Framework.ShahinService.ShahinOperation.Enums
+@using Tipoul.Framework.Utilities.Enums
+@using static Tipoul.Framework.Utilities.Extentions.DataTableExtentionMethods
+
+@model int
+@inject TipoulFrameworkDbContext dbContext
+@inject Tipoul.Athentication.Agent.Services.AthenticationProvider athenticationProvider
+@{
+	var user = athenticationProvider.GetUser();
+	var wallet = await dbContext.Wallets.FirstOrDefaultAsync(f => f.Id == Model);
+	var QuickSettlementWagePercent = dbContext.UserWageTypeHistories.FirstOrDefaultAsync(f => f.UserId == user.Id).Result.QuickSettlementWagePercent;
+}
+<div class="wizard">
+	<ul class="nav nav-wizard m-0 p-0 mb-3" dir="ltr">
+		<li class='active' id="stepFirstNav"><a href="#">درخواست تسویه</a></li>
+		<li id="stepConfirmNav"><a href="#">تایید درخواست</a></li>
+		<li id="stepFinishNav"><a href="#">رسید تایید درخواست</a></li>
+	</ul>
+	<hr />
+	<form id="stepFirst" class="step active">
+		<input hidden name="walletId" id="walletId" value="@Model" />
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label for="cmbTransferType">نوع تسویه</label>
+					<select class="form-control" id="cmbTransferType" name="transferType" onchange="transferTypeChange();">
+						<option value="">انتخاب کنید</option>
+						@foreach (System.Data.DataRow item in new TransferTypeEnum().ToDataTable().Rows)
+						{
+							<option value="@item["Key"]">@item["Value"]</option>
+						}
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label for="cmbBank">بانک</label>
+					<select class="form-control" id="cmbBank" name="bank">
+						<option value="">انتخاب کنید</option>
+						@foreach (System.Data.DataRow item in new BankEnum().ToDataTable().Rows)
+						{
+							if (item["Key"] == "BSI")
+							{
+								<option value="@item["Key"]" selected="selected">@item["Value"]</option>
+							}
+							else
+							{
+								<option value="@item["Key"]">@item["Value"]</option>
+							}
+						}
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label for="cmbBabat">بابت</label>
+					<select class="form-control" id="cmbBabat" name="babat">
+						<option value="">انتخاب کنید</option>
+						@foreach (System.Data.DataRow item in new BabatEnum().ToDataTable().Rows)
+						{
+							<option value="@item["Key"]">@item["Value"]</option>
+						}
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6">
+				@{
+					var AmountSettlementable = (long)(wallet.AmountInTipoul - (wallet.AmountInTipoul * QuickSettlementWagePercent));
+				}
+				<div class="form-group mb-2">
+					<label>مبلغ: (@AmountSettlementable.ToString("n0"))</label>
+					<input type="number" class="form-control" name="amount" value="@AmountSettlementable" max="@AmountSettlementable">
+					<span class="form-text text-danger max-amount-error" style="display: none;">مبلغ تسویه نمیتواند بیشتر از موجودی قابل برداشت باشد</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره شبا:</label>
+					<div class="row">
+						<input type="text" class="form-control col-md-12 p-2 m-0" name="iban" value="IR" maxlength="26" style="text-align:left;">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره کارت:</label>
+					<input type="text" class="form-control" name="cardNumber" value="" maxlength="16">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group mb-2">
+					<label>شرح تسویه:</label>
+					<input type="text" class="form-control" name="sharh" value="">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شناسه پرداخت:</label>
+					<input type="text" class="form-control" name="paymentID" value="" maxlength="30">
+				</div>
+			</div>
+		</div>
+	</form>
+	<form id="stepConfirm" class="step" style="display:none" class="card-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>نام و نام خانوادگی دارنده حساب:</label>
+					<label type="text" class="form-control" id="txtOwnerName"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره حساب:</label>
+					<label type="text" class="form-control" id="txtAccountNumber"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره شبا:</label>
+					<label type="text" class="form-control" id="txtIbanNumber"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره کارت:</label>
+					<label type="text" class="form-control" id="txtCardNumber"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>کد ملی:</label>
+					<label type="text" class="form-control" id="txtNationalCode"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شناسه پرداخت:</label>
+					<label type="text" class="form-control" id="txtPaymentID"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>مبلغ:</label>
+					<label type="text" class="form-control" id="txtAmount"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>نوع تسویه:</label>
+					<label type="text" class="form-control" id="txtTransferType"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>بابت:</label>
+					<label type="text" class="form-control" id="txtBabat"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>بانک مقصد:</label>
+					<label type="text" class="form-control" id="txtDestnitionBank"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group mb-2">
+					<label>شرح:</label>
+					<label type="text" class="form-control" id="txtSharh"></label>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group mb-2">
+					<label>مستند تسویه</label>
+					<input type="file" id="docInput" name="doc" accept=".png, .jpg, .jpeg">
+				</div>
+			</div>
+		</div>
+	</form>
+	<form id="stepFinish" class="step" style="display:none" class="card-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>نام و نام خانوادگی دارنده حساب:</label>
+					<label type="text" class="form-control" id="txtOwnerName"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره حساب:</label>
+					<label type="text" class="form-control" id="txtAccountNumber"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره شبا:</label>
+					<label type="text" class="form-control" id="txtIbanNumber"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شماره کارت:</label>
+					<label type="text" class="form-control" id="txtCardNumber"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>کد ملی:</label>
+					<label type="text" class="form-control" id="txtNationalCode"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>کد رهگیری سرویس انتقال:</label>
+					<label type="text" class="form-control" id="txtTraceNumber"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>مبلغ:</label>
+					<label type="text" class="form-control" id="txtAmount"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>نوع تسویه:</label>
+					<label type="text" class="form-control" id="txtTransferType"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>بابت:</label>
+					<label type="text" class="form-control" id="txtBabat"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>بانک مقصد:</label>
+					<label type="text" class="form-control" id="txtDestnitionBank"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group mb-2">
+					<label>شرح:</label>
+					<label type="text" class="form-control" id="txtSharh"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>زمان تسویه:</label>
+					<label type="text" class="form-control" id="txtSettlementCreateDate"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>زمان واریز:</label>
+					<label type="text" class="form-control" id="txtDepositCreateDate"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>موجودی کیف پول پس از تسویه:</label>
+					<label type="text" class="form-control" id="txtAmountInTipoulAfterSettlement"></label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<label>شناسه پرداخت:</label>
+					<label type="text" class="form-control" id="txtPaymentID"></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group mb-2">
+					<button type="button" class="btn btn-light-danger font-weight-bold" onclick="printDiv(this,'چاپ رسید','#stepFinish');">چاپ رسید</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	@Html.ActionLink("ثبت درخواست", "AddQuickSettlement", new { }, new { id = "btnAddQuickSettlement" })
+	@Html.ActionLink("تایید درخواست", "AddQuickSettlementConfirm", new { }, new { id = "btnAddQuickSettlementConfirm" })
+	<button type="button" id="btnAddQuickSettlementPrev" onclick="GoToPrevStep()" class="btn btn-light-primary font-weight-bold settlement-submit-button">مرحله قبل</button>
+	<span class="text-danger" style="text-align:right;width:100%;display:block;padding-top:10px" id="lblError"></span>
+</div>
+<script>
+	function transferTypeChange() {
+		var isLocal = $("select[name='transferType'] option:selected").val() == 0;
+		if (isLocal) {
+			$("select[name='bank']").val(18);
+		}
+		$("select[name='bank']").attr("style", isLocal ? "pointer-events: none;" : "pointer-events: hand;");
+	}
+	$("#btnAddQuickSettlement").addClass('btn btn-primary font-weight-bold settlement-submit-button');
+	$("#btnAddQuickSettlementConfirm").addClass('btn btn-primary font-weight-bold settlement-submit-button');
+	$("#btnAddQuickSettlementConfirm").hide();
+	$("#btnAddQuickSettlementPrev").hide();
+	$("#btnAddQuickSettlement").click(function (e) {
+		e.preventDefault();
+		var error = ValidateInput();
+		if (error.length > 0) {
+			$("#lblError").text(error);
+			return;
+		}
+		else {
+			$("#lblError").text('');
+			var form = $("#stepFirst");
+			$.ajax({
+				url: '@Url.Action("AddQuickSettlement")',
+				data: form.serialize(),
+				type: 'POST',
+				success: function (data) {
+					if (data.status == 'error')
+						$("#lblError").text(data.message)
+					else if (data.status == 'success') {
+						GoToNextStep();
+						time = data.message.time;
+						$("#stepConfirm").find("#txtOwnerName").text(data.message.ownerName);
+						$("#stepConfirm").find("#txtAccountNumber").text(data.message.accountNumber);
+						$("#stepConfirm").find("#txtIbanNumber").text(data.message.ibanNumber);
+						$("#stepConfirm").find("#txtCardNumber").text(data.message.cardNumber);
+						$("#stepConfirm").find("#txtNationalCode").text(data.message.nationalCode);
+						$("#stepConfirm").find("#txtPaymentID").text(data.message.paymentID);
+						$("#stepConfirm").find("#txtAmount").text(form.find("input[name='amount']").val());
+						$("#stepConfirm").find("#txtTransferType").text(form.find("select[name='transferType'] option:selected").text());
+						$("#stepConfirm").find("#txtDestnitionBank").text(form.find("select[name='bank'] option:selected").text());
+						$("#stepConfirm").find("#txtBabat").text(form.find("select[name='babat'] option:selected").text());
+						$("#stepConfirm").find("#txtSharh").text(form.find("input[name='sharh']").val());
+					}
+				}
+			});
+		}
+	});
+	var time;
+	$("#btnAddQuickSettlementConfirm").click(function (e) {
+		e.preventDefault();
+		var formData = new FormData();
+		formData.append("time", time);
+		var files = $("#stepConfirm").find("#docInput").get(0).files;
+		if (files.length > 0)
+			formData.append("docBytes", files[0]);
+		$("#lblError").text('');
+		$.ajax({
+			url: '@Url.Action("AddQuickSettlementConfirm")',
+			contentType: false,
+			processData: false,
+			data: formData,
+			type: 'POST',
+			success: function (data) {
+				if (data.status == 'error')
+					$("#lblError").text(data.message);
+				else if (data.status == 'success') {
+					GoToNextStep();
+					$("#stepFinish").find("#txtOwnerName").text(data.message.ownerName);
+					$("#stepFinish").find("#txtAccountNumber").text(data.message.accountNumber);
+					$("#stepFinish").find("#txtIbanNumber").text(data.message.ibanNumber);
+					$("#stepFinish").find("#txtCardNumber").text(data.message.cardNumber);
+					$("#stepFinish").find("#txtNationalCode").text(data.message.nationalCode);
+					$("#stepFinish").find("#txtAmount").text(data.message.amount);
+					$("#stepFinish").find("#txtTransferType").text(data.message.transferType);
+					$("#stepFinish").find("#txtDestnitionBank").text(data.message.bank);
+					$("#stepFinish").find("#txtBabat").text(data.message.babat);
+					$("#stepFinish").find("#txtSharh").text(data.message.sharh);
+					$("#stepFinish").find("#txtSettlementCreateDate").text(data.message.settlementCreateDate);
+					$("#stepFinish").find("#txtDepositCreateDate").text(data.message.depositCreateDate);
+					$("#stepFinish").find("#txtAmountInTipoulAfterSettlement").text(data.message.amountInTipoulAfterSettlement);
+					$("#stepFinish").find("#txtTraceNumber").text(data.message.traceNumber);
+					$("#stepFinish").find("#txtPaymentID").text(data.message.paymentID);
+				}
+			}
+		});
+	});
+	function GoToNextStep() {
+		var wizard = $('.wizard');
+		$('.step.active', wizard).hide();
+		var currentStep = $('.step.active', wizard);
+		currentStep.hide();
+		currentStep.removeClass('active');
+		var newStep = currentStep.next('.step', wizard);
+		newStep.addClass('active');
+		newStep.show();
+		if ($('.step:last', wizard)[0] == newStep[0]) {
+			$(this).hide();
+		}
+		CheckButton();
+	}
+	function GoToPrevStep() {
+		var wizard = $('.wizard');
+		$('.step.active', wizard).hide();
+		var currentStep = $('.step.active', wizard);
+		currentStep.hide();
+		currentStep.removeClass('active');
+		var newStep = currentStep.prev('.step', wizard);
+		newStep.addClass('active');
+		newStep.show();
+		if ($('.step:first', wizard)[0] == newStep[0]) {
+			$(this).hide();
+		}
+		$('.next', wizard).show();
+		CheckButton();
+	}
+	function CheckButton() {
+		if ($('.step.active').attr('id') == 'stepFirst') {
+			$("#btnAddQuickSettlement").show();
+			$("#btnAddQuickSettlementConfirm").hide();
+			$("#btnAddQuickSettlementPrev").hide();
+			$('#stepFirstNav').addClass('active');
+			$('#stepConfirmNav').removeClass('active');
+			$('#stepFinishNav').removeClass('active');
+		}
+		else if ($('.step.active').attr('id') == 'stepConfirm') {
+			$("#btnAddQuickSettlement").hide();
+			$("#btnAddQuickSettlementConfirm").show();
+			$("#btnAddQuickSettlementPrev").show();
+			$('#stepFirstNav').removeClass('active');
+			$('#stepConfirmNav').addClass('active');
+			$('#stepFinishNav').removeClass('active');
+		}
+		else if ($('.step.active').attr('id') == 'stepFinish') {
+			$("#btnAddQuickSettlement").hide();
+			$("#btnAddQuickSettlementConfirm").hide();
+			$("#btnAddQuickSettlementPrev").hide();
+			$('#stepFirstNav').removeClass('active');
+			$('#stepConfirmNav').removeClass('active');
+			$('#stepFinishNav').addClass('active');
+		}
+	}
+	function ValidateInput() {
+		var form = $("#stepFirst");
+		if (form.find("select[name='transferType'] option:selected").val() == '') {
+			form.find("select[name='transferType']").focus();
+			return "نوع تسویه را انتخاب کنید";
+		}
+		else if (form.find("select[name='bank'] option:selected").val() == '') {
+			form.find("select[name='bank']").focus();
+			return "بانک را انتخاب کنید";
+		}
+		else if (form.find("select[name='babat'] option:selected").val() == '') {
+			form.find("select[name='babat']").focus();
+			return "بابت را انتخاب کنید";
+		}
+		else if ((form.find("input[name='iban']").val() == undefined || form.find("input[name='iban']").val() == 'IR')
+			&& (form.find("input[name='cardNumber']").val() == undefined || form.find("input[name='cardNumber']").val() == '')) {
+			form.find("input[name='iban']").focus();
+			return "شماره کارت یا شبا را وارد کنید";
+		}
+		else if ((form.find("input[name='iban']").val() != undefined && form.find("input[name='iban']").val() != 'IR')
+			&& (form.find("input[name='cardNumber']").val() != undefined && form.find("input[name='cardNumber']").val() != '')) {
+			form.find("input[name='iban']").focus();
+			return "از بین شماره کارت یا شبا فقط یک مورد را وارد کنید";
+		}
+		else if (form.find("input[name='sharh']").val() == '') {
+			form.find("input[name='sharh']").focus();
+			return "شرح تسویه را وارد کنید";
+		}
+		else
+			return '';
+	}
+
+</script>

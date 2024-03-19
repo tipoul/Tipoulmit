@@ -1,0 +1,81 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "ba7db808-dc5e-445f-9ddc-b28725ba5a1e": {
+      "ProjectGuid": "ba7db808-dc5e-445f-9ddc-b28725ba5a1e",
+      "DisplayName": "Tipoul.ETrust.WebPage",
+      "ColorIndex": 0
+    },
+    "bf6ad611-9fd7-44f4-bd21-cbf0f6bad720": {
+      "ProjectGuid": "bf6ad611-9fd7-44f4-bd21-cbf0f6bad720",
+      "DisplayName": "Tipoul.AdminPanel.WebUI",
+      "ColorIndex": 1
+    },
+    "e4fa9b5f-9d2f-4a7f-8d92-0ff69d8d302b": {
+      "ProjectGuid": "e4fa9b5f-9d2f-4a7f-8d92-0ff69d8d302b",
+      "DisplayName": "Tipoul.UserPanel.WebUI",
+      "ColorIndex": 2
+    },
+    "6a160961-c6fc-4743-b41a-03092b884988": {
+      "ProjectGuid": "6a160961-c6fc-4743-b41a-03092b884988",
+      "DisplayName": "Tipoul.Framework.Services",
+      "ColorIndex": 3
+    },
+    "dd0079e6-3ddd-49f9-990d-b477031b8719": {
+      "ProjectGuid": "dd0079e6-3ddd-49f9-990d-b477031b8719",
+      "DisplayName": "Tipoul.Athentication.Web",
+      "ColorIndex": 4
+    },
+    "239aa042-6e4f-4185-be51-4666d4038788": {
+      "ProjectGuid": "239aa042-6e4f-4185-be51-4666d4038788",
+      "DisplayName": "Tipoul.Framework.DataAccessLayer",
+      "ColorIndex": 5
+    },
+    "bcff95d3-53aa-4094-b8b3-8645d996ee31": {
+      "ProjectGuid": "bcff95d3-53aa-4094-b8b3-8645d996ee31",
+      "DisplayName": "Tipoul.PersonalGateWay.WebUI",
+      "ColorIndex": 6
+    },
+    "c7b0ba4b-a699-42b6-a356-0ff8c74d71ac": {
+      "ProjectGuid": "c7b0ba4b-a699-42b6-a356-0ff8c74d71ac",
+      "DisplayName": "Tipoul.Infrastructure.RequestLog",
+      "ColorIndex": 7
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "0e650e08-1b64-4f4e-938b-03a25658d599": {
+      "ProjectGuid": "0e650e08-1b64-4f4e-938b-03a25658d599",
+      "DisplayName": "Tipoul.Services.WebApi",
+      "ColorIndex": 8
+    },
+    "77632917-23a2-4574-88ac-c7da492a8898": {
+      "ProjectGuid": "77632917-23a2-4574-88ac-c7da492a8898",
+      "DisplayName": "Tipoul.Framework.StorageModels",
+      "ColorIndex": 9
+    },
+    "edcba444-f44a-4b32-b416-35aee8ae48d5": {
+      "ProjectGuid": "edcba444-f44a-4b32-b416-35aee8ae48d5",
+      "DisplayName": "Tipoul.Shop.WebUI",
+      "ColorIndex": 10
+    },
+    "6b71f181-4759-4785-b01c-64b485ab5100": {
+      "ProjectGuid": "6b71f181-4759-4785-b01c-64b485ab5100",
+      "DisplayName": "Tipoul.Athentication.Agent",
+      "ColorIndex": 11
+    },
+    "9085a755-e740-4bd6-bd78-c593234bdf4a": {
+      "ProjectGuid": "9085a755-e740-4bd6-bd78-c593234bdf4a",
+      "DisplayName": "Tipoul.Framework.Utilities",
+      "ColorIndex": 12
+    },
+    "1288b640-1468-4ae7-b503-c59f6c0a8a1e": {
+      "ProjectGuid": "1288b640-1468-4ae7-b503-c59f6c0a8a1e",
+      "DisplayName": "Tipoul.Services.Agent",
+      "ColorIndex": 13
+    }
+  },
+  "NextColorIndex": 14
+}

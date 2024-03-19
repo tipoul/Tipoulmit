@@ -1,0 +1,44 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.Common.PagingModel
+
+@{ var link = "/" + Context.GetRouteValue("controller") + "/" + Context.GetRouteValue("action");
+
+    foreach (var query in Context.Request.Query)
+    {
+        if (query.Key != "pageNumber")
+        {
+            if (link.Contains("?"))
+                link += "&";
+            else
+                link += "?";
+
+            link += $"{query.Key}={query.Value}";
+        }
+    }
+
+    if (link.Contains("?"))
+        link += "&";
+    else
+        link += "?";
+
+    link += "pageNumber={{i}}";
+
+    var seed = 3; }
+
+@if (Model.PagesCount > 1)
+{
+<div class="d-flex justify-content-center">
+    <div class="d-flex py-2">
+        @for (int i = 1; i <= Model.PagesCount; i++)
+        {
+            if (i == Model.PageNumber)
+            {
+<a href="#" onclick="event.preventDefault()" class="btn btn-icon btn-sm border-0 btn-light btn-hover-primary active mr-2 my-1">@i</a> }
+else if (i <= seed || Math.Abs(Model.PageNumber - i) <= seed || Model.PagesCount - i < seed)
+{
+<a href="@link.Replace("{{i}}", i.ToString())" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">@i</a> }
+else if (Math.Abs(Model.PageNumber - i) == seed + 1)
+{
+<a href="#" onclick="event.preventDefault()" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">...</a>}
+}
+    </div>
+</div>}

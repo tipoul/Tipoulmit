@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+
+<html direction="rtl" dir="rtl" style="direction: rtl">
+<head>
+    <base href="">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tipoul user panel</title>
+    <link href="~/css/fullcalendar.bundle.rtl.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/wizard-1.rtl.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/wizard-2.rtl.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/plugins.bundle.rtl.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/prismjs.bundle.rtl.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.bundle.rtl.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/persian-datepicker.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        .wizard-arrow {
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .wizard-step[data-wizard-state="done"] .wizard-label .wizard-icon,
+        .wizard-step[data-wizard-state="done"] .wizard-label .wizard-title,
+        .wizard-step[data-wizard-state="done"] .wizard-arrow svg g [fill] {
+            color: #1BC5BD !important;
+            fill: #1BC5BD !important;
+        }
+    </style>
+</head>
+<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled sidebar-enabled page-loading">
+    <div class="d-flex flex-column flex-root">
+        <div class="d-flex flex-row flex-column-fluid page">
+            <div class="d-flex flex-column flex-row-fluid pt-4" id="kt_wrapper">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/script.js"></script>
+    <script src="~/js/plugins.bundle.js"></script>
+    <script src="~/js/prismjs.bundle.js"></script>
+    <script src="~/js/scripts.bundle.js"></script>
+    <script src="~/js/fullcalendar.bundle.js"></script>
+    <script src="~/js/widgets.js"></script>
+    <script src="~/js/persian-date.js"></script>
+    <script src="~/js/persian-datepicker.js"></script>
+    <script src="~/js/layout.script.js"></script>
+
+    @await RenderSectionAsync("scripts", false)
+
+    <script>
+        $(document).ready(function(){
+            $("select[name=StateId]").change(function() {
+
+                $("select[name=CityId]").html("<option calue=''>در حال بارگزاری</option>").selectpicker("refresh");
+
+                $.ajax({
+                    url: "/wizard/getcities?stateid=" + $(this).val(),
+                    success: function(response) {
+                        var options = "<option value=''>انتخاب کنید</option>";
+                        
+                        for(var i = 0; i < response.length; i++){
+                            var option = response[i];
+                            options += "<option value='" + option.id + "'>" + option.name + "</option>";
+                        }
+
+                        $("select[name=CityId]").html(options).selectpicker("refresh");
+                    }
+                });
+            });
+
+            $("select[name=BusinessCategoryId]").change(function() {
+
+                $("select[name=BusinessSubCategoryId]").html("<option calue=''>در حال بارگزاری</option>").selectpicker("refresh");
+
+                $.ajax({
+                    url: "/profile/getBusinessSubCategories?BusinessCategoryId=" + $(this).val(),
+                    success: function(response) {
+                        var options = "<option value=''>انتخاب کنید</option>";
+                        
+                        for(var i = 0; i < response.length; i++){
+                            var option = response[i];
+                            options += "<option value='" + option.id + "'>" + option.name + "</option>";
+                        }
+
+                        $("select[name=BusinessSubCategoryId]").html(options).selectpicker("refresh");
+                    }
+                });
+            });
+        });
+    </Script>
+
+</body>
+</html>

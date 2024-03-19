@@ -1,0 +1,12 @@
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\bin\Release\net5.0\Tipoul.Infrastructure.RequestLog.deps.json
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\bin\Release\net5.0\Tipoul.Infrastructure.RequestLog.dll
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\bin\Release\net5.0\Tipoul.Infrastructure.RequestLog.pdb
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\Tipoul.Infrastructure.RequestLog.csproj.AssemblyReference.cache
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\Tipoul.Infrastructure.RequestLog.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\Tipoul.Infrastructure.RequestLog.AssemblyInfoInputs.cache
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\Tipoul.Infrastructure.RequestLog.AssemblyInfo.cs
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\Tipoul.Infrastructure.RequestLog.csproj.CoreCompileInputs.cache
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\Tipoul.Infrastructure.RequestLog.dll
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\refint\Tipoul.Infrastructure.RequestLog.dll
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\Tipoul.Infrastructure.RequestLog.pdb
+C:\Projects\src\Infrastructure\Tipoul.Infrastructure.RequestLog\obj\Release\net5.0\ref\Tipoul.Infrastructure.RequestLog.dll

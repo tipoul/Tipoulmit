@@ -1,0 +1,122 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.Notification.NotificationViewModel
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::صندوق ورودی-->
+            <div class="d-flex flex-row">
+
+                @*@await Html.PartialAsync("_SideBar")*@
+
+                <div class="flex-row-fluid ml-lg-8 d-block" id="kt_صندوق ورودی_list">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                            <div class="card card-custom card-stretch @(Model.TotalTickets == 0 ? "alert-info" : Model.NewTickets != 0 ? "alert-warning" : "alert-success")">
+                                <div class="card-body text-center pt-4">
+                                    <div class="my-5">
+                                        <span class="text-dark font-weight-bold text-hover-primary font-size-h4">تیکت ها</span>
+                                    </div>
+                                    @if (Model.TotalTickets == 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">تیکتی ثبت نشده است</span>
+                                    }
+                                    else if (Model.NewTickets != 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">@Model.NewTickets.ToString("n0") تیکت باز از @Model.TotalTickets.ToString("n0")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">تعداد تیکت ها: @Model.TotalTickets.ToString("n0")</span>
+                                    }
+                                    <div class="mt-10">
+                                        <a href="/notification/tickets" class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase">مشاهده همه تیکت ها</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(Model.LastTicketTitle))
+                            {
+                                <div class="card-footer alert alert-dark">
+                                    <strong>@Model.LastTicketTitle: </strong>
+                                    <span class="mr-3">@Model.LastTicketMessage</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                            <div class="card card-custom card-stretch @(Model.NotSeenVerifications != 0 ? "alert-danger" : Model.NotDoneVerifications != 0 ? "alert-warning" : Model.TotalVerifications != 0 ? "alert-success" : "alert-info")">
+                                <div class="card-body text-center pt-4">
+                                    <div class="my-5">
+                                        <span class="text-dark font-weight-bold text-hover-primary font-size-h4">احراز هویت</span>
+                                    </div>
+                                    @if (Model.NotSeenVerifications != 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">@Model.NotSeenVerifications.ToString("n0") دیده نشده از @Model.TotalVerifications.ToString("n0")</span>
+                                    }
+                                    else if (Model.NotDoneVerifications != 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">@Model.NotDoneVerifications.ToString("n0") ناتمام از @Model.TotalVerifications.ToString("n0")</span>
+                                    }
+                                    else if (Model.TotalVerifications != 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">تعداد کل: @Model.TotalVerifications.ToString("n0")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">اطلاعاتی برای نمایش وجود ندارد</span>
+                                    }
+                                    <div class="mt-10">
+                                        <a href="/notification/Verifications" class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase">مشاهده همه احراز هویت ها</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(Model.LastVerificationErrorDescription))
+                            {
+                                <div class="card-footer alert alert-dark">
+                                    <span class="mr-3">@Model.LastVerificationErrorDescription</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                            <div class="card card-custom card-stretch @(Model.NotSuccessTaxRequests != 0 ? "alert-danger" : Model.NotDoneTaxRequests != 0 ? "alert-warning" : Model.TotalTaxRequests != 0 ? "alert-success" : "alert-info")">
+                                <div class="card-body text-center pt-4">
+                                    <div class="my-5">
+                                        <span class="text-dark font-weight-bold text-hover-primary font-size-h4">درخواست کد مالیاتی</span>
+                                    </div>
+                                    @if (Model.NotSuccessTaxRequests != 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">@Model.NotSuccessTaxRequests.ToString("n0") ناموفق از @Model.TotalTaxRequests.ToString("n0")</span>
+                                    }
+                                    else if (Model.NotDoneTaxRequests != 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">@Model.NotDoneTaxRequests.ToString("n0") ناتمام از @Model.TotalTaxRequests.ToString("n0")</span>
+                                    }
+                                    else if (Model.TotalTaxRequests != 0)
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">تعداد کل: @Model.TotalTaxRequests.ToString("n0")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn btn-text btn-light-success btn-sm font-weight-bold">درخواستی ثبت نشده</span>
+                                    }
+                                    <div class="mt-10">
+                                        <a href="/notification/TaxRequest" class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase">مشاهده همه درخواست های کد مالیاتی</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(Model.LastTaxRequestErrorMessage))
+                            {
+                                <div class="card-footer alert alert-dark">
+                                    <span class="mr-3">@Model.LastTaxRequestErrorMessage</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::صندوق ورودی-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>

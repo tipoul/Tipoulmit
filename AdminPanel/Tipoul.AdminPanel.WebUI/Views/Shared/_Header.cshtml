@@ -1,0 +1,124 @@
+﻿@using Microsoft.AspNetCore.Html
+
+<!--begin::Header-->
+<div id="kt_header" class="header  header-fixed ">
+    <!--begin::Header Wrapper-->
+    <div class="header-wrapper rounded-top-xl d-flex flex-grow-1 align-items-center">
+        <!--begin::Container-->
+        <div class=" container-fluid  d-flex align-items-center justify-content-end justify-content-lg-between flex-wrap">
+            <!--begin::Menu Wrapper-->
+            <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
+                <!--begin::Menu-->
+                <div id="kt_header_menu" class="header-menu header-menu-mobile  header-menu-layout-default ">
+                    <!--begin::Nav-->
+                    <ul class="menu-nav ">
+
+                        @CreateMenu("درگاه های تجاری", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن درگاه", Link = "/CommertialGateWay/form" },
+                        new SubMenu { Title = "مشاهده درگاه ها", Link = "/CommertialGateWay" },
+                        new SubMenu { Title = "مشاهده گزارشات درگاه ها", Link = "/CommertialGateWay/report" }
+                        })
+
+                        @CreateMenu("تیکت ها", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن تیکت", Link = "/Ticket/form" },
+                        new SubMenu { Title = "مشاهده تیکت ها", Link = "/Ticket" }
+                        })
+
+                        @CreateMenu("حساب های بانکی", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن حساب بانکی", Link = "/BankAccount/form" },
+                        new SubMenu { Title = "مشاهده حساب های بانکی", Link = "/BankAccount" }
+                        })
+
+                        @CreateMenu("پیام ها و اطلاعیه ها", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن پیام و اطلاعیه", Link = "/Notification/form" },
+                        new SubMenu { Title = "مشاهده پیام ها و اطلاعیه ها", Link = "/Notification" }
+                        })
+
+                        @CreateMenu("مدیریت کاربران", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن کاربر", Link = "/User/form" },
+                        new SubMenu { Title = "مشاهده کاربران", Link = "/User" },
+                        new SubMenu { Title = "مشاهده گزارشات کاربران", Link = "/" }
+                        })
+
+                        @CreateMenu("احراز هویت", new List<SubMenu> {
+                        //new SubMenu { Title = "افزودن مدارک", Link = "/Verification/Form" },
+                        new SubMenu { Title = "مشاهده احراز هویت ها", Link = "/Verification" }
+                        })
+
+                        @CreateMenu("پروفایل ها", new List<SubMenu> {
+                        new SubMenu { Title = "مشاهده پروفایل ها", Link = "/" }
+                        })
+
+                        @CreateMenu("تراکنش ها", new List<SubMenu> {
+                        new SubMenu { Title = "مشاهده تراکنش ها", Link = "/" },
+                        new SubMenu { Title = "مشاهده گزارشات تراکنش ها", Link = "/" }
+                        })
+                        @CreateMenu("تسویه ها", new List<SubMenu> {
+                        new SubMenu { Title = "مشاهده تسویه ها", Link = "/Settlement/Settlements" },
+                        })
+                         @CreateMenu("درخواست های واریز", new List<SubMenu> {
+                        new SubMenu { Title = "مشاهده درخواست های واریز", Link = "/WalletDepositRequest/WalletDepositRequests" },
+                        })
+                        @CreateMenu("اپراتور ها", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن اپراتور", Link = "/" },
+                        new SubMenu { Title = "مشاهده اپراتور ها", Link = "/" },
+                        new SubMenu { Title = "مشاهده گزارشات اپراتور ها", Link = "/" }
+                        })
+
+                        @CreateMenu("مدیریت کارمزد ها", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن بسته", Link = "/" },
+                        new SubMenu { Title = "مشاهده بسته ها", Link = "/" }
+                        })
+
+                        @CreateMenu("تخفیف", new List<SubMenu> {
+                        new SubMenu { Title = "افزودن تخفیف", Link = "/" },
+                        new SubMenu { Title = "مشاهده تخفیف ها", Link = "/" }
+                        })
+
+                    </ul>
+                    <!--end::Nav-->
+                </div>
+                <!--end::Menu-->
+            </div>
+            <!--end::Menu Wrapper-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Header Wrapper-->
+</div>
+<!--end::Header-->
+@functions {
+    private HtmlString CreateMenu(string title, List<SubMenu> subMenus)
+    {
+        var html =
+        "<li class='menu-item  menu-item-submenu menu-item-rel' data-menu-toggle='click' aria-haspopup='true'>" +
+        "	<a href='javascript:;' class='menu-link menu-toggle'>" +
+        $"		<span class='menu-text'>{title}</span><i class='menu-arrow'></i>" +
+        "	</a>" +
+        "	<div class='menu-submenu menu-submenu-classic menu-submenu-left'>" +
+        "		<ul class='menu-subnav'>" +
+        $"			{string.Concat(subMenus.Select(subMenu => CreateSubMenu(subMenu)))}" +
+        "		</ul>" +
+        "	</div>" +
+        "</li>";
+
+        return new HtmlString(html);
+
+        static string CreateSubMenu(SubMenu subMenu)
+        {
+            return
+            "<li class='menu-item' aria-haspopup='true'>" +
+            $"	<a href='{subMenu.Link}' class='menu-link'>" +
+            $"		<span class='menu-text'>{subMenu.Title}</span><span class='menu-desc'></span>" +
+            "	</a>" +
+            "</li>";
+        }
+    }
+
+    public class SubMenu
+    {
+        public string Title { get; set; }
+
+        public string Link { get; set; }
+    }
+}

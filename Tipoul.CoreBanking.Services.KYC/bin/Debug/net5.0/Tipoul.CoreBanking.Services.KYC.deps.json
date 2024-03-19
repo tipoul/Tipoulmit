@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Tipoul.CoreBanking.Services.KYC/1.0.0": {
+        "runtime": {
+          "Tipoul.CoreBanking.Services.KYC.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Tipoul.CoreBanking.Services.KYC/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

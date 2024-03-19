@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Tipoul.Framework.Utilities</id>
+    <version>1.0.0</version>
+    <authors>Tipoul.Framework.Utilities</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.IdentityModel.Tokens" version="6.13.1" exclude="Build,Analyzers" />
+        <dependency id="System.IdentityModel.Tokens.Jwt" version="6.13.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\bin\Debug\net5.0\Tipoul.Framework.Utilities.dll" target="lib\net5.0\Tipoul.Framework.Utilities.dll" />
+  </files>
+</package>

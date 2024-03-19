@@ -1,0 +1,194 @@
+﻿@using Tipoul.Framework.StorageModels
+
+@model Ticket
+@inject Tipoul.Athentication.Agent.Services.AthenticationProvider athenticationProvider
+@inject TipoulFrameworkDbContext dbContext
+
+@{
+    var currentUser = athenticationProvider.GetUser();
+    var otherTickets = await dbContext.Tickets.Include(f => f.TicketStatusHistories).ThenInclude(f => f.User).Where(f => f.UserId == currentUser.Id).ToListAsync();
+}
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::چت-->
+            <div class="d-flex flex-row">
+                <!--begin::Aside-->
+                <div class="flex-row-auto offcanvas-mobile w-350px w-xl-400px offcanvas-mobile-on" id="kt_chat_aside">
+                    <!--begin::Card-->
+                    <div class="card card-custom">
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            <!--begin:کاربران-->
+                            <div class="mt-7 scroll scroll-pull ps ps__rtl ps--active-y" style="max-height: 300px !important; overflow: auto;">
+                                @if (otherTickets.Count == 0)
+                                {
+                                    <div class="alert alert-warning">تیکت دیگری برای نمایش وجود ندارد.</div>
+                                }
+                                else
+                                {
+                                    foreach (var ticket in otherTickets)
+                                    {
+                                        var lastStatus = ticket.TicketStatusHistories.OrderByDescending(f => f.CreateDate).FirstOrDefault();
+                                        if(lastStatus==null)
+                                        {
+                                            lastStatus = new TicketStatusHistory();
+                                            lastStatus.User = new User();
+                                        }
+                                        <a class="d-flex align-items-center justify-content-between mb-5 @(Model!=null && ticket.Id == Model.Id ? "alert-success rounded p-2" : string.Empty)" href="/notification/ticket/@ticket.Id">
+                                            <div class="d-flex align-items-center">
+                                                <div class="symbol symbol-circle symbol-50 mr-3">
+                                                    <img alt="Pic" src="@(string.IsNullOrWhiteSpace(lastStatus.User.AvatarURL) ? "/img/001-boy.svg" : lastStatus.User.AvatarURL)">
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <span class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">@lastStatus.User.FirstName @lastStatus.User.LastName</span>
+                                                    <span class="text-muted font-weight-bold font-size-sm">@lastStatus.Status</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-column align-items-end">
+                                                <span class="text-muted font-weight-bold font-size-sm date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(lastStatus.CreateDate, true)</span>
+                                            </div>
+                                        </a>
+                                    }
+                                }
+                                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; left: 352px; height: 628px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 300px;"></div></div>
+                            </div>
+                            <!--end:کاربران-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Card-->
+                </div>
+                <div class="offcanvas-mobile-overlay"></div>
+                <!--end::Aside-->
+                <!--begin::Content-->
+                <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
+                    <!--begin::Card-->
+                    <form class="card card-custom" method="post" enctype="multipart/form-data" style="max-height: 600px;">
+                        <!--begin::Header-->
+                        <div class="card-header align-items-center px-4 py-3">
+                            <div class="text-center flex-grow-1">
+                                @if (Model == null)
+                                {
+                                    <div class="text-dark-75 font-weight-bold font-size-h5">ثبت تیکت جدید</div>
+                                }
+                                else
+                                {
+                                    <div class="text-dark-75 font-weight-bold font-size-h5">@Model.Title</div>
+                                    <div>
+                                        <span class="label label-sm label-dot label-success"></span>
+                                        <span class="font-weight-bold text-muted font-size-sm">@Model.TicketStatusHistories.OrderByDescending(f => f.CreateDate).Select(f => f.Status).FirstOrDefault()</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            @if (Model == null)
+                            {
+                                <div class="row">
+                                    <div class="col-12 form-group">
+                                        <label>عنوان</label>
+                                        <input type="text" class="form-control" name="Title" required />
+                                    </div>
+                                    <div class="col-9 form-group">
+                                        <label>دپارتمان</label>
+                                        <select class="form-control" name="Department" required>
+                                            <option value="">انتخاب کنید</option>
+                                            @foreach (var department in Ticket.GetAllDepartmentTypes())
+                                            {
+                                                <option value="@((int)department)">@Ticket.GetDepartmentTypeName(department)</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        <label>اولویت</label>
+                                        <select class="form-control" name="Priority" required>
+                                            <option value="">انتخاب کنید</option>
+                                            @foreach (var priority in Ticket.GetAllPriorityTypes())
+                                            {
+                                                <option value="@((int)priority)">@Ticket.GetPriorityTypeName(priority)</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="scroll scroll-pull ps ps__rtl ps--active-y" data-mobile-height="350" style="height: 465px; overflow: hidden;">
+                                    <div class="messages">
+                                        @foreach (var message in Model.TicketMessages)
+                                        {
+                                            if (message.UserId == currentUser.Id)
+                                            {
+                                                <div class="d-flex flex-column mb-5 align-items-start">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-circle symbol-40 mr-3">
+                                                            <img alt="Pic" src="@(string.IsNullOrWhiteSpace(message.User.AvatarURL) ? "/img/001-boy.svg" : message.User.AvatarURL)">
+                                                        </div>
+                                                        <div>
+                                                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">شما</a>
+                                                            <span class="text-muted font-size-sm date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(message.CreateDate, true)</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">@message.Message</div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex flex-column mb-5 align-items-end">
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+                                                            <span class="text-muted font-size-sm date-container">@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(message.CreateDate, true)</span>
+                                                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">@message.User.FirstName @message.User.LastName</a>
+                                                        </div>
+                                                        <div class="symbol symbol-circle symbol-40 ml-3">
+                                                            <img alt="Pic" src="@(string.IsNullOrWhiteSpace(message.User.AvatarURL) ? "/img/001-boy.svg" : message.User.AvatarURL)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">@message.Message</div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 465px; left: 786px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 208px;"></div></div>
+                                </div>
+                            }
+                        </div>
+                        <!--end::Body-->
+                        <!--begin::Footer-->
+                        <div class="card-footer align-items-center">
+                            <!--begin::Compose-->
+                            <textarea class="form-control" name="message" rows="2" placeholder="تایپ یک پیام" required></textarea>
+                            <div class="d-flex align-items-center justify-content-between mt-5">
+                                <div class="mr-3">
+                                    <a href="#" class="btn btn-clean btn-icon btn-md mr-1"><i class="flaticon2-photograph icon-lg"></i></a>
+                                    @*<a href="#" class="btn btn-clean btn-icon btn-md"><i class="flaticon2-photo-camera  icon-lg"></i></a>*@
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">ارسال</button>
+                                </div>
+                            </div>
+                            <!--begin::Compose-->
+                        </div>
+                        <!--end::Footer-->
+                    </form>
+                    <!--end::Card-->
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::چت-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+@section scripts {
+<script src="~/js/chat.js"></script>
+}

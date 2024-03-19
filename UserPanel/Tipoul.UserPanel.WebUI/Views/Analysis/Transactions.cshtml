@@ -1,0 +1,565 @@
+﻿@inject Tipoul.Athentication.Agent.Services.AthenticationProvider athenticationProvider
+@inject TipoulFrameworkDbContext dbContext
+
+@{
+    var user = athenticationProvider.GetUser();
+
+    var banks = (await dbContext.Transactions.Where(f => f.GateWay.Wallet.UserId == user.Id).Select(f => f.TransactionResponse).Select(f => f.IssuerBank).ToListAsync()).Distinct();
+
+    var gateways = await dbContext.CommertialGateWays.Where(f => f.Wallet.UserId == user.Id).ToListAsync();
+}
+
+@section styles{
+    <link href="~/css/highcharts.css" rel="stylesheet" />
+    <style>
+        .chart-form {
+            margin-top: 20px;
+        }
+    </style>
+}
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <div class="d-flex flex-column-fluid">
+        <div class=" container-fluid ">
+            <div class="card card-custom">
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            تراکنش ها
+                            <span class="text-muted pt-2 font-size-sm d-block">تحلیل تراکنش ها</span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/transactionCount" data-chart-id="TransactionsCount">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">تعداد تراکنش های انجام شده</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportTransactionCountCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        @*<div class="form-group">
+                                                <label>از تاریخ</label>
+                                                <input class="form-control date-picker" name="minDate" readonly data-value="@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(DateTime.Today.AddDays(-7)).Replace("/", "-")" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>تا تاریخ</label>
+                                                <input class="form-control date-picker" name="maxDate" readonly data-value="@Tipoul.Framework.Utilities.Converters.DateConverter.ToShamsy(DateTime.Today).Replace("/", "-")" required />
+                                            </div>*@
+                                    </div>
+                                    <div class="col-md-9"><div id="TransactionsCount"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/transactionAmount" data-chart-id="TransactionsAmount">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">حجم تراکنش های انجام شده</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportTransactionAmountCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="TransactionsAmount"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/avrageTransactionCount" data-chart-id="AvrageTransactionsCount">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">میانگین تعداد تراکنش های انجام شده</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportAvrageTransactionCountCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="AvrageTransactionsCount"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/avrageTransactionAmount" data-chart-id="AvrageTransactionAmount">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">میانگین حجم هر تراکنش انجام شده</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportAvrageTransactionAmountCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="AvrageTransactionAmount"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/sumTransactionAmount" data-chart-id="SumTransactionAmount">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">مجموع حجم تراکنش های انجام شده</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportSumTransactionAmountCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="SumTransactionAmount"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/transactionCountSplitedByTimeInDay" data-chart-id="TransactionCountSplitedByTimeInDay">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">تعداد تراکنش به تقکیک بازه زمانی</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportTransactionCountSplitedByTimeInDayCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="TransactionCountSplitedByTimeInDay"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        @if (gateways.Count > 1)
+                        {
+                            <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/customerCountBasedOnGatwWay" data-chart-id="CustomerCountBasedOnGatwWay">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <h3 class="card-label">تعداد مشتریان یکتا یا پرداخت کنندگان به تفکیک درگاه</h3>
+                                    </div>
+                                    <div class="card-toolbar">
+                                        <a href="/analysis/exportCustomerCountBasedOnGatwWayCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            @*<div class="form-group">
+                                                    <label>درگاه</label>
+                                                    <select name="GateWayId" class="form-control">
+                                                        <option value="" selected>همه</option>
+                                                        @foreach (var gateWay in gateways)
+                                                        {
+                                                            <option value="@gateWay.Id">@gateWay.Title</option>
+                                                        }
+                                                    </select>
+                                                </div>*@
+                                            <div class="form-group">
+                                                <label>PSP</label>
+                                                <select name="PSP" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    <option value="سپهر">سپهر</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>بانک</label>
+                                                <select name="bank" class="form-control">
+                                                    <option value="" selected>همه</option>
+                                                    @foreach (var bank in banks)
+                                                    {
+                                                        if (!string.IsNullOrWhiteSpace(bank))
+                                                        {
+                                                            <option value="@bank">@bank</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9"><div id="CustomerCountBasedOnGatwWay"></div></div>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/transacionCountBasedOnIssuerBank" data-chart-id="TransacionCountBasedOnIssuerBank">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">تفکیک تعداد تراکنش بانک ها</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportTransacionCountBasedOnIssuerBankCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="TransacionCountBasedOnIssuerBank"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/failedTransacionCountBasedOnReason" data-chart-id="FailedTransacionCountBasedOnReason">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">تفکیک دلیل عدم موفقیت تراکنش ها</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportFailedTransacionCountBasedOnReasonCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="FailedTransacionCountBasedOnReason"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="card card card-custom card-border col-sm-12 col-md-12 chart-form" action="/analysis/customerGrow" data-chart-id="CustomerGrow">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">روند رشد تعداد مشتری ها</h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <a href="/analysis/exportCustomerGrowCSV" target="_blank" download title="دانلود فایل csv">دانلود فایل csv</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>درگاه</label>
+                                            <select name="GateWayId" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var gateWay in gateways)
+                                                {
+                                                    <option value="@gateWay.Id">@gateWay.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>PSP</label>
+                                            <select name="PSP" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                <option value="سپهر">سپهر</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>بانک</label>
+                                            <select name="bank" class="form-control">
+                                                <option value="" selected>همه</option>
+                                                @foreach (var bank in banks)
+                                                {
+                                                    if (!string.IsNullOrWhiteSpace(bank))
+                                                    {
+                                                        <option value="@bank">@bank</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9"><div id="CustomerGrow"></div></div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/highcharts.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".chart-form").each(function () {
+                var form = $(this);
+
+                form.submit(function () {
+
+                    var link = $(this).find("a");
+                    link.prop("href", link.prop("href").split("?")[0] + "?" + form.serialize());
+
+                    $.get(form.prop("action") + "?" + form.serialize())
+                        .then(function (response) {
+                            response.tooltip.formatter = function () {
+                                //return "<span style='direction: rtl;'>" + 'The value for <b>' + this.x + '</b> is <b > ' + this.y + '</b >, in series ' + this.series.name + "<span>";
+                                return "<span style='direction: rtl'>" + "<span>" + this.series.name + "</span>" + "<br />" + "<span>برای " + this.x + ": " + this.y + "</span>" + "</span>";
+                            };
+                            Highcharts.chart(form.data("chart-id"), response);
+                        });
+
+                    return false;
+                });
+
+                form.submit();
+            });
+
+            $("select").change(function () { $(this).parents("form:eq(0)").submit() });
+        });
+    </script>
+}

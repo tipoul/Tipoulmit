@@ -1,0 +1,138 @@
+﻿@model Tipoul.PersonalGateWay.WebUI.ViewModels.CallBackViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="@Model.Title,تیپول,درگاه پرداخت,درگاه پرداخت تیپول,درگاه پرداخت @Model.Title" />
+    <meta name="description" content="درگاه پرداخت @Model.Title با میزبانی تیپول" />
+    <meta name="subject" content="درگاه پرداخت @Model.Title">
+    <meta name="copyright" content="تیپول">
+    <meta name="language" content="fa">
+    <meta name="summary" content="پرداخت به @Model.Title">
+    <meta name="category" content="financialfinancial">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="rating" content="General">
+    <meta name="revisit-after" content="7 days">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <title>@Model.Title</title>
+    <!-- custom css file link  -->
+    <link href="~/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <style>
+        .text-left {
+            text-align: left;
+        }
+
+        .date-container {
+            direction: ltr;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="card-container">
+
+            <div class="front">
+                @if (!string.IsNullOrWhiteSpace(Model.LogoUrl))
+                {
+                    <div class="image">
+                        <img src="@Model.LogoUrl" alt="">
+                        @*<img src="image/logo.png" alt="">*@
+                    </div>
+                }
+                <div class="card-number-box">@Model.Title</div>
+                @*<div class="flexbox">
+                        <div class="box">
+                            <span>CCv2</span>
+                            <div class="card-holder-name">***</div>
+                        </div>
+                        <div class="box">
+                            <span>انقضا</span>
+                            <div class="expiration">
+                                <span class="exp-month">00</span>
+                                <span class="exp-year">00</span>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+
+        <form class="row" method="post">
+            <div class="col-md-12 text-center alert alert-@(Model.Success ? "success" : "danger")">
+                <span>@Model.RespMsg</span>
+            </div>
+            <div class="col-md-12 table-responsive">
+                <table class="table">
+                    <tbody>
+                        @if (Model.Amount != 0)
+                        {
+                            <tr>
+                                <td>مبلغ</td>
+                                <td class="text-left">@Model.Amount.ToString("n0")</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.CardNumber))
+                        {
+                            <tr>
+                                <td>پرداخت کننده</td>
+                                <td class="text-left">@Model.PayerName</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.CardNumber))
+                        {
+                            <tr>
+                                <td>شماره کارت</td>
+                                <td class="text-left">@Model.CardNumber</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.IssuerBank))
+                        {
+                            <tr>
+                                <td>بانک</td>
+                                <td class="text-left">@Model.IssuerBank</td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.DatePaid))
+                        {
+                            <tr>
+                                <td>تاریخ پرداخت</td>
+                                <td class="text-left"><div class="date-container">@Model.DatePaid</div></td>
+                            </tr>
+                        }
+                        @if (Model.RRN.Length>0)
+                        {
+                            <tr>
+                                <td>RRN</td>
+                                <td class="text-left">@Model.RRN</td>
+                            </tr>
+                        }
+                        @if (Model.TraceNumber != 0)
+                        {
+                            <tr>
+                                <td>کد رهگیری</td>
+                                <td class="text-left">@Model.TraceNumber</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>

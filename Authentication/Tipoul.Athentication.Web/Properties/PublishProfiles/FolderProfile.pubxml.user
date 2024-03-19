@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\PublishedProjects\Auth</_PublishTargetUrl>
+    <History>True|2022-10-29T12:36:03.0803257Z;True|2022-10-13T11:07:46.1418510+03:30;False|2022-10-13T11:07:33.9441775+03:30;True|2022-09-30T22:23:08.5460613+03:30;True|2022-09-30T22:11:38.5551040+03:30;True|2022-09-22T17:25:14.4554913+03:30;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

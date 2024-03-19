@@ -1,0 +1,185 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.Profile.BusinessModel
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::زیر هدر-->
+    <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
+        <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::اطلاعات-->
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <!--begin::Mobile Toggle-->
+                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
+                    <span></span>
+                </button>
+                <!--end::Mobile Toggle-->
+                <!--begin::Page Heading-->
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <!--begin::Page Title-->
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">
+                        پروفایل
+                    </h5>
+                    <!--end::Page Title-->
+                </div>
+                <!--end::Page Heading-->
+            </div>
+            <!--end::اطلاعات-->
+        </div>
+    </div>
+    <!--end::زیر هدر-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::پروفایل اطلاعات شخصی-->
+            <div class="d-flex flex-row">
+
+                @await Html.PartialAsync("_SideBar")
+
+                <!--begin::Content-->
+                <div class="flex-row-fluid ml-lg-8">
+                    <!--begin::Card-->
+                    <div class="card card-custom card-stretch">
+                        <!--begin::Form-->
+                        <form class="form" method="post" enctype="multipart/form-data">
+                            <!--begin::Header-->
+                            <div class="card-header py-3">
+                                <div class="card-title align-items-start flex-column" style="display: inline-block;">
+                                    <h3 class="card-label font-weight-bolder text-dark">اطلاعات کسب و کار</h3>
+                                    <span class="text-muted font-weight-bold font-size-sm mt-1">اطلاعات کسب و کار خود را به روز کنید</span>
+                                </div>
+                                <div class="card-toolbar" style="display: inline-block; float: left;">
+                                    <button type="submit" class="btn btn-success mr-2">ذخیره تغییرات</button>
+                                </div>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">صنف</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control selectpicker" name="BusinessCategoryId" data-live-search="true">
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var businessCategory in Model.BusinessCategories)
+                                                {
+                                                    <option value="@businessCategory.Id" selected="@(Model.BusinessCategoryId.HasValue && Model.BusinessCategoryId.Value == businessCategory.Id)">@businessCategory.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">زیر صنف</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control selectpicker" name="BusinessSubCategoryId" data-live-search="true" required>
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var businessSubCategory in Model.BusinessSelectedCaqtegorySubCategories)
+                                                {
+                                                    <option value="@businessSubCategory.Id" selected="@(Model.BusinessSubCategoryId.HasValue && Model.BusinessSubCategoryId.Value == businessSubCategory.Id)">@businessSubCategory.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">استان</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control selectpicker" name="StateId" data-live-search="true">
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var state in Model.JobStates)
+                                                {
+                                                    <option value="@state.Id" selected="@(Model.JobStateId.HasValue && Model.JobStateId.Value == state.Id)">@state.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">شهر</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control selectpicker" name="CityId" data-live-search="true" required>
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var city in Model.JobSelectedStateCities)
+                                                {
+                                                    <option value="@city.Id" selected="@(Model.JobCityId.HasValue && Model.JobCityId.Value == city.Id)">@city.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">کد پستی</label>
+                                        <div class="col-lg-8">
+                                            <input class="form-control form-control-lg numeric" type="text" name="JobPostalCode" value="@Model.JobPostalCode" required data-max-length="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">شماره تماس</label>
+                                        <div class="col-lg-8">
+                                            <input class="form-control form-control-lg numeric" type="text" name="JobPhoneNumber" value="@Model.JobPhoneNumber" required data-max-length="11">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-lg-12 form-group row">
+                                    <label class="col-lg-2 col-form-label text-right">آدرس</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control form-control-lg" name="JobAddress" required>@Model.JobAddress</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Body-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::پروفایل اطلاعات شخصی-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("select[name=StateId]").change(function () {
+
+                $("select[name=CityId]").html("<option calue=''>در حال بارگزاری</option>").selectpicker("refresh");
+
+                $.ajax({
+                    url: "/profile/getcities?stateid=" + $(this).val(),
+                    success: function (response) {
+                        var options = "<option value=''>انتخاب کنید</option>";
+
+                        for (var i = 0; i < response.length; i++) {
+                            var option = response[i];
+                            options += "<option value='" + option.id + "'>" + option.name + "</option>";
+                        }
+
+                        $("select[name=CityId]").html(options).selectpicker("refresh");
+                    }
+                });
+            });
+
+            $("select[name=BusinessCategoryId]").change(function () {
+
+                $("select[name=BusinessSubCategoryId]").html("<option calue=''>در حال بارگزاری</option>").selectpicker("refresh");
+
+                $.ajax({
+                    url: "/profile/getBusinessSubCategories?BusinessCategoryId=" + $(this).val(),
+                    success: function (response) {
+                        var options = "<option value=''>انتخاب کنید</option>";
+
+                        for (var i = 0; i < response.length; i++) {
+                            var option = response[i];
+                            options += "<option value='" + option.id + "'>" + option.name + "</option>";
+                        }
+
+                        $("select[name=BusinessSubCategoryId]").html(options).selectpicker("refresh");
+                    }
+                });
+            });
+        });
+    </script>
+}

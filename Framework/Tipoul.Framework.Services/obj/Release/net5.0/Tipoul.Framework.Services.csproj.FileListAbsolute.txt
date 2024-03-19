@@ -1,0 +1,17 @@
+C:\Projects\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Services.deps.json
+C:\Projects\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Services.dll
+C:\Projects\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Services.pdb
+C:\Projects\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Services.RequestLog.dll
+C:\Projects\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Utilities.dll
+C:\Projects\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Services.RequestLog.pdb
+C:\Projects\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Utilities.pdb
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.csproj.AssemblyReference.cache
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.AssemblyInfoInputs.cache
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.AssemblyInfo.cs
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.csproj.CoreCompileInputs.cache
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.csproj.CopyComplete
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.dll
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\refint\Tipoul.Framework.Services.dll
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Framework.Services.pdb
+C:\Projects\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\ref\Tipoul.Framework.Services.dll

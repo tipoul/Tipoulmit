@@ -1,0 +1,160 @@
+﻿@using Tipoul.UserPanel.WebUI.Models.Wizard.Profile
+@model VerifyModel
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <div class="card card-custom">
+                <div class="card-body p-0">
+                    <!--begin::ویزارد-->
+                    <div class="wizard wizard-1" id="kt_wizard_v1" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_header")
+
+                    </div>
+                    <div class="wizard wizard-2" id="kt_wizard_v2" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_profileSidebar")
+
+                        <!--begin::ویزارد Body-->
+                        <div class="wizard-body py-8 px-8 py-lg-20 px-lg-10">
+                            @if(Context.Request.Query["saved"] == "True")
+                            {
+                                <div class="col-xl-12 mb-10 text-center"><div class="alert alert-success py-2">اطلاعات کسب و کار شما با موفقیت ثبت شد.</div></div>
+                            }
+                            <form class="form" method="post" enctype="multipart/form-data">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">اعتبار سنجی</label>
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
+                                        @if (!string.IsNullOrWhiteSpace(Model.VerificationPictureRejectReson))
+                                        {
+                                            <div class="alert alert-danger">@Model.VerificationPictureRejectReson</div>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(Model.VerificationPictureURL))
+                                        {
+                                            <div class="@(Model.IsVerificationPictureAccepted ? "bg-success d-inline-block pt-2 px-2 rounded" : string.Empty)">
+                                                <div class="image-input image-input-outline" id="kt_image_1">
+                                                    <div class="image-input-wrapper" style="background-image: url(@Model.VerificationPictureURL)"></div>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.VerificationPictureRejectReson))
+                                                    {
+                                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر آواتار">
+                                                            <i class="fa fa-pen icon-sm text-muted"></i>
+                                                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                                                            <input type="hidden" name="profile_avatar_remove">
+                                                        </label>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="dropzone dropzone-default" id="kt_dropzone_1" data-action-url="/wizard/uploadIdentityDocument?type=@((int)VerifyModel.IdentityDocumentType.Verification)" data-drop-zone="true">
+                                                <div class="dropzone-msg dz-message needsclick">
+                                                    <h3 class="dropzone-msg-title">تصویر اعتبار سنجی را در اینجا رها کنید یا برای بارگذاری کلیک کنید.</h3>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">تصویر شناسنامه</label>
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
+                                        @if (!string.IsNullOrWhiteSpace(Model.BirthCertificatePictureRejectReason))
+                                        {
+                                            <div class="alert alert-danger">@Model.BirthCertificatePictureRejectReason</div>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(Model.BirthCertificatePictureURL))
+                                        {
+                                            <div class="@(Model.IsBirthCertificatePictureAccepted ? "bg-success d-inline-block pt-2 px-2 rounded" : string.Empty)">
+                                                <div class="image-input image-input-outline" id="kt_image_1">
+                                                    <div class="image-input-wrapper" style="background-image: url(@Model.BirthCertificatePictureURL)"></div>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.BirthCertificatePictureRejectReason))
+                                                    {
+                                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر آواتار">
+                                                            <i class="fa fa-pen icon-sm text-muted"></i>
+                                                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                                                            <input type="hidden" name="profile_avatar_remove">
+                                                        </label>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="dropzone dropzone-default" id="kt_dropzone_2" data-action-url="/wizard/uploadIdentityDocument?type=@((int)VerifyModel.IdentityDocumentType.BirthCertificate)" data-drop-zone="true">
+                                                <div class="dropzone-msg dz-message needsclick">
+                                                    <h3 class="dropzone-msg-title">تصویر شناسنامه را در اینجا رها کنید یا برای بارگذاری کلیک کنید.</h3>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">تصویر کارت ملی</label>
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
+                                        @if (!string.IsNullOrWhiteSpace(Model.NationalCardPictureRejectReason))
+                                        {
+                                            <div class="alert alert-danger">@Model.NationalCardPictureRejectReason</div>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(Model.NationalCardPictureURL))
+                                        {
+                                            <div class="@(Model.IsNationalCardPictureAccepted ? "bg-success d-inline-block pt-2 px-2 rounded" : string.Empty)">
+                                                <div class="image-input image-input-outline" id="kt_image_1">
+                                                    <div class="image-input-wrapper" style="background-image: url(@Model.NationalCardPictureURL)"></div>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.NationalCardPictureRejectReason))
+                                                    {
+                                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر آواتار">
+                                                            <i class="fa fa-pen icon-sm text-muted"></i>
+                                                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                                                            <input type="hidden" name="profile_avatar_remove">
+                                                        </label>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="dropzone dropzone-default" id="kt_dropzone_3" data-action-url="/wizard/uploadIdentityDocument?type=@((int)VerifyModel.IdentityDocumentType.NationalCard)" data-drop-zone="true">
+                                                <div class="dropzone-msg dz-message needsclick">
+                                                    <h3 class="dropzone-msg-title">تصویر کارت ملی را در اینجا رها کنید یا برای بارگذاری کلیک کنید.</h3>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <!--begin::ویزارد اقدامات-->
+                                <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                    <div class="mr-2">
+                                        <button type="button" class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-prev">
+                                            قبلی
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-submit">
+                                            ارسال
+                                        </button>
+                                        <a href="/wizard/profilelegal" class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4 mx-3" data-wizard-type="action-next">
+                                            تکمیل پروفایل حقوقی (اختیاری)
+                                        </a>
+                                        <a href="/wizard/bankaccount" class="btn btn-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-next">
+                                            بعدی (حساب بانکی)
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--end::ویزارد اقدامات-->
+                            </form>
+                        </div>
+                        <!--end::ویزارد Body-->
+                    </div>
+                    <!--end::ویزارد-->
+                </div>
+                <!--end::ویزارد-->
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>

@@ -1,0 +1,161 @@
+﻿@model List<Tipoul.UserPanel.WebUI.Models.Wallet.WalletViewModel>
+
+@section styles {
+	<link rel="stylesheet" href="~/css/WizardStyle.css">
+	<script type="text/javascript" src="~/js/Tools.js"></script>
+}
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+	<!--begin::زیر هدر-->
+	<div class="subheader py-2 py-lg-4  subheader-transparent " id="kt_subheader">
+		<div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+			<!--begin::جزئیات-->
+			<div class="d-flex align-items-center flex-wrap mr-2">
+				<!--begin::Title-->
+				<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">حساب تیپول</h5>
+				<!--end::Title-->
+				<!--begin::Separator-->
+				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+				<!--end::Separator-->
+			</div>
+			<!--end::جزئیات-->
+		</div>
+	</div>
+	<!--end::زیر هدر-->
+	<!--begin::Entry-->
+	<div class="d-flex flex-column-fluid">
+		<!--begin::Container-->
+		<div class=" container ">
+			<!--begin::Row-->
+			<div class="row">
+				@foreach (var item in Model)
+				{
+					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+						<div class="card card-custom gutter-b card-stretch">
+							<div class="card-body pt-4">
+								<div class="d-flex align-items-center mb-7">
+									<div class="d-flex flex-column text-center">
+										<a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">@item.Title</a>
+									</div>
+								</div>
+								<div class="mb-7">
+									<div class="d-flex justify-content-between align-items-center">
+										<span class="text-dark-75 font-weight-bolder mr-2">موجودی:</span>
+										<a href="#" class="text-muted text-hover-primary">@item.Amount.ToString("n0")</a>
+									</div>
+									<div class="d-flex justify-content-between align-items-cente my-5">
+										<span class="text-dark-75 font-weight-bolder mr-2">کارمزدها:</span>
+										<a href="#" class="text-muted text-hover-primary">@item.AmountWage.ToString("n0")</a>
+									</div>
+									<div class="d-flex justify-content-between align-items-cente my-5">
+										<span class="text-dark-75 font-weight-bolder mr-2">موجودی قابل برداشت:</span>
+										<a href="#" class="text-muted text-hover-primary">@item.AmountInHand.ToString("n0")</a>
+									</div>
+									<div class="d-flex justify-content-between align-items-cente my-5">
+										<span class="text-dark-75 font-weight-bolder mr-2">موجودی قابل تسویه:</span>
+										<a href="#" class="text-muted text-hover-primary">@item.AmountSettlementable.ToString("n0")</a>
+									</div>
+									<div class="d-flex justify-content-between align-items-cente my-5">
+										<span class="text-dark-75 font-weight-bolder mr-2">موجودی حساب تیپول:</span>
+										<a href="#" class="text-muted text-hover-primary">@item.AmountInTipoul.ToString("n0")</a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-2 px-2"><a href="/report/transactions?walletId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder">تراکنش ها</a></div>
+									<div class="col-2 px-2"><a href="/report/customers?walletId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder">مشتریان</a></div>
+									<div class="col-2 px-2"><a href="/report/settlements?walletId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder">تسویه ها</a></div>
+									<div class="col-3 px-2"><a href="/report/walletDepositRequests?walletId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder">تاریخچه واریزها</a></div>
+									<div class="col-3 px-2"><a href="/commertialGateWay?walletId=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder">درگاه های متصل</a></div>
+								</div>
+								<div class="row mt-10">
+									<div class="col-4 px-2 mb-3"><a href="#" data-toggle="modal" data-target="#settlementModal" onclick="ShowSettlementModal('@item.Id')" class="btn btn-block btn-light-success">ثبت تسویه عادی</a></div>
+									@if (ViewBag.QuickSettlement != null && ViewBag.QuickSettlement == true)
+									{
+										<div class="col-4 px-2 mb-3"><a href="#" data-toggle="modal" data-target="#quickSettlementModal" onclick="ShowQuickSettlementModal('@item.Id')" class="btn btn-block btn-light-success">ثبت تسویه سریع</a></div>
+									}
+								</div>
+							</div>
+							<!--end::Body-->
+						</div>
+						<!--end:: Card-->
+					</div>
+				}
+			</div>
+			<!--end::Row-->
+		</div>
+		<!--end::Container-->
+	</div>
+	<!--end::Entry-->
+</div>
+
+<!-- مودال-->
+<div class="modal fade" id="settlementModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<form class="modal-content" method="post" action="/wallet/AddSettlement">
+			<div class="modal-header">درخواست تسویه عادی</div>
+			<div class="modal-body">
+				@* gona be fill from ajax *@
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">بستن</button>
+				<button type="submit" class="btn btn-primary font-weight-bold settlement-submit-button">ذخیره تغییرات</button>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- مودال-->
+<div class="modal fade" id="quickSettlementModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">درخواست تسویه سریع</div>
+			<div class="modal-body">
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">بستن</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+	<script>
+		function ShowSettlementModal(walletId) {
+			$.get("/wallet/GetSettlementModal?walletId=" + walletId).then(function (response) {
+				$("#settlementModal").find(".modal-body").html(response);
+				$("input[name=amount]").keyup(function () {
+					var value = parseInt($(this).val());
+					var maxValue = parseInt($(this).prop("max"));
+					if (value > maxValue) {
+						$(".settlement-submit-button").prop("disabled", true);
+						$(".max-amount-error").show();
+					}
+					else {
+						$(".settlement-submit-button").prop("disabled", false);
+						$(".max-amount-error").hide();
+					}
+				});
+			});
+		}
+		function ShowQuickSettlementModal(walletId) {
+			$("#quickSettlementModal").find(".modal-body").html();
+			$.get("/wallet/GetQuickSettlementModal?walletId=" + walletId).then(function (response) {
+				$("#quickSettlementModal").find(".modal-body").html(response);
+				$("input[name=amount]").keyup(function () {
+					var value = parseInt($(this).val());
+					var maxValue = parseInt($(this).prop("max"));
+					if (value > maxValue) {
+						$(".settlement-submit-button").prop("disabled", true);
+						$(".max-amount-error").show();
+					}
+					else {
+						$(".settlement-submit-button").prop("disabled", false);
+						$(".max-amount-error").hide();
+					}
+				});
+			});
+		}
+		$('#quickSettlementModal').on('hidden.bs.modal', function (e) {
+			$("#quickSettlementModal").find(".modal-body").html('');
+		})
+	</script>
+}

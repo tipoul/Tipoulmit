@@ -1,0 +1,275 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::زیر هدر-->
+    <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
+        <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::اطلاعات-->
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <!--begin::Mobile Toggle-->
+                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
+                    <span></span>
+                </button>
+                <!--end::Mobile Toggle-->
+                <!--begin::Page Heading-->
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <!--begin::Page Title-->
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">
+                        درگاه تجاری
+                    </h5>
+                    <!--end::Page Title-->
+                </div>
+                <!--end::Page Heading-->
+            </div>
+            <!--end::اطلاعات-->
+        </div>
+    </div>
+    <!--end::زیر هدر-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::پروفایل اطلاعات شخصی-->
+            <div class="d-flex flex-row">
+
+                <!--begin::Content-->
+                <div class="flex-row-fluid ml-lg-8">
+                    <!--begin::Card-->
+                    <div class="card card-custom card-stretch">
+                        <!--begin::Form-->
+                        <form class="form" method="post" enctype="multipart/form-data" id="commertial-gate-way-form">
+                            <input type="hidden" name="Id" value="@Model.Id" />
+                            <!--begin::Header-->
+                            <div class="card-header py-3">
+                                <div class="card-title align-items-start flex-column" style="display: inline-block;">
+                                    <h3 class="card-label font-weight-bolder text-dark">اطلاعات درگاه</h3>
+                                    <span class="text-muted font-weight-bold font-size-sm mt-1">اطلاعات درگاه خود را به روز کنید</span>
+                                </div>
+                                <div class="card-toolbar" style="display: inline-block; float: left;">
+                                    <button type="submit" class="btn btn-success mr-2">ذخیره تغییرات</button>
+                                </div>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 form-group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">لوگو</label>
+                                        <div class="col-lg-8 col-md-9 col-sm-12">
+                                            <div class="image-input image-input-outline" id="kt_image_1">
+                                                <div class="image-input-wrapper" style="background-image: url('@(string.IsNullOrWhiteSpace(Model.LogoUrl) ? "/img/blank.png" : Model.LogoUrl)')"></div>
+                                                <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر لوگو">
+                                                    <i class="fa fa-pen icon-sm text-muted"></i>
+                                                    <input type="file" name="identityNewsletter" accept=".png, .jpg, .jpeg">
+                                                    <input type="hidden" name="profile_avatar_remove">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">عنوان</label>
+                                        <div class="col-lg-8">
+                                            <input class="form-control form-control-lg" type="text" name="Title" value="@Model.Title" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">حساب تیپول</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control select-picker" data-live-search="true" name="WalletId" required>
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var item in Model.Wallets)
+                                                {
+                                                    <option value="@item.Id" selected="@(item.Id == Model.WalletId)">@item.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">شماره تماس پشتیبانی</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control form-control-lg numeric" type="text" name="SupportPhoneNumberValue" value="@Model.SupportPhoneNumberValue" required data-max-length="9">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input class="form-control form-control-lg numeric" type="text" name="SupportPhoneNumberCode" value="@Model.SupportPhoneNumberCode" required data-max-length="3">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">آدرس وبسایت</label>
+                                        <div class="col-lg-8">
+                                            <input class="form-control form-control-lg website-url" type="text" name="WebSiteURL" value="@Model.WebSiteURL" required>
+                                            <span class="text-danger invalid-website-url" style="display: none;">آدرس وبسایت باید با http یا https شروع شود</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">صنف</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control selectpicker" name="BusinessCategoryId" data-live-search="true">
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var businessCategory in Model.BusinessCategories)
+                                                {
+                                                    <option value="@businessCategory.Id" selected="@(Model.BusinessCategoryId == businessCategory.Id)">@businessCategory.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">زیر صنف</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control selectpicker" name="BusinessSubCategoryId" data-live-search="true" required>
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var businessSubCategory in Model.BusinessSelectedCategorySubCategories)
+                                                {
+                                                    <option value="@businessSubCategory.Id" selected="@(Model.BusinessSubCategoryId == businessSubCategory.Id)">@businessSubCategory.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">کسر کارمزد</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control select-picker" data-live-search="true" name="WageSide">
+                                                <option value="">انتخاب کنید</option>
+                                                <option value="1" selected="@(Model.WageSide == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.WagePayerSide.FromMe)">از من</option>
+                                                <option value="2" selected="@(Model.WageSide == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.WagePayerSide.FromPayer)">از پرداخت کننده</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">تسویه</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control select-picker" data-live-search="true" name="Settlement">
+                                                <option value="">انتخاب کنید</option>
+                                                <option value="1" selected="@(Model.Settlement == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementType.Automatic)">اتوماتیک</option>
+                                                <option value="2" selected="@(Model.Settlement == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementType.Manual)">دستی</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">نماد اعتماد الکترونیک</label>
+                                        <div class="col-lg-3">
+                                            <span class="switch">
+                                                <label>
+                                                    <input type="checkbox" value="true" name="HasETrust" @(Model.HasETrust ? "checked" : string.Empty) onchange="ToggleStarsCount()" />
+                                                    <span></span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="col-lg-6 etrust-stars-count" style="@(Model.HasETrust ? string.Empty : "display: none")">
+                                            <select class="form-control select-picker" name="ETrustStarsCount" @(Model.HasETrust ? "required" : string.Empty)>
+                                                <option value="1" selected="@(Model.ETrustStarsCount.HasValue && Model.ETrustStarsCount.Value == 1)">یک ستاره</option>
+                                                <option value="2" selected="@(Model.ETrustStarsCount.HasValue && Model.ETrustStarsCount.Value  == 2)">دو ستاره</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row SettlementPeriodContainer" style="display: @(Model.Settlement == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementType.Automatic ? string.Empty : "none");">
+                                        <label class="col-lg-4 col-form-label text-right">دوره تسویه</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control select-picker" data-live-search="true" name="SettlementPeriod">
+                                                <option value="">انتخاب کنید</option>
+                                                <option value="1" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementPeriodType.Daily)">روزانه</option>
+                                                <option value="3" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementPeriodType.ThreeDays)">هر سه روز</option>
+                                                <option value="7" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementPeriodType.Weekly)">هفتگی</option>
+                                                <option value="15" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementPeriodType.FiftheenDays)">15 روز</option>
+                                                <option value="30" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementPeriodType.Monthly)">ماهانه</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6 form-group row">
+                                        <label class="col-lg-4 col-form-label text-right">توضیحات</label>
+                                        <div class="col-lg-8">
+                                            <textarea class="form-control form-control-lg" name="Description">@Model.Description</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6 form-group row SettlementBankContainer" style="display: @(Model.Settlement == Tipoul.UserPanel.WebUI.Models.CommertialGateWay.CommertialGateWayModel.SettlementType.Manual ? string.Empty : "none");">
+                                        <label class="col-lg-4 col-form-label text-right">حساب بانکی</label>
+                                        <div class="col-lg-8">
+                                            <select class="form-control selectpicker" name="SettlementBankId" data-live-search="true" required>
+                                                <option value="">انتخاب کنید</option>
+                                                @foreach (var bank in Model.Banks)
+                                                {
+                                                    <option value="@bank.Id" selected="@(Model.SettlementBankId == bank.Id)">@bank.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Body-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::پروفایل اطلاعات شخصی-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#commertial-gate-way-form").submit(function () {
+                if ($(".website-url").val().startsWith("http://") || $(".website-url").val().startsWith("https://")) {
+                    return true;
+                }
+                else {
+                    $(".invalid-website-url").show();
+                    return false;
+                }
+            });
+
+            $("select[name=Settlement]").change(function () {
+                if ($(this).val() == "1") {
+                    $(".SettlementPeriodContainer").show();
+                    $(".SettlementBankContainer").show().find("select").prop("required", true);
+                }
+                else {
+                    $(".SettlementPeriodContainer").hide();
+                    $(".SettlementBankContainer").hide().find("select").prop("required", false);
+                }
+            });
+
+            $("select[name=BusinessCategoryId]").change(function () {
+
+                $("select[name=BusinessSubCategoryId]").html("<option calue=''>در حال بارگزاری</option>").selectpicker("refresh");
+
+                $.ajax({
+                    url: "/profile/getBusinessSubCategories?BusinessCategoryId=" + $(this).val(),
+                    success: function (response) {
+                        var options = "<option value=''>انتخاب کنید</option>";
+
+                        for (var i = 0; i < response.length; i++) {
+                            var option = response[i];
+                            options += "<option value='" + option.id + "'>" + option.name + "</option>";
+                        }
+
+                        $("select[name=BusinessSubCategoryId]").html(options).selectpicker("refresh");
+                    }
+                });
+            });
+        });
+
+        function ToggleStarsCount() {
+            if ($("[name=HasETrust]").is(":checked"))
+                $(".etrust-stars-count").show().find("select").prop("required", true).val("1");
+            else
+                $(".etrust-stars-count").hide().find("select").prop("required", false).val("");
+        }
+    </script>
+}

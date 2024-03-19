@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\PublishedProjects\AdminPanel</_PublishTargetUrl>
+    <History>True|2022-11-04T07:56:25.8457626Z;True|2022-10-14T22:22:57.1690454+03:30;True|2022-10-14T12:31:34.4255927+03:30;True|2022-10-13T13:41:15.0733837+03:30;True|2022-10-13T13:36:33.3678349+03:30;True|2022-10-13T11:08:05.7351558+03:30;True|2022-09-22T17:17:21.9273603+03:30;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

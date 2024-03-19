@@ -1,0 +1,5 @@
+D:\Software\Tarasht\V1\Source\Source\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Debug\net5.0\Tipoul.Framework.Services.OpenBanking.csproj.AssemblyReference.cache
+D:\Software\Tarasht\V1\Source\Source\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Debug\net5.0\Tipoul.Framework.Services.OpenBanking.GeneratedMSBuildEditorConfig.editorconfig
+D:\Software\Tarasht\V1\Source\Source\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Debug\net5.0\Tipoul.Framework.Services.OpenBanking.AssemblyInfoInputs.cache
+D:\Software\Tarasht\V1\Source\Source\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Debug\net5.0\Tipoul.Framework.Services.OpenBanking.AssemblyInfo.cs
+D:\Software\Tarasht\V1\Source\Source\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Debug\net5.0\Tipoul.Framework.Services.OpenBanking.csproj.CoreCompileInputs.cache

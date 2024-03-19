@@ -1,0 +1,246 @@
+﻿@model Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <div class="card card-custom">
+                <div class="card-body p-0">
+                    <!--begin::ویزارد-->
+                    <div class="wizard wizard-1" id="kt_wizard_v1" data-wizard-state="first" data-wizard-clickable="false">
+
+                        @await Html.PartialAsync("_header")
+
+                        <!--begin::ویزارد Body-->
+                        <div class="row justify-content-center my-10 px-8 my-lg-15 px-lg-10">
+                            @if (Context.Request.Query["saved"] == "True")
+                            {
+                                <div class="col-xl-12 col-xxl-9 mb-10 text-center"><div class="alert alert-success py-2">کد مالیاتی شما با موفقیت ثبت شد.</div></div>
+                            }
+                            @if (Context.Request.Query["inprogress"] == "True")
+                            {
+                                <div class="col-xl-12 col-xxl-9 mb-10 text-center"><div class="alert alert-info py-2">درحال اخذ کد مالیاتی برای شما هستیم، شما میتوانید به ثبت اطلاعات خود ادامه دهید.</div></div>
+                            }
+                            <div class="col-xl-12 col-xxl-9">
+                                <!--begin::ویزارد Form-->
+                                <form class="form" method="post" enctype="multipart/form-data" id="commertial-gate-way-form">
+                                    <input type="hidden" name="Id" value="@Model.Id" />
+
+                                    <div class="row">
+                                        <div class="col-md-6 form-group row">
+                                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">لوگو</label>
+                                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                                <div class="image-input image-input-outline" id="kt_image_1">
+                                                    <div class="image-input-wrapper" style="background-image: url('@(string.IsNullOrWhiteSpace(Model.LogoUrl) ? "/img/blank.png" : Model.LogoUrl)')"></div>
+                                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="تغییر لوگو">
+                                                        <i class="fa fa-pen icon-sm text-muted"></i>
+                                                        <input type="file" name="identityNewsletter" accept=".png, .jpg, .jpeg">
+                                                        <input type="hidden" name="profile_avatar_remove">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">عنوان</label>
+                                            <div class="col-lg-9">
+                                                <input class="form-control form-control-lg" type="text" name="Title" value="@Model.Title" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">حساب تیپول</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control select-picker" data-live-search="true" name="WalletId" required>
+                                                    <option value="">انتخاب کنید</option>
+                                                    @foreach (var item in Model.Wallets)
+                                                    {
+                                                        <option value="@item.Id" selected="@(item.Id == Model.WalletId)">@item.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">شماره تماس پشتیبانی</label>
+                                            <div class="col-lg-6">
+                                                <input class="form-control form-control-lg numeric" type="text" name="SupportPhoneNumberValue" value="@Model.SupportPhoneNumberValue" required data-max-length="9">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input class="form-control form-control-lg numeric" type="text" name="SupportPhoneNumberCode" value="@Model.SupportPhoneNumberCode" required data-max-length="3">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">آدرس وبسایت</label>
+                                            <div class="col-lg-9">
+                                                <input class="form-control form-control-lg website-url" type="text" name="WebSiteURL" value="@Model.WebSiteURL" required>
+                                                <span class="text-danger invalid-website-url" style="display: none;">آدرس وبسایت باید با http یا https شروع شود</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">صنف</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control selectpicker" name="BusinessCategoryId" data-live-search="true">
+                                                    <option value="">انتخاب کنید</option>
+                                                    @foreach (var businessCategory in Model.BusinessCategories)
+                                                    {
+                                                        <option value="@businessCategory.Id" selected="@(Model.BusinessCategoryId == businessCategory.Id)">@businessCategory.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">زیر صنف</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control selectpicker" name="BusinessSubCategoryId" data-live-search="true" required>
+                                                    <option value="">انتخاب کنید</option>
+                                                    @foreach (var businessSubCategory in Model.BusinessSelectedCategorySubCategories)
+                                                    {
+                                                        <option value="@businessSubCategory.Id" selected="@(Model.BusinessSubCategoryId == businessSubCategory.Id)">@businessSubCategory.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">کسر کارمزد</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control select-picker" data-live-search="true" name="WageSide">
+                                                    <option value="">انتخاب کنید</option>
+                                                    <option value="1" selected="@(Model.WageSide == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.WagePayerSide.FromMe)">از من</option>
+                                                    <option value="2" selected="@(Model.WageSide == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.WagePayerSide.FromPayer)">از پرداخت کننده</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">تسویه</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control select-picker" data-live-search="true" name="Settlement">
+                                                    <option value="">انتخاب کنید</option>
+                                                    <option value="1" selected="@(Model.Settlement == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementType.Automatic)">اتوماتیک</option>
+                                                    <option value="2" selected="@(Model.Settlement == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementType.FromWallet)">دستی</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">نماد اعتماد الکترونیک</label>
+                                            <div class="col-lg-3">
+                                                <span class="switch">
+                                                    <label>
+                                                        <input type="checkbox" value="true" name="HasETrust" @(Model.HasETrust ? "checked" : string.Empty) onchange="ToggleStarsCount()" />
+                                                        <span></span>
+                                                    </label>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-6 etrust-stars-count" style="@(Model.HasETrust ? string.Empty : "display: none")">
+                                                <select class="form-control select-picker" name="ETrustStarsCount" @(Model.HasETrust ? "required" : string.Empty)>
+                                                    <option value="1" selected="@(Model.ETrustStarsCount.HasValue && Model.ETrustStarsCount.Value == 1)">یک ستاره</option>
+                                                    <option value="2" selected="@(Model.ETrustStarsCount.HasValue && Model.ETrustStarsCount.Value  == 2)">دو ستاره</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6 form-group row SettlementPeriodContainer" style="display: @(Model.Settlement == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementType.Automatic ? string.Empty : "none");">
+                                            <label class="col-lg-3 col-form-label text-right">دوره تسویه</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control select-picker" data-live-search="true" name="SettlementPeriod">
+                                                    <option value="">انتخاب کنید</option>
+                                                    <option value="1" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementPeriodType.Daily)">روزانه</option>
+                                                    <option value="3" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementPeriodType.ThreeDays)">هر سه روز</option>
+                                                    <option value="7" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementPeriodType.Weekly)">هفتگی</option>
+                                                    <option value="15" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementPeriodType.FiftheenDays)">15 روز</option>
+                                                    <option value="30" selected="@(Model.SettlementPeriod == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementPeriodType.Monthly)">ماهانه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-6 form-group row">
+                                            <label class="col-lg-3 col-form-label text-right">توضیحات</label>
+                                            <div class="col-lg-9">
+                                                <textarea class="form-control form-control-lg" name="Description">@Model.Description</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6 form-group row SettlementBankContainer" style="display: @(Model.Settlement == Tipoul.UserPanel.WebUI.Models.Wizard.CommertialGateWayModel.SettlementType.Automatic ? string.Empty : "none");">
+                                            <label class="col-lg-3 col-form-label text-right">حساب بانکی</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control selectpicker" name="SettlementBankId" data-live-search="true" required>
+                                                    <option value="">انتخاب کنید</option>
+                                                    @foreach (var bank in Model.Banks)
+                                                    {
+                                                        <option value="@bank.Id" selected="@(Model.SettlementBankId == bank.Id)">@bank.Name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between border-top mt-5 pt-10">
+                                        <div class="mr-2">
+                                            <button type="button" class="btn btn-light-primary font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-prev">
+                                                قبلی
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-submit">
+                                                ارسال
+                                            </button>
+                                            <button type="submit" class="btn btn-success font-weight-bold text-uppercase px-9 py-4" data-wizard-type="action-next">
+                                                تأیید
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!--end::ویزارد Form-->
+                            </div>
+                        </div>
+                        <!--end::ویزارد Body-->
+                    </div>
+                    <!--end::ویزارد-->
+                </div>
+                <!--end::ویزارد-->
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#commertial-gate-way-form").submit(function () {
+                if ($(".website-url").val().startsWith("http://") || $(".website-url").val().startsWith("https://")) {
+                    return true;
+                }
+                else {
+                    $(".invalid-website-url").show();
+                    return false;
+                }
+            });
+
+            $("select[name=Settlement]").change(function () {
+                if ($(this).val() == "1") {
+                    $(".SettlementPeriodContainer").show();
+                    $(".SettlementBankContainer").show();
+                }
+                else {
+                    $(".SettlementPeriodContainer").hide();
+                    $(".SettlementBankContainer").hide();
+                }
+            });
+        });
+
+        function ToggleStarsCount() {
+            if ($("[name=HasETrust]").is(":checked"))
+                $(".etrust-stars-count").show().find("select").prop("required", true).val("1");
+            else
+                $(".etrust-stars-count").hide().find("select").prop("required", false).val("");
+        }
+    </script>
+}

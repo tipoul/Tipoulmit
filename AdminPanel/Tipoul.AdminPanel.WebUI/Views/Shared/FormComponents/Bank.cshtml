@@ -1,0 +1,9 @@
+﻿@inject Tipoul.Framework.DataAccessLayer.TipoulFrameworkDbContext dbContext
+
+<select class="selectpicker w-100" name="BankId" required data-live-search="true">
+	<option value="">انتخاب کنید</option>
+	@foreach (var item in await dbContext.Banks.ToListAsync())
+	{
+		<option value="@item.Id" selected="@(Model == item.Id.ToString())">@item.Name</option>
+	}
+</select>

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Tipoul.Services.Shahins.WebApi.props" />
+</Project>

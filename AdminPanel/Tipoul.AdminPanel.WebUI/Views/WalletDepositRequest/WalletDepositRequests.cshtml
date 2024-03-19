@@ -1,0 +1,404 @@
+﻿@using Tipoul.Framework.DataAccessLayer
+@using Tipoul.Framework.Utilities.Extentions
+@using static Tipoul.Framework.StorageModels.WalletDepositRequestStatusHistory
+@model Tipoul.AdminPanel.WebUI.Models.WalletDepositRequest.WalletDepositRequestsListViewModel
+
+@inject TipoulFrameworkDbContext dbContext
+@inject Tipoul.Athentication.Agent.Services.AthenticationProvider athenticationProvider
+@{
+	var user = athenticationProvider.GetUser();
+}
+@section styles {
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+}
+
+	<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+		<div class="d-flex flex-column-fluid">
+			<div class=" container-fluid ">
+				<div class="card card-custom">
+					<div class="card-header flex-wrap border-0 pt-6 pb-0">
+						<div class="card-title">
+							<h3 class="card-label">
+								تاریخچه واریز ها
+								<span class="text-muted pt-2 font-size-sm d-block">گزارش بلادرنگ واریز ها</span>
+							</h3>
+						</div>
+					</div>
+					<div class="card-body">
+						<!--begin: جستجو Form-->
+						<!--begin::جستجو Form-->
+						<div class="mb-7">
+							<div class="row align-items-center">
+								<div class="col-lg-12 col-xl-12">
+									<form class="row align-items-center">
+										<div class="col-md-3 my-2 my-md-0">
+											<table class="w-100">
+												<tbody>
+													<tr>
+														<td><label>مبلغ</label></td>
+														<td class="w-25">
+															<span class="min">@Model.MinAmount.ToString("n0")</span>
+														</td>
+													@if (Model.MinAmount != Model.MaxAmount)
+													{
+														<td class="w-50">
+															<div class="slider"></div>
+														</td>
+														<td class="w-25">
+															<span class="max">@Model.MaxAmount.ToString("n0")</span>
+														</td>
+													}
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-1 my-2 my-md-0 d-none">
+										<table class="w-100">
+											<tbody>
+												<tr>
+													<td class="w-25"><label>مبلغ از</label></td>
+													<td>
+														<input type="number" class="form-control" name="minAmount" min="0" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-1 my-2 my-md-0 d-none">
+										<table class="w-100">
+											<tbody>
+												<tr>
+													<td class="w-25"><label>مبلغ تا</label></td>
+													<td>
+														<input type="number" class="form-control" name="maxAmount" min="0" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-1 my-2 my-md-0">
+										<button type="submit" class="btn btn-light-primary px-6 font-weight-bold">جستجو</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!--end::جستجو Form-->
+					<!--end: جستجو Form-->
+					<!--begin: جدول داده ها-->
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><span>مبلغ واریز</span></th>
+									<th><span>کد رهگیری</span></th>
+									<th><span>تاریخ واریز</span></th>
+									<th><span>نوع واریز</span></th>
+									<th><span>شماره شبا مبدا</span></th>
+									<th><span>وضعیت درخواست</span></th>
+									<th><span>زمان بررسی</span></th>
+									<th><span>موجودی پس از واریز</span></th>
+									<th><span></span></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model.Items)
+								{
+									<tr>
+										<td><span>@item.Amount.ToString("n0")</span></td>
+										<td><span>@item.TransactionTrace</span></td>
+										<td><span>@item.TransactionDate</span></td>
+										<td><span>@item.DepositType</span></td>
+										<td><span>@item.SourceIbanNumber</span></td>
+										<td><span>@item.LastStatus</span></td>
+										<td><span class="date-container">@item.ConfirmDate</span></td>
+										<td><span>@item.AmountAfterDeposit</span></td>
+										<td style="min-width:110px;">
+											<a style="width:50px;display:inline-block;margin:0;padding:3px;" href="#" data-toggle="modal" data-target="#walletDepositRequestDetailsModal" onclick="showWalletDepositRequestDetailsModal('@item.Id');" class="btn btn-block btn-light-success">جزئیات</a>
+											@if (item.LastStatus == DepositStatus.Created.ToDescription())
+											{
+												<a style="width:50px;display:inline-block;margin:0;padding:3px;" href="#" data-toggle="modal" data-target="#changeStatusModal" onclick="showChangeStatusModal('@item.Id');" class="btn btn-block btn-light-danger">رد/تایید</a>
+											}
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+						@if (Model.Items.Count == 0)
+						{
+							<div class="alert alert-warning text-center mt-5">هیچ رکوردی برای نمایش وجود ندارد</div>
+						}
+						@await Html.PartialAsync("_Paging", new Tipoul.AdminPanel.WebUI.Models.Common.PagingModel { PageNumber = Model.PageNumber, PagesCount = Model.PagesCount })
+					</div>
+					<!--end: جدول داده ها-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="walletDepositRequestDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+		<form class="modal-content">
+			<div class="modal-header">جزئیات واریز به حساب</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>مبلغ:</label>
+							<label class="form-control" id="txtAmount"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>کد رهگیری:</label>
+							<label class="form-control" id="txtTransactionTrace"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label for="depositType">آخرین وضعیت</label>
+							<label class="form-control" id="txtLastStatus"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>بانک مبدا:</label>
+							<label class="form-control" id="txtSourceBank"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>تاریخ واریز:</label>
+							<label class="form-control" id="txtTransactionDate"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>صاحب حساب مبدا:</label>
+							<label class="form-control" id="txtSourceOwnerName"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>کدملی صاحب حساب مبدا:</label>
+							<label class="form-control" id="txtSourceOwnerNationalCode"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>حساب مبدا (شبا):</label>
+							<label class="form-control" id="txtSourceIbanNumber"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>حساب مقصد (شبا):</label>
+							<label class="form-control" id="txtDestIbanNumber"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>نام و نام خانوادگی واریز کننده:</label>
+							<label class="form-control" id="txtDepositerName"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label>کد ملی واریز کننده:</label>
+							<label class="form-control" id="txtDepositerNationalCode"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label for="depositType">نوع واریز</label>
+							<label class="form-control" id="txtDepositType"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label for="depositType">کیف پول</label>
+							<label class="form-control" id="txtWallet"></label>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="form-group mb-2">
+							<label>توضیحات:</label>
+							<label class="form-control" id="txtDescription"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label for="depositType">تاریخ ثبت درخواست</label>
+							<label class="form-control" id="txtCreateDate"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label for="depositType">تاریخ بررسی</label>
+							<label class="form-control" id="txtConfirmDate"></label>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group mb-2">
+							<label for="depositType">موجودی پس از واریز</label>
+							<label class="form-control" id="txtAmountAfterDeposit"></label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group mb-2">
+							<label>توضیحات بررسی:</label>
+							<label class="form-control" id="txtConfirmDescription"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">بستن</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<form class="modal-content">
+			<input hidden id="walletDepositRequestsId" value="" />
+			<div class="modal-header">رد / تایید درخواست واریز</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group mb-2">
+							<label for="cmbDepositStatus">وضعیت واریز</label>
+							<select class="form-control" id="cmbDepositStatus">
+								<option value="">انتخاب کنید</option>
+								@foreach (System.Data.DataRow item in new Tipoul.Framework.StorageModels.WalletDepositRequestStatusHistory.DepositStatus().ToDataTable().Rows)
+								{
+									if (((DepositStatus)Enum.Parse(typeof(DepositStatus), @item["Key"].ToString())) != DepositStatus.Created)
+									{
+										<option value="@item["Key"]">@item["Value"]</option>
+									}
+								}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group mb-2">
+							<label for="txtConfirmDescription">توضیحات</label>
+							<textarea type="number" class="form-control" id="txtConfirmDescription" rows="3"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">بستن</button>
+				<button type="button" onclick="changeStatus()" class="btn btn-light-danger font-weight-bold">ذخیره تغییرات</button>
+				<span class="text-danger" style="text-align:right;width:100%;display:block;padding-top:10px" id="lblError"></span>
+			</div>
+		</form>
+	</div>
+</div>
+@section scripts {
+	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+	<script>
+		$(document).ready(function () {
+
+			var model = {
+				range: true,
+				min: parseInt('@Model.MinAmount'),
+				max: parseInt('@Model.MaxAmount'),
+				values: [parseInt('@(Model.SelectedMinAmount.HasValue ? Model.SelectedMinAmount.Value : Model.MinAmount)'), parseInt('@(Model.SelectedMaxAmount.HasValue ? Model.SelectedMaxAmount.Value : Model.MaxAmount)')],
+				slide: function (event, ui) {
+					$("input[name=minAmount]").val(ui.values[0]);
+					$("input[name=maxAmount]").val(ui.values[1]);
+				}
+			};
+
+			console.log(model);
+
+			$(".slider").slider(model);
+		});
+		function showChangeStatusModal(walletDepositRequestsId) {
+			$("#walletDepositRequestsId").val(walletDepositRequestsId);
+			$("#cmbDepositStatus").val('');
+			$("#txtConfirmDescription").val('');
+		}
+		function changeStatus() {
+			$("#lblError").text('');
+			var err = ValidateInput();
+			if (err.length > 0) {
+				$("#lblError").text(err);
+				return;
+			}
+			$.ajax({
+				url: '@Url.Action("ChangeStatus")',
+				data: {
+					'walletDepositRequestsId': $("#changeStatusModal").find("#walletDepositRequestsId").val(),
+					'status': $("#changeStatusModal").find("#cmbDepositStatus").val(),
+					'confirmDescription': $("#changeStatusModal").find("#txtConfirmDescription").val()
+				},
+				type: 'POST',
+				success: function (data) {
+					if (data.status == 'error')
+						$("#lblError").text(data.message);
+					else if (data.status == 'success') {
+						location.reload();
+					}
+				}
+			});
+		}
+		function ValidateInput() {
+			if ($("#cmbDepositStatus").val() == '') {
+				$("#cmbDepositStatus").focus();
+				return "وضعیت واریز را انتخاب کنید";
+			}
+			else
+				return "";
+		}
+		function showWalletDepositRequestDetailsModal(Id) {
+			try {
+				$.ajax({
+					url: '@Url.Action("GetWalletDepositRequest")',
+					data: { 'walletDepositRequestsId': Id },
+					type: 'POST',
+					success: function (data) {
+						$("#walletDepositRequestDetailsModal").find("#txtAmount").text(data.message.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+						$("#walletDepositRequestDetailsModal").find("#txtTransactionTrace").text(data.message.transactionTrace);
+						$("#walletDepositRequestDetailsModal").find("#txtTransactionDate").text(data.message.transactionDate);
+						$("#walletDepositRequestDetailsModal").find("#txtSourceOwnerName").text(data.message.sourceOwnerName);
+						$("#walletDepositRequestDetailsModal").find("#txtSourceIbanNumber").text(data.message.sourceIbanNumber);
+						$("#walletDepositRequestDetailsModal").find("#txtSourceBank").text(data.message.sourceBank);
+						$("#walletDepositRequestDetailsModal").find("#txtSourceOwnerNationalCode").text(data.message.sourceOwnerNationalCode);
+						$("#walletDepositRequestDetailsModal").find("#txtDestIbanNumber").text(data.message.destIbanNumber);
+						$("#walletDepositRequestDetailsModal").find("#txtDepositerName").text(data.message.depositerName);
+						$("#walletDepositRequestDetailsModal").find("#txtDepositerNationalCode").text(data.message.depositerNationalCode);
+						$("#walletDepositRequestDetailsModal").find("#txtDepositType").text(data.message.depositType);
+						$("#walletDepositRequestDetailsModal").find("#txtDescription").text(data.message.description);
+						$("#walletDepositRequestDetailsModal").find("#txtWallet").text(data.message.wallet);
+						$("#walletDepositRequestDetailsModal").find("#txtLastStatus").text(data.message.lastStatus);
+						$("#walletDepositRequestDetailsModal").find("#txtCreateDate").text(data.message.createDate);
+						$("#walletDepositRequestDetailsModal").find("#txtConfirmDate").text(data.message.confirmDate);
+						$("#walletDepositRequestDetailsModal").find("#txtConfirmDescription").text(data.message.confirmDescription);
+						$("#walletDepositRequestDetailsModal").find("#txtAmountAfterDeposit").text(data.message.amountAfterDeposit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+					}
+				});
+			}
+			catch (e) {
+				alert(e);
+			}
+		}
+	</script>
+}

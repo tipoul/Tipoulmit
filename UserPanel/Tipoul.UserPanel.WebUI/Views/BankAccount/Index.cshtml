@@ -1,0 +1,82 @@
+﻿@model List<Tipoul.UserPanel.WebUI.Models.BankAccount.ListViewModel>
+
+<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::زیر هدر-->
+    <div class="subheader py-2 py-lg-4  subheader-transparent " id="kt_subheader">
+        <div class=" container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::جزئیات-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+
+                <!--begin::Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">
+                    حساب های بانکی
+                </h5>
+                <!--end::Title-->
+                <!--begin::Separator-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
+                <!--end::Separator-->
+                <!--begin::جستجو Form-->
+                <div class="d-flex align-items-center" id="kt_subheader_search">
+                    <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">
+                        تعداد @Model.Count
+                    </span>
+                </div>
+                <!--end::جستجو Form-->
+            </div>
+            <!--end::جزئیات-->
+            <!--begin::Toolbar-->
+            <div class="d-flex align-items-center">
+                <!--begin::دکمه-->
+                <a href="#" class="">
+
+                </a>
+                <!--end::دکمه-->
+                <!--begin::دکمه-->
+                <a href="~/bankAccount/Form" class="btn btn-light-primary font-weight-bold ml-2">افزودن حساب بانکی</a>
+                <!--end::دکمه-->
+            </div>
+            <!--end::Toolbar-->
+        </div>
+    </div>
+    <!--end::زیر هدر-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+            <!--begin::Row-->
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body text-center pt-4">
+                                <div class="row">
+                                    <div class="col-3 mt-7">
+                                        <div class="symbol symbol-circle symbol-lg-90">
+                                            <img src="@item.BankLogoURL" alt="@item.BankName" title="@item.BankName">
+                                        </div>
+                                    </div>
+                                    <div class="col-9 my-4">
+                                        <span class="text-dark font-weight-bold text-hover-primary font-size-h4">@item.FullName <span class="btn btn-text btn-light-@(item.IsActive ? "success" : "danger") btn-sm font-weight-bold">@(item.IsActive ? "فعال" : "غیر فعال")</span></span>
+                                        <p class="text-dark font-weight-bold text-hover-primary font-size-h4 mt-10">@item.Iban</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-5">
+                                    @*<div class="col-4"><a href="/report/transactions?bankAccount=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder text-uppercase py-4">تراکنش ها</a></div>
+                                    <div class="col-4"><a href="/report/customers?bankAccount=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder text-uppercase py-4">مشتری ها</a></div>*@
+                                    <div class="col-3"></div>
+                                    <div class="col-6"><a href="/report/settlements?bankAccount=@item.Id" class="btn btn-block btn-sm btn-light-info font-weight-bolder text-uppercase py-4">مشاهده تسویه ها</a></div>
+                                </div>
+                                <div class="mt-9">
+                                    <a href="~/bankAccount/toggle/@item.Id" class="btn btn-block btn-light-success font-weight-bolder btn-sm py-3 px-6 text-uppercase">برای @(item.IsActive ? "غیر فعال" : "فعال") کردن کلیک کنید</a>
+                                    @*<a href="~/bankAccount/Form/@item.Id" class="btn btn-light-primary font-weight-bolder btn-sm py-3 px-6 text-uppercase">ویرایش</a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
