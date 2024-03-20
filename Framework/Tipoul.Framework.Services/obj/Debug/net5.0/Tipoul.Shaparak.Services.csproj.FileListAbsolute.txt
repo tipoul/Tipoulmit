@@ -1,0 +1,5 @@
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Debug\net5.0\Tipoul.Shaparak.Services.csproj.AssemblyReference.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Debug\net5.0\Tipoul.Shaparak.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Debug\net5.0\Tipoul.Shaparak.Services.AssemblyInfoInputs.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Debug\net5.0\Tipoul.Shaparak.Services.AssemblyInfo.cs
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Debug\net5.0\Tipoul.Shaparak.Services.csproj.CoreCompileInputs.cache

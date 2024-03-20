@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Authentication\Tipoul.Athentication.Agent\Tipoul.Athentication.Agent.csproj" />
     <ProjectReference Include="..\..\Framework\Tipoul.Framework.DataAccessLayer\Tipoul.Framework.DataAccessLayer.csproj" />
-    <ProjectReference Include="..\..\Framework\Tipoul.Framework.Services\Tipoul.Framework.Services.csproj" />
+    <ProjectReference Include="..\..\Framework\Tipoul.Framework.Services\Tipoul.Shaparak.Services.csproj" />
     <ProjectReference Include="..\..\Framework\Tipoul.Framework.Utilities\Tipoul.Framework.Utilities.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Tipoul.Infrastructure.RequestLog\Tipoul.Infrastructure.RequestLog.csproj" />
     <ProjectReference Include="..\..\Tipoul.Framework.ShahinService\Tipoul.Framework.ShahinService.csproj" />

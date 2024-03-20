@@ -12,18 +12,6 @@ namespace Tipoul.Framework.Services.IranKishGateWay.Models
 {
     public class GetTokenModel
     {
-        public GetTokenModel(string acceptorId, long amount, string paymentId, string requestId, string revertUri, string terminalId, string rsaPublicKey, string passPhrase)
-        {
-            AcceptorId = acceptorId;
-            Amount = amount;
-            PaymentId = paymentId;
-            RequestId = requestId;
-            RevertUri = revertUri;
-            TerminalId = terminalId;
-            RsaPublicKey = rsaPublicKey;
-            PassPhrase = passPhrase;
-        }
-
         public string AcceptorId { get; set; }
 
         public long Amount { get; set; }

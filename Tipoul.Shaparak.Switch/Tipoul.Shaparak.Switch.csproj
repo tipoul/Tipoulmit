@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Tipoul.Framework.Services\Tipoul.Shaparak.Services.csproj" />
+  </ItemGroup>
+
 </Project>

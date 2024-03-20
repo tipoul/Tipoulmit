@@ -154,12 +154,12 @@
         }
       }
     },
-    "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Framework.Services.csproj": {
+    "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Shaparak.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Framework.Services.csproj",
-        "projectName": "Tipoul.Framework.Services",
-        "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Framework.Services.csproj",
+        "projectUniqueName": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Shaparak.Services.csproj",
+        "projectName": "Tipoul.Shaparak.Services",
+        "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Shaparak.Services.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
         "outputPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\obj\\",
         "projectStyle": "PackageReference",
@@ -201,6 +201,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "KSBankMellat": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
               "version": "[6.0.0-preview.7.21377.19, )"
@@ -536,8 +540,8 @@
               "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services.RequestLog\\Tipoul.Framework.Services.RequestLog.csproj": {
                 "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services.RequestLog\\Tipoul.Framework.Services.RequestLog.csproj"
               },
-              "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Framework.Services.csproj": {
-                "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Framework.Services.csproj"
+              "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Shaparak.Services.csproj": {
+                "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Shaparak.Services.csproj"
               },
               "D:\\Samodi\\V2\\src\\src\\Infrastructure\\Tipoul.Infrastructure.RequestLog\\Tipoul.Infrastructure.RequestLog.csproj": {
                 "projectPath": "D:\\Samodi\\V2\\src\\src\\Infrastructure\\Tipoul.Infrastructure.RequestLog\\Tipoul.Infrastructure.RequestLog.csproj"
