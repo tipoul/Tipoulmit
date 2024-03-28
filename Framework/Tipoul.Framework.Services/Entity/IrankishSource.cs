@@ -17,5 +17,7 @@ namespace Tipoul.Shaparak.Services.Entity
         public string TerminalId { get; set; }
         public string RsaPublicKey { get; set; }
         public string PassPhrase { get; set; }
+        public string AcceptorId { get; set; }
+        
     }
 }

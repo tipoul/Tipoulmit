@@ -4,16 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tipoul.Framework.DataAccessLayer;
 using Tipoul.Framework.Services.IranKishGateWay;
 using Tipoul.Framework.Services.IranKishGateWay.Models;
 using Tipoul.Framework.Services.RequestLog.DataAccessLayer;
 using Tipoul.Framework.Services.SepehrGateWay;
+using Tipoul.Framework.Utilities.Utilities;
 using Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpPayRequest;
+using Tipoul.Shaparak.Services.Data;
 
 namespace Tipoul.Shaparak.Switch
 {
     public class Switch
     {
+        private readonly Context _context;
+        private readonly TipoulFrameworkDbContext _tipouldbContext;
+        public Switch(Context dbContext, TipoulFrameworkDbContext tipouldbContext)
+        {
+            _context = dbContext;
+            _tipouldbContext = tipouldbContext;
+        }
         public async void IPGParameter(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
         {
             if (AdminIPGChoice != null)
@@ -69,8 +79,20 @@ namespace Tipoul.Shaparak.Switch
 
             swm.Amount = inmodel.Amount;
             swm.CallbackURL = inmodel.CallBackUrl;
-            swm.InvoiceId = inmodel.FactorNumber;//Or Random Number
-            swm.TerminalId = 0;//Fill With Database Sepehr Source TerminalId
+            if (inmodel.CallBackUrl != null)
+                swm.InvoiceId = inmodel.FactorNumber;
+            else
+            {
+                Random rnd = new Random();
+                int numberrandom = rnd.Next(100000, 999999);
+                swm.InvoiceId = numberrandom.ToString();
+            }
+
+            var ObjsSepherSource = _context.SepehrSource.FirstOrDefault();
+            if (ObjsSepherSource != null)
+                swm.TerminalId = long.Parse(ObjsSepherSource.TerminalId);
+            else
+                swm.TerminalId = 0;
             swm.Payload = "Sepehr";
 
         }
@@ -80,16 +102,37 @@ namespace Tipoul.Shaparak.Switch
 
             GetTokenModel gtm = new GetTokenModel();
 
-            gtm.TerminalId = "";//Fill With Database IranKish Source TerminalId
+            var ObjsIrankishSource = _context.IrankishSource.FirstOrDefault();
+            if (ObjsIrankishSource != null)
+            {
+                gtm.TerminalId = ObjsIrankishSource.TerminalId;
+                gtm.AcceptorId = ObjsIrankishSource.AcceptorId;
+                gtm.PassPhrase = ObjsIrankishSource.PassPhrase;
+                gtm.RsaPublicKey = ObjsIrankishSource.RsaPublicKey;
+            }
+            else
+            {
+                gtm.TerminalId = "";
+                gtm.AcceptorId = "";
+                gtm.PassPhrase = "";
+                gtm.RsaPublicKey = "";
+            }
 
-            gtm.AcceptorId = "";//Fill With Database IranKish Source AcceptorId
+
+
+
             gtm.RevertUri = inmodel.CallBackUrl;
-            gtm.PassPhrase = "";//Fill With Database IranKish Source PassPhrase
             gtm.Amount = inmodel.Amount;
 
-            gtm.RsaPublicKey = //Fill With Database IranKish Source RsaPublicKey
+            if (inmodel.FactorNumber != null)
+                gtm.PaymentId = inmodel.FactorNumber;
+            else
+            {
+                Random rnd = new Random();
+                int numberrandom = rnd.Next(100000, 999999);
+                gtm.PaymentId = numberrandom.ToString();
+            }
 
-            gtm.PaymentId = inmodel.FactorNumber;//Or Random Number;
             gtm.RequestId = "";//Insert Recore To Table Log Request
 
             iks.GetToken(gtm, "");
@@ -103,17 +146,41 @@ namespace Tipoul.Shaparak.Switch
 
             InModel inmpdelpay = new InModel();
 
-            inmpdelpay.payerId = 0;//Wallet Id table CommertialGateWays
+            var Objswallet=_tipouldbContext.Wallets.FirstOrDefault();
+            if (Objswallet != null)
+                inmpdelpay.payerId = Objswallet.Id;
+            else
+                inmpdelpay.payerId = 0;
 
-            inmpdelpay.terminalId = 0;//Fill With Database
-            inmpdelpay.userName = "";//Fill With Database
-            inmpdelpay.userPassword = "";//Fill With Database
+            var ObjsBehpardakhtSource = _context.BehpardakhtSource.FirstOrDefault();
+            if (ObjsBehpardakhtSource != null)
+            {
+                inmpdelpay.terminalId = long.Parse(ObjsBehpardakhtSource.TerminalId);
+                inmpdelpay.userName = ObjsBehpardakhtSource.Username;
+                inmpdelpay.userPassword = ObjsBehpardakhtSource.Password;
+            }
+            else
+            {
+                inmpdelpay.terminalId = 0;
+                inmpdelpay.userName = "";
+                inmpdelpay.userPassword = "";
+            }
+                
+            
+           
             inmpdelpay.localDate = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
             inmpdelpay.amount = inmodel.Amount;
             inmpdelpay.callBackUrl = inmodel.CallBackUrl;
             inmpdelpay.localTime = DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
 
-            inmpdelpay.orderId = long.Parse(inmodel.FactorNumber);//Or Random Number;
+            if (inmodel.FactorNumber != null)
+                inmpdelpay.orderId = long.Parse(inmodel.FactorNumber);
+            else
+            {
+                Random rnd = new Random();
+                int numberrandom = rnd.Next(100000, 999999);
+                inmpdelpay.orderId = numberrandom;
+            }
 
             await ss.bpPayRequest(inmpdelpay);
 

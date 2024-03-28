@@ -903,6 +903,22 @@
           }
         }
       },
+      "Tipoul.Framework.DataAccessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.0-preview.5.21301.9",
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.0-preview.5.21301.9",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.0-preview.5.21301.9",
+          "Tipoul.Framework.StorageModels": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Tipoul.Framework.DataAccessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tipoul.Framework.DataAccessLayer.dll": {}
+        }
+      },
       "Tipoul.Framework.Services.RequestLog/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -916,6 +932,16 @@
         },
         "runtime": {
           "bin/placeholder/Tipoul.Framework.Services.RequestLog.dll": {}
+        }
+      },
+      "Tipoul.Framework.StorageModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Tipoul.Framework.StorageModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tipoul.Framework.StorageModels.dll": {}
         }
       },
       "Tipoul.Framework.Utilities/1.0.0": {
@@ -2492,10 +2518,20 @@
         "version.txt"
       ]
     },
+    "Tipoul.Framework.DataAccessLayer/1.0.0": {
+      "type": "project",
+      "path": "../Framework/Tipoul.Framework.DataAccessLayer/Tipoul.Framework.DataAccessLayer.csproj",
+      "msbuildProject": "../Framework/Tipoul.Framework.DataAccessLayer/Tipoul.Framework.DataAccessLayer.csproj"
+    },
     "Tipoul.Framework.Services.RequestLog/1.0.0": {
       "type": "project",
       "path": "../Framework/Tipoul.Framework.Services.RequestLog/Tipoul.Framework.Services.RequestLog.csproj",
       "msbuildProject": "../Framework/Tipoul.Framework.Services.RequestLog/Tipoul.Framework.Services.RequestLog.csproj"
+    },
+    "Tipoul.Framework.StorageModels/1.0.0": {
+      "type": "project",
+      "path": "../Framework/Tipoul.Framework.StorageModels/Tipoul.Framework.StorageModels.csproj",
+      "msbuildProject": "../Framework/Tipoul.Framework.StorageModels/Tipoul.Framework.StorageModels.csproj"
     },
     "Tipoul.Framework.Utilities/1.0.0": {
       "type": "project",
@@ -2510,6 +2546,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Tipoul.Framework.DataAccessLayer >= 1.0.0",
       "Tipoul.Shaparak.Services >= 1.0.0"
     ]
   },
@@ -2545,6 +2582,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.DataAccessLayer\\Tipoul.Framework.DataAccessLayer.csproj": {
+              "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.DataAccessLayer\\Tipoul.Framework.DataAccessLayer.csproj"
+            },
             "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Shaparak.Services.csproj": {
               "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Services\\Tipoul.Shaparak.Services.csproj"
             }
