@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Tipoul.Framework.Services\Tipoul.Shaparak.Services.csproj" />
+    <ProjectReference Include="..\Framework\Tipoul.Framework.Utilities\Tipoul.Framework.Utilities.csproj" />
+    <ProjectReference Include="..\Infrastructure\Tipoul.Infrastructure.RequestLog\Tipoul.Infrastructure.RequestLog.csproj" />
+    <ProjectReference Include="..\Tipoul.Shaparak.Switch\Tipoul.Shaparak.Switch.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,15 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tipoul.Framework.DataAccessLayer;
 using Tipoul.Framework.Services.IranKishGateWay;
 using Tipoul.Framework.Services.IranKishGateWay.Models;
-using Tipoul.Framework.Services.RequestLog.DataAccessLayer;
 using Tipoul.Framework.Services.SepehrGateWay;
-using Tipoul.Framework.Utilities.Utilities;
 using Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpPayRequest;
 using Tipoul.Shaparak.Services.Data;
 
@@ -17,13 +19,18 @@ namespace Tipoul.Shaparak.Switch
 {
     public class Switch
     {
-        private readonly Context _context;
-        private readonly TipoulFrameworkDbContext _tipouldbContext;
-        public Switch(Context dbContext, TipoulFrameworkDbContext tipouldbContext)
+        private readonly TipoulFrameworkDbContext dbContext;
+        private readonly IConfiguration configuration;
+        private readonly string TokenUrl;
+        public Switch(IConfiguration config)
         {
-            _context = dbContext;
-            _tipouldbContext = tipouldbContext;
+            configuration = config;
+            TokenUrl = configuration.GetSection("shahin").GetSection("TokenUrl").Value;
         }
+
+
+
+
         public async void IPGParameter(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
         {
             if (AdminIPGChoice != null)
@@ -87,7 +94,8 @@ namespace Tipoul.Shaparak.Switch
                 int numberrandom = rnd.Next(100000, 999999);
                 swm.InvoiceId = numberrandom.ToString();
             }
-
+            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
+            //TipoulFrameworkDbContext _context = new TipoulFrameworkDbContext();
             var ObjsSepherSource = _context.SepehrSource.FirstOrDefault();
             if (ObjsSepherSource != null)
                 swm.TerminalId = long.Parse(ObjsSepherSource.TerminalId);
@@ -102,6 +110,7 @@ namespace Tipoul.Shaparak.Switch
 
             GetTokenModel gtm = new GetTokenModel();
 
+            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
             var ObjsIrankishSource = _context.IrankishSource.FirstOrDefault();
             if (ObjsIrankishSource != null)
             {
@@ -145,13 +154,22 @@ namespace Tipoul.Shaparak.Switch
             Services.BehPardakhtGateWay.Services ss = new Services.BehPardakhtGateWay.Services();
 
             InModel inmpdelpay = new InModel();
+            
 
-            var Objswallet=_tipouldbContext.Wallets.FirstOrDefault();
+            var optionsBuilder = new DbContextOptionsBuilder<TipoulFrameworkDbContext>();
+            //optionsBuilder.UseSqlServer(connectionString);
+
+
+            TipoulFrameworkDbContext dbContext = new TipoulFrameworkDbContext(optionsBuilder.Options);
+
+
+            var Objswallet = dbContext.Wallets.FirstOrDefault();
             if (Objswallet != null)
                 inmpdelpay.payerId = Objswallet.Id;
             else
                 inmpdelpay.payerId = 0;
 
+            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
             var ObjsBehpardakhtSource = _context.BehpardakhtSource.FirstOrDefault();
             if (ObjsBehpardakhtSource != null)
             {
@@ -165,9 +183,9 @@ namespace Tipoul.Shaparak.Switch
                 inmpdelpay.userName = "";
                 inmpdelpay.userPassword = "";
             }
-                
-            
-           
+
+
+
             inmpdelpay.localDate = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
             inmpdelpay.amount = inmodel.Amount;
             inmpdelpay.callBackUrl = inmodel.CallBackUrl;

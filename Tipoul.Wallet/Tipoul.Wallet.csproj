@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\site.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Services\Tipoul.Services.WebApi\Tipoul.Services.WebApi.csproj" />
+    <ProjectReference Include="..\Tipoul.Console.WebApi\Tipoul.Console.WebApi.csproj" />
+  </ItemGroup>
+
+</Project>

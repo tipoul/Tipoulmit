@@ -713,7 +713,7 @@ namespace Tipoul.Framework.DataAccessLayer.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
+                    //b.HasIndex("UserId1");
 
                     b.HasIndex("UserWageHistoryId2");
 

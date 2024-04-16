@@ -3,9 +3,11 @@ D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\appsettings.json
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.CoreBanking.Switch.deps.json
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.CoreBanking.Switch.dll
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.CoreBanking.Switch.pdb
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.dll
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.Framework.Services.OpenBanking.dll
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.Framework.Services.OpenBanking.pdb
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.Framework.Services.OpenBanking.dll.config
+D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.pdb
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\obj\Debug\net6.0\Tipoul.CoreBanking.Switch.csproj.AssemblyReference.cache
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\obj\Debug\net6.0\Tipoul.CoreBanking.Switch.GeneratedMSBuildEditorConfig.editorconfig
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\obj\Debug\net6.0\Tipoul.CoreBanking.Switch.AssemblyInfoInputs.cache
@@ -16,5 +18,3 @@ D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\obj\Debug\net6.0\Tipoul.CoreBanki
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\obj\Debug\net6.0\refint\Tipoul.CoreBanking.Switch.dll
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\obj\Debug\net6.0\Tipoul.CoreBanking.Switch.pdb
 D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\obj\Debug\net6.0\ref\Tipoul.CoreBanking.Switch.dll
-D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.dll
-D:\Samodi\V2\src\src\Tipoul.CoreBanking.Switch\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.pdb

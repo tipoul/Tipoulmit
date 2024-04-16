@@ -152,18 +152,18 @@ namespace Tipoul.Services.WebApi.Controllers
                         await dbContext.SaveChangesAsync();
                     }
                 }
-                var tokenModel = new Framework.Services.IranKishGateWay.Models.GetTokenModel(gateWay.MerchantNumber, transaction.GetTokenModel.Amount, transaction.GetTokenModel.FactorNumber,
-                    requestLogService.RequestId.ToString(), redirecUrl, gateWay.TerminalNumber, gateWay.RsaPublicKey, gateWay.PassPhrase);
+                //var tokenModel = new Framework.Services.IranKishGateWay.Models.GetTokenModel(gateWay.MerchantNumber, transaction.GetTokenModel.Amount, transaction.GetTokenModel.FactorNumber,
+                //    requestLogService.RequestId.ToString(), redirecUrl, gateWay.TerminalNumber, gateWay.RsaPublicKey, gateWay.PassPhrase);
 
-                var tokenResult = await iranKishService.GetToken(tokenModel, JsonSerializer.Serialize(new { requestLogService.RequestId, gateWayId = transaction.GateWay.Id }));
-                if (tokenResult.Status != true)
-                {
-                    transaction.ISPAccessTokenErrorMessage = tokenResult.Status.ToString();
-                    await dbContext.SaveChangesAsync();
-                    throw new Exception("Gate way exception");
-                }
+                //var tokenResult = await iranKishService.GetToken(tokenModel, JsonSerializer.Serialize(new { requestLogService.RequestId, gateWayId = transaction.GateWay.Id }));
+                //if (tokenResult.Status != true)
+                //{
+                //    transaction.ISPAccessTokenErrorMessage = tokenResult.Status.ToString();
+                //    await dbContext.SaveChangesAsync();
+                //    throw new Exception("Gate way exception");
+                //}
 
-                transaction.ISPAccessToken = tokenResult.Result.Token;
+                //transaction.ISPAccessToken = tokenResult.Result.Token;
 
                 var claims = new Dictionary<string, string>();
 

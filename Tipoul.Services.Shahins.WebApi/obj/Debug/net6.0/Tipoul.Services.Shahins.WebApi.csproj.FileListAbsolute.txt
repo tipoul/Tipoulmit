@@ -107,13 +107,6 @@ D:\Samodi\V1\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.Fram
 D:\Samodi\V1\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.Framework.StorageModels.dll
 D:\Samodi\V1\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.Framework.DataAccessLayer.pdb
 D:\Samodi\V1\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.Framework.StorageModels.pdb
-D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.csproj.AssemblyReference.cache
-D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.GeneratedMSBuildEditorConfig.editorconfig
-D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.AssemblyInfoInputs.cache
-D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.AssemblyInfo.cs
-D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.csproj.CoreCompileInputs.cache
-D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.MvcApplicationPartsAssemblyInfo.cs
-D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.MvcApplicationPartsAssemblyInfo.cache
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\appsettings.Development.json
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\appsettings.json
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.Services.Shahins.WebApi.exe
@@ -176,6 +169,13 @@ D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.Fram
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.Framework.Services.OpenBanking.dll.config
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.CoreBanking.Services.KYC.pdb
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\bin\Debug\net6.0\Tipoul.CoreBanking.Switch.pdb
+D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.csproj.AssemblyReference.cache
+D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.AssemblyInfoInputs.cache
+D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.AssemblyInfo.cs
+D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.csproj.CoreCompileInputs.cache
+D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.MvcApplicationPartsAssemblyInfo.cs
+D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\Tipoul.Services.Shahins.WebApi.MvcApplicationPartsAssemblyInfo.cache
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\staticwebassets.build.json
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\staticwebassets.development.json
 D:\Samodi\V2\src\src\Tipoul.Services.Shahins.WebApi\obj\Debug\net6.0\scopedcss\bundle\Tipoul.Services.Shahins.WebApi.styles.css

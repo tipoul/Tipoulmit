@@ -14,7 +14,7 @@ namespace Tipoul.Shaparak.Switch.Model.GetToken
 
         public string CallBackUrl { get; set; }
 
-        public long? PayerUserId { get; set; }
+        public string? PayerUserId { get; set; }
 
         public string? PayerName { get; set; }
 
@@ -22,7 +22,7 @@ namespace Tipoul.Shaparak.Switch.Model.GetToken
 
         public string? FactorNumber { get; set; }
 
-        public string? PayerMail { get; set; }
+       
 
         public List<string>? ValidCardNum { get; set; }
 

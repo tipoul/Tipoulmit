@@ -39,4 +39,12 @@ namespace Tipoul.Shaparak.Switch.Model.GetToken
         public long terminalId { get; set; }
         public string payload { get; set; }
     }
+    public class Tokenresult
+    {
+        public string accessToken { get; set; }
+    }
+    public class ModelBehPardakht
+    {
+        public string JavascriptToRun { get; set; }
+    }
 }

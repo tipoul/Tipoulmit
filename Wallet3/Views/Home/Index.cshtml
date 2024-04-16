@@ -1,0 +1,68 @@
+﻿<div class="main-container" id="mainContainer">
+    <div class="user-information" id="userInformation">
+        <img class="avatar" id="merchantAvatar" src="../img/images.png">
+        <span class="title-merchant" id="nameHeading"> نام پذیرنده:</span>
+        <span id="merchantName">هامون مهدیخانی</span>
+        <span class="zp-id" id="merchantZpId">Remitpay.ir</span>
+    </div>
+    <div class="payment-information">
+        <div class="content">
+            <span class="payment-description" id="merchantDescriptionName">جهت پرداخت وجه به هامون مهدیخانی ، فرم زیر را تکمیل نمایید.</span>
+           <form class="modal-content" >
+            <div>
+                <div><input name="amount" id="amount" placeholder="مبلغ" required data-validate="required" class="inputAmount" type="text" value="" currency=" ریال"></div>
+                <div class="amount"> ریال</div>
+                <div class="amount"> ریال</div>
+            </div>
+            <div>
+                    <input name="nationalcode" type="text" id="nationalcode" required data-validate="required" placeholder="کد ملی (اجباری)">
+            </div>
+            <div>
+                <input name="mobile" id="mobile" type="text" placeholder="شماره موبایل پرداخت کننده">
+            </div>
+                <button type="submit" onclick="Payment();return false;">پرداخت</button>
+          </form>
+        </div>
+    </div><div class="header">
+        <span style="margin-top:5px">پرداخت ایمن با</span><img src="../img/Logo1.png" />
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function Payment() {
+        var req = { "from": "bundle" };
+        var data = {};
+        data.amount = $('#amount').val();
+        data.mobile = $('#mobile').val();
+        data.nationalcode = $('#nationalcode').val();
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/home/console',
+            dataType: "json",
+            data: JSON.stringify(data),
+
+           success: function (response) {
+                
+                var form = document.createElement("form");
+                form.setAttribute("method", "POST");
+                form.setAttribute("action", "https://bpm.shaparak.ir/pgwchannel/startpay.mellat");
+                form.setAttribute("target", "_self");
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("name", "RefId");
+                hiddenField.setAttribute("value", response.responseText);
+                form.appendChild(hiddenField);
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);
+                debugger;
+            },
+            error: function (response) {
+                alert("خطا در اتصال به درگاه بانکی");  //
+            }
+        });
+    }
+   
+</script>
