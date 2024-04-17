@@ -118,3 +118,4 @@ D:\Samodi\V2\src\src\Tipoul.Wallet\obj\Debug\net6.0\refint\Tipoul.Wallet.dll
 D:\Samodi\V2\src\src\Tipoul.Wallet\obj\Debug\net6.0\Tipoul.Wallet.pdb
 D:\Samodi\V2\src\src\Tipoul.Wallet\obj\Debug\net6.0\Tipoul.Wallet.genruntimeconfig.cache
 D:\Samodi\V2\src\src\Tipoul.Wallet\obj\Debug\net6.0\ref\Tipoul.Wallet.dll
+D:\Samodi\V2\src\src\Tipoul.Wallet\obj\Debug\net6.0\Tipoul.Wallet.MvcApplicationPartsAssemblyInfo.cs

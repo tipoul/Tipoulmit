@@ -309,7 +309,6 @@ body {
 
         .main-container .user-information img.avatar {
             display: block;
-            border-radius: 50%;
             width: 100px;
             height: 100px;
             background: #fff;
