@@ -22,10 +22,12 @@ namespace Tipoul.Shaparak.Switch
         private readonly TipoulFrameworkDbContext dbContext;
         private readonly IConfiguration configuration;
         private readonly string TokenUrl;
-        public Switch(IConfiguration config)
+        private ShaparakContext _shaparakcontext;
+        public Switch(ShaparakContext shaparakcontext,IConfiguration config)
         {
             configuration = config;
             TokenUrl = configuration.GetSection("shahin").GetSection("TokenUrl").Value;
+            _shaparakcontext = shaparakcontext;
         }
 
 
@@ -94,9 +96,9 @@ namespace Tipoul.Shaparak.Switch
                 int numberrandom = rnd.Next(100000, 999999);
                 swm.InvoiceId = numberrandom.ToString();
             }
-            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
-            //TipoulFrameworkDbContext _context = new TipoulFrameworkDbContext();
-            var ObjsSepherSource = _context.SepehrSource.FirstOrDefault();
+           
+          
+            var ObjsSepherSource = _shaparakcontext.SepehrSource.FirstOrDefault();
             if (ObjsSepherSource != null)
                 swm.TerminalId = long.Parse(ObjsSepherSource.TerminalId);
             else
@@ -110,8 +112,7 @@ namespace Tipoul.Shaparak.Switch
 
             GetTokenModel gtm = new GetTokenModel();
 
-            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
-            var ObjsIrankishSource = _context.IrankishSource.FirstOrDefault();
+            var ObjsIrankishSource = _shaparakcontext.IrankishSource.FirstOrDefault();
             if (ObjsIrankishSource != null)
             {
                 gtm.TerminalId = ObjsIrankishSource.TerminalId;
@@ -156,12 +157,6 @@ namespace Tipoul.Shaparak.Switch
             InModel inmpdelpay = new InModel();
             
 
-            var optionsBuilder = new DbContextOptionsBuilder<TipoulFrameworkDbContext>();
-            //optionsBuilder.UseSqlServer(connectionString);
-
-
-            TipoulFrameworkDbContext dbContext = new TipoulFrameworkDbContext(optionsBuilder.Options);
-
 
             var Objswallet = dbContext.Wallets.FirstOrDefault();
             if (Objswallet != null)
@@ -169,8 +164,8 @@ namespace Tipoul.Shaparak.Switch
             else
                 inmpdelpay.payerId = 0;
 
-            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
-            var ObjsBehpardakhtSource = _context.BehpardakhtSource.FirstOrDefault();
+          
+            var ObjsBehpardakhtSource = _shaparakcontext.BehpardakhtSource.FirstOrDefault();
             if (ObjsBehpardakhtSource != null)
             {
                 inmpdelpay.terminalId = long.Parse(ObjsBehpardakhtSource.TerminalId);

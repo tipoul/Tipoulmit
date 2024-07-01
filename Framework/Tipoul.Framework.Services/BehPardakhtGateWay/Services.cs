@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using BankMellat;
+using Tipoul.Framework.Services.RequestLog.StorageModels.IranKishGateWay;
+using Tipoul.Framework.Utilities.Utilities;
 
 namespace Tipoul.Shaparak.Services.BehPardakhtGateWay
 {
@@ -15,7 +18,7 @@ namespace Tipoul.Shaparak.Services.BehPardakhtGateWay
             {
                 var pgc = new PaymentGatewayClient();
 
-                var result = await pgc.bpPayRequestAsync(model.terminalId, model.userName, model.userPassword, model.orderId, model.amount, model.localDate, model.localTime, model.additionalData, model.callBackUrl, model.payerId);
+                var result = await pgc.bpPayRequestAsync(model.terminalId, model.userName, model.userPassword, model.orderId, model.amount, model.localDate, model.localTime, model.additionalData, model.callBackUrl, model.payerId.Value);
                 string[] resultArray = result.Body.@return.Split(",");
                 Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpPayRequest.OutModel om = new Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpPayRequest.OutModel();
                 if (resultArray[0] == "0")
@@ -182,7 +185,7 @@ namespace Tipoul.Shaparak.Services.BehPardakhtGateWay
                 return om;
             }
             catch
-                {
+            {
                 return null;
             }
         }
@@ -317,6 +320,6 @@ namespace Tipoul.Shaparak.Services.BehPardakhtGateWay
             return om;
         }
 
-
+        
     }
 }

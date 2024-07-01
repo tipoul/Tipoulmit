@@ -17,7 +17,7 @@ namespace Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpPayRequest
         public string localTime { get; set; }
         public string additionalData { get; set; }
         public string callBackUrl { get; set; }
-        public long payerId { get; set; }
+        public long ?payerId { get; set; }
 
     }
 }

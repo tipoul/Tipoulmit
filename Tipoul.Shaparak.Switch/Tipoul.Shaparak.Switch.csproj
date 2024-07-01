@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Framework\Tipoul.Framework.DataAccessLayer\Tipoul.Framework.DataAccessLayer.csproj" />
-    <ProjectReference Include="..\Framework\Tipoul.Framework.Services.OpenBanking\Tipoul.Framework.Services.OpenBanking.csproj" />
     <ProjectReference Include="..\Framework\Tipoul.Framework.Services\Tipoul.Shaparak.Services.csproj" />
   </ItemGroup>
 

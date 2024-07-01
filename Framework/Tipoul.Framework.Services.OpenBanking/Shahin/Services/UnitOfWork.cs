@@ -10,13 +10,13 @@ namespace Tipoul.Framework.Services.OpenBanking.Shahin.Services
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private Context _context;
+        private OpenBankingContext _context;
         private IIbansRepo _ibansRepo;
         private ISourcesRepo _sourcesRepo;
         private IBanksRepo _banksRepo;
         private ICardInfosRepo _cardInfosRepo;
 
-        public UnitOfWork(Context context)
+        public UnitOfWork(OpenBankingContext context)
         {
             _context = context;
         }

@@ -17,7 +17,7 @@ namespace Tipoul.Shaparak.Switch.Model.GetToken
         public string? PayerUserId { get; set; }
 
         public string? PayerName { get; set; }
-
+        public string? TraceNumber { get; set; }
         public string? PayerMobile { get; set; }
 
         public string? FactorNumber { get; set; }

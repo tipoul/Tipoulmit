@@ -1,0 +1,17 @@
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\bin\Release\net6.0\appsettings.Development.json
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\bin\Release\net6.0\appsettings.json
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\bin\Release\net6.0\Tipoul.Framework.Services.OpenBanking.dll.config
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\bin\Release\net6.0\Tipoul.Framework.Services.OpenBanking.deps.json
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\bin\Release\net6.0\Tipoul.Framework.Services.OpenBanking.runtimeconfig.json
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\bin\Release\net6.0\Tipoul.Framework.Services.OpenBanking.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\bin\Release\net6.0\Tipoul.Framework.Services.OpenBanking.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.csproj.AssemblyReference.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.AssemblyInfoInputs.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.AssemblyInfo.cs
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.csproj.CoreCompileInputs.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\refint\Tipoul.Framework.Services.OpenBanking.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\Tipoul.Framework.Services.OpenBanking.genruntimeconfig.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services.OpenBanking\obj\Release\net6.0\ref\Tipoul.Framework.Services.OpenBanking.dll

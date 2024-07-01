@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,6 +36,21 @@ namespace Tipoul.Framework.Utilities.Utilities
                 foreach (var propertyInfo in typeof(T).GetProperties())
                     yield return $"<input type='hidden' name='{propertyInfo.Name}' value='{propertyInfo.GetValue(model)}' />";
             }
+        }
+        public async Task RedirectUsingPostNew<T>(string url)
+        {
+            var responseBody =
+                "<html>" +
+                "   <body onload='document.forms[0].submit()'>" +
+                $"       <form method='post' action='{url}'>" +
+                $"       <input type='hidden' name='{"RefId"}' value='{"2030"}' />"+
+            "        </form" +
+            "   </body>" +
+                "</html>";
+
+            await contextAccessor.HttpContext.Response.WriteAsync(responseBody);
+
+           
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿namespace Tipoul.Services.Shared.Models.Pay
+﻿namespace Tipoul.Console.WebApi
 {
     public class CallbackModel
     {
+      
         public long Amount { get; set; }
 
         public string? CardNumber { get; set; }
@@ -12,16 +13,16 @@
         
         public string? DatePaid { get; set; }
         
-        public long TraceNumber { get; set; }
+        public long ?TraceNumber { get; set; }
         
         public string? FactorNumber { get; set; }
         
         public int RespCode { get; set; }
         
-        public string? RespMsg { get; set; }
+        public string? RespMsg { get; set; }      
 
-        public string TipoulTrackNumber { get; set; }
-
-        public string TipoulTraceNumber { get; set; }
+        public string ?GTTN { get; set; }
+        public string? GTRN { get; set; }
     }
+    
 }

@@ -13,7 +13,7 @@ namespace Tipoul.Shaparak.Services.Entity
     {
         [Key]
         public int Id { get; set; }
-        public int TipoulGetwayId { get; set; }
+        public int ?TipoulGetwayId { get; set; }
         public string  TerminalId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

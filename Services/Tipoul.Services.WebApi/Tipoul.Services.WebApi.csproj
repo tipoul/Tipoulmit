@@ -21,7 +21,6 @@
     <ProjectReference Include="..\..\Framework\Tipoul.Framework.Services.RequestLog\Tipoul.Framework.Services.RequestLog.csproj" />
     <ProjectReference Include="..\..\Framework\Tipoul.Framework.Services\Tipoul.Shaparak.Services.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Tipoul.Infrastructure.RequestLog\Tipoul.Infrastructure.RequestLog.csproj" />
-    <ProjectReference Include="..\..\Tipoul.Framework.ShahinService\Tipoul.Framework.ShahinService.csproj" />
     <ProjectReference Include="..\Tipoul.Services.Shared\Tipoul.Services.Shared.csproj" />
   </ItemGroup>
 

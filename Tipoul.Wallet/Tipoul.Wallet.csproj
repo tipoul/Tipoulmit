@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Services\Tipoul.Services.WebApi\Tipoul.Services.WebApi.csproj" />
     <ProjectReference Include="..\Tipoul.Console.WebApi\Tipoul.Console.WebApi.csproj" />
   </ItemGroup>
 

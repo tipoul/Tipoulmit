@@ -13,8 +13,8 @@ namespace Tipoul.Shaparak.Services.Services
 {
     public class IranKishRepo:IIrankishSourceRepo
     {
-        private Context _context;
-        public IranKishRepo(Context context)
+        private ShaparakContext _context;
+        public IranKishRepo(ShaparakContext context)
         {
             _context = context;
         }

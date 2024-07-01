@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Tipoul.Framework.Utilities\Tipoul.Framework.Utilities.csproj" />
-    <ProjectReference Include="..\Tipoul.Services.Shared\Tipoul.Services.Shared.csproj" />
   </ItemGroup>
 
 </Project>

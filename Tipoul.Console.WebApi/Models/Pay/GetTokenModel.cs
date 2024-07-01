@@ -17,11 +17,9 @@ namespace Tipoul.Console.WebApi
 
         public string? PayerMobile { get; set; }
 
-        public string? FactorNumber { get; set; }
+        public string? FactorNumber { get; set; }        
 
-        
-
-        public List<string>? ValidCardNum { get; set; }
+        //public List<string>? ValidCardNum { get; set; }
 
         public string? BlankForPayer { get; set; }
 
@@ -31,4 +29,10 @@ namespace Tipoul.Console.WebApi
 
         public string? IPG { get; set; }
     }
+	public class GetTokenModel2
+	{
+		public string username { get; set; }
+
+		
+	}
 }

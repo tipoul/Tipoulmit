@@ -191,16 +191,6 @@
         "runtime": {
           "bin/placeholder/Tipoul.Framework.Utilities.dll": {}
         }
-      },
-      "Tipoul.Services.Shared/1.0.1": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "compile": {
-          "bin/placeholder/Tipoul.Services.Shared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Tipoul.Services.Shared.dll": {}
-        }
       }
     }
   },
@@ -524,17 +514,11 @@
       "type": "project",
       "path": "../../Framework/Tipoul.Framework.Utilities/Tipoul.Framework.Utilities.csproj",
       "msbuildProject": "../../Framework/Tipoul.Framework.Utilities/Tipoul.Framework.Utilities.csproj"
-    },
-    "Tipoul.Services.Shared/1.0.1": {
-      "type": "project",
-      "path": "../Tipoul.Services.Shared/Tipoul.Services.Shared.csproj",
-      "msbuildProject": "../Tipoul.Services.Shared/Tipoul.Services.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Tipoul.Framework.Utilities >= 1.0.0",
-      "Tipoul.Services.Shared >= 1.0.1"
+      "Tipoul.Framework.Utilities >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -571,9 +555,6 @@
           "projectReferences": {
             "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Utilities\\Tipoul.Framework.Utilities.csproj": {
               "projectPath": "D:\\Samodi\\V2\\src\\src\\Framework\\Tipoul.Framework.Utilities\\Tipoul.Framework.Utilities.csproj"
-            },
-            "D:\\Samodi\\V2\\src\\src\\Services\\Tipoul.Services.Shared\\Tipoul.Services.Shared.csproj": {
-              "projectPath": "D:\\Samodi\\V2\\src\\src\\Services\\Tipoul.Services.Shared\\Tipoul.Services.Shared.csproj"
             }
           }
         }

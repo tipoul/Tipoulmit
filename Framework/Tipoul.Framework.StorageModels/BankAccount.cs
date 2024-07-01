@@ -27,6 +27,8 @@ namespace Tipoul.Framework.StorageModels
         public bool Trashed { get; set; }
 
         public DateTime BirthDate { get; set; }
+        public long WalletUserId { get; set; }
+        public string CartNo { get; set; }
 
         public Bank Bank { get; set; }
 

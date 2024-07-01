@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.Identity.Client;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using Tipoul.Framework.DataAccessLayer;
 using Tipoul.Framework.Services.IranKishGateWay;
 using Tipoul.Framework.Services.IranKishGateWay.Models;
-using Tipoul.Framework.Services.OpenBanking.Shahin.Requests;
+
 using Tipoul.Framework.Services.RequestLog.StorageModels.IranKishGateWay;
 using Tipoul.Framework.Services.SepehrGateWay;
 using Tipoul.Framework.Services.SepehrGateWay.Models;
@@ -25,24 +25,26 @@ using Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpPayRequest;
 using Tipoul.Shaparak.Services.Data;
 
 
+
 namespace Tipoul.Shaparak.Switch
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration configuration;
-        private readonly Tipoul.Shaparak.Services.Data.Context _dbContext;
+        private ShaparakContext _shaparakcontext;
         private readonly JsonSerializerOptions camelCaseSettings = new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, PropertyNameCaseInsensitive = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
 
-        public HomeController(Tipoul.Shaparak.Services.Data.Context dbContext)
+        public HomeController(ShaparakContext shaparakcontext)
         {
-            _dbContext = dbContext;
+            _shaparakcontext = shaparakcontext;
         }
 
-        public async Task<string> IPGParameter(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
+        public async Task<Tipoul.Shaparak.Switch.Model.GetToken.ResultModel> IPGParameter(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
         {
-            Task<string> a = null;
+
+
             if (AdminIPGChoice != null)
             {
                 switch (AdminIPGChoice)
@@ -50,19 +52,23 @@ namespace Tipoul.Shaparak.Switch
                     case "Sepehr":
                         {
                             IPGSepehr(IPG, inmodel, AdminIPGChoice);
+                            return null;
                         }
                         break;
                     case "IranKish":
                         {
                             IPGIranKish(IPG, inmodel, AdminIPGChoice);
-
+                            return null;
                         }
                         break;
                     case "BPT":
                         {
                             IPGBPT(IPG, inmodel, AdminIPGChoice);
+                            return null;
                         }
                         break;
+                    default:
+                        return null;
                 }
             }
             else
@@ -72,22 +78,30 @@ namespace Tipoul.Shaparak.Switch
                     case "Sepehr":
                         {
                             IPGSepehr(IPG, inmodel, AdminIPGChoice);
+                            return null;
                         }
                         break;
                     case "IranKish":
                         {
                             IPGIranKish(IPG, inmodel, AdminIPGChoice);
-
+                            return null;
                         }
                         break;
                     case "BPT":
                         {
-                            a = IPGBPT(IPG, inmodel, AdminIPGChoice);
+                            return await IPGBPT(IPG, inmodel, AdminIPGChoice);
+
+                        }
+                        break;
+                    default:
+                        {
+                            return await IPGBPT(IPG, inmodel, AdminIPGChoice);
+
                         }
                         break;
                 }
             }
-            return a.Result;
+
         }
         public async void IPGSepehr(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
         {
@@ -105,9 +119,8 @@ namespace Tipoul.Shaparak.Switch
                 int numberrandom = rnd.Next(100000, 999999);
                 swm.InvoiceId = numberrandom.ToString();
             }
-            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
-            //TipoulFrameworkDbContext _context = new TipoulFrameworkDbContext();
-            var ObjsSepherSource = _context.SepehrSource.FirstOrDefault();
+
+            var ObjsSepherSource = _shaparakcontext.SepehrSource.FirstOrDefault();
             if (ObjsSepherSource != null)
                 swm.TerminalId = long.Parse(ObjsSepherSource.TerminalId);
             else
@@ -117,12 +130,11 @@ namespace Tipoul.Shaparak.Switch
         }
         public async void IPGIranKish(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
         {
-            /*IranKishGateWayService iks = new IranKishGateWayService(null, null);
+            IranKishGateWayService iks = new IranKishGateWayService(null, null);
 
-            GetTokenModel gtm = new GetTokenModel();
+            Tipoul.Framework.Services.IranKishGateWay.Models.GetTokenModel gtm = new Tipoul.Framework.Services.IranKishGateWay.Models.GetTokenModel();
 
-            Tipoul.Shaparak.Services.Data.Context _context = new Tipoul.Shaparak.Services.Data.Context(null);
-            var ObjsIrankishSource = _context.IrankishSource.FirstOrDefault();
+            var ObjsIrankishSource = _shaparakcontext.IrankishSource.FirstOrDefault();
             if (ObjsIrankishSource != null)
             {
                 gtm.TerminalId = ObjsIrankishSource.TerminalId;
@@ -138,9 +150,6 @@ namespace Tipoul.Shaparak.Switch
                 gtm.RsaPublicKey = "";
             }
 
-
-
-
             gtm.RevertUri = inmodel.CallBackUrl;
             gtm.Amount = inmodel.Amount;
 
@@ -155,46 +164,55 @@ namespace Tipoul.Shaparak.Switch
 
             gtm.RequestId = "";//Insert Recore To Table Log Request
 
-            iks.GetToken(gtm, "");*/
+            iks.GetToken(gtm, "");
 
 
         }
 
-        public async Task<string> IPGBPT(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
+        public async Task<Tipoul.Shaparak.Switch.Model.GetToken.ResultModel> IPGBPT(string IPG, Model.GetToken.InModel inmodel, string AdminIPGChoice)
         {
+
 
             Services.BehPardakhtGateWay.Services ss = new Services.BehPardakhtGateWay.Services();
 
             InModel inmpdelpay = new InModel();
 
+            inmpdelpay.payerId = inmodel.PayerUserId != "" ? long.Parse(inmodel.PayerUserId) : null;
 
-            var optionsBuilder = new DbContextOptionsBuilder<TipoulFrameworkDbContext>();
-            //optionsBuilder.UseSqlServer(connectionString);
+            long terminalId = 0; string TerminaluserName = "", userPassword = "";
+            try
+            {
 
 
-            //TipoulFrameworkDbContext dbContext = new TipoulFrameworkDbContext(optionsBuilder.Options);
+                var ObjsBehpardakhtSource = _shaparakcontext.BehpardakhtSource.FirstOrDefault();
+
+                if (ObjsBehpardakhtSource != null)
+                {
+                    inmpdelpay.terminalId = long.Parse(ObjsBehpardakhtSource.TerminalId);
+                    inmpdelpay.userName = ObjsBehpardakhtSource.Username;
+                    inmpdelpay.userPassword = ObjsBehpardakhtSource.Password;
+                    terminalId = long.Parse(ObjsBehpardakhtSource.TerminalId);
+                    TerminaluserName = ObjsBehpardakhtSource.Username;
+                    userPassword = ObjsBehpardakhtSource.Password;
 
 
-            //var Objswallet = dbContext.Wallets.FirstOrDefault();
-            //if (Objswallet != null)
-            //    inmpdelpay.payerId = Objswallet.Id;
-            //else
-            inmpdelpay.payerId = 0;
+                }
+                else
+                {
+                    inmpdelpay.terminalId = 0;
+                    inmpdelpay.userName = "";
+                    inmpdelpay.userPassword = "";
 
-            //int a= _dbContext.BehpardakhtSource.Count();
-            // var ObjsBehpardakhtSource = _dbContext.BehpardakhtSource.FirstOrDefault();
-            // if (ObjsBehpardakhtSource != null)
-            // {
-            inmpdelpay.terminalId = 3467423;// long.Parse(ObjsBehpardakhtSource.TerminalId);
-            inmpdelpay.userName = "m6094";// ObjsBehpardakhtSource.Username;
-            inmpdelpay.userPassword = "68751835";// ObjsBehpardakhtSource.Password;
-            //}
-            //else
-            //{
-            //    inmpdelpay.terminalId = 0;
-            //    inmpdelpay.userName = "";
-            //    inmpdelpay.userPassword = "";
-            //}
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
 
 
 
@@ -203,19 +221,37 @@ namespace Tipoul.Shaparak.Switch
             inmpdelpay.callBackUrl = inmodel.CallBackUrl;
             inmpdelpay.localTime = DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
 
-            //if (inmodel.FactorNumber != null)
-            //    inmpdelpay.orderId = 10000;// long.Parse(inmodel.FactorNumber);
-            //else
-            //{
-            Random rnd = new Random();
-            int numberrandom = rnd.Next(100000, 999999);
-            inmpdelpay.orderId = numberrandom;
-            //}
-            var mm = await ss.bpPayRequest(inmpdelpay);
-            
-            return mm.resultobject.ResCode;
+            if (inmodel.FactorNumber != null)
+                inmpdelpay.orderId = long.Parse(inmodel.FactorNumber);
+            else
+            {
+                Random rnd = new Random();
+                int numberrandom = rnd.Next(100000, 999999);
+                inmpdelpay.orderId = numberrandom;
+            }
+            var result = await ss.bpPayRequest(inmpdelpay);
+            Tipoul.Shaparak.Switch.Model.GetToken.ResultModel _result = new Model.GetToken.ResultModel();
+            if (result != null)
+            {
+                _result.orderId = inmodel.FactorNumber != "" ? long.Parse(inmodel.FactorNumber) : 0;
+                _result.amount = inmodel.Amount;
+                _result.saleReferenceId = 0;
+                _result.accessToken = "";
+                _result.saleOrderId = inmodel.PayerUserId != "" ? long.Parse(inmodel.PayerUserId) : 0;
+                _result.callbackurl = inmodel.CallBackUrl;
+                _result.terminalId = terminalId;
+                _result.userName = TerminaluserName;
+                _result.userPassword = userPassword;
+                _result.resCode = result.resultobject.ResCode;
+                _result.IPG = "BPT";
+
+                return _result; ;
+
+            }
+            else
+                return null;
 
         }
+
     }
-       
 }

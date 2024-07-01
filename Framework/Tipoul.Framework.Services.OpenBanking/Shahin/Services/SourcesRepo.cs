@@ -13,8 +13,8 @@ namespace Tipoul.Framework.Services.OpenBanking.Shahin.Services
 {
     public class SourcesRepo : ISourcesRepo
     {
-        private Context _context;
-        public SourcesRepo(Context context)
+        private OpenBankingContext _context;
+        public SourcesRepo(OpenBankingContext context)
         {
             _context = context;
         }

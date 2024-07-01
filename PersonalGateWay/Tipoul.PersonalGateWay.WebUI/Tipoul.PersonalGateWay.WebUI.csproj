@@ -15,7 +15,6 @@
     <ProjectReference Include="..\..\Framework\Tipoul.Framework.StorageModels\Tipoul.Framework.StorageModels.csproj" />
     <ProjectReference Include="..\..\Framework\Tipoul.Framework.Utilities\Tipoul.Framework.Utilities.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Tipoul.Infrastructure.RequestLog\Tipoul.Infrastructure.RequestLog.csproj" />
-    <ProjectReference Include="..\..\Services\Tipoul.Services.Agent\Tipoul.Services.Agent.csproj" />
   </ItemGroup>
 
 </Project>

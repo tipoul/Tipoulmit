@@ -1,0 +1,17 @@
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Shaparak.Services.deps.json
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Shaparak.Services.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Shaparak.Services.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Services.RequestLog.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Utilities.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Services.RequestLog.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\bin\Release\net5.0\Tipoul.Framework.Utilities.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.csproj.AssemblyReference.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.AssemblyInfoInputs.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.AssemblyInfo.cs
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.csproj.CoreCompileInputs.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.csproj.CopyComplete
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\refint\Tipoul.Shaparak.Services.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\Tipoul.Shaparak.Services.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Services\obj\Release\net5.0\ref\Tipoul.Shaparak.Services.dll

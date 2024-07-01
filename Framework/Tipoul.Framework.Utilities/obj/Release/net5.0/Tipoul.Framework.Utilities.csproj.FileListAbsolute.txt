@@ -10,3 +10,15 @@ C:\Projects\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.F
 C:\Projects\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\refint\Tipoul.Framework.Utilities.dll
 C:\Projects\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.pdb
 C:\Projects\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\ref\Tipoul.Framework.Utilities.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\bin\Release\net5.0\Tipoul.Framework.Utilities.deps.json
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\bin\Release\net5.0\Tipoul.Framework.Utilities.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\bin\Release\net5.0\Tipoul.Framework.Utilities.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.csproj.AssemblyReference.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.AssemblyInfoInputs.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.AssemblyInfo.cs
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.csproj.CoreCompileInputs.cache
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\refint\Tipoul.Framework.Utilities.dll
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\Tipoul.Framework.Utilities.pdb
+D:\Samodi\V2\src\src\Framework\Tipoul.Framework.Utilities\obj\Release\net5.0\ref\Tipoul.Framework.Utilities.dll

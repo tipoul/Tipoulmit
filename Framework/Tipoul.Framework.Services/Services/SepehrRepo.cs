@@ -11,8 +11,8 @@ namespace Tipoul.Shaparak.Services.Services
     internal class SepehrRepo
     {
 
-        private Context _context;
-        public SepehrRepo(Context context)
+        private ShaparakContext _context;
+        public SepehrRepo(ShaparakContext context)
         {
             _context = context;
         }

@@ -9,9 +9,32 @@ using Tipoul.Framework.Utilities.Utilities;
 using Tipoul.Infrastructure.RequestLog.Services;
 using Tipoul.Shaparak.Switch;
 using Tipoul.Framework.DataAccessLayer;
-using Tipoul.Framework.Services.OpenBanking.Shahin.Data;
-using Tipoul.Framework.Services.OpenBanking.Shahin.Infrastructure;
+
 using Azure;
+using Tipoul.Console.WebApi.Infrastructure;
+using Tipoul.Framework.Services.RequestLog.Migrations;
+using Tipoul.Console.WebApi.Entity;
+using System.Reflection.Metadata;
+using Azure.Core;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
+
+using Tipoul.Framework.Services.RequestLog.StorageModels.IranKishGateWay;
+using System.Reflection;
+using Newtonsoft.Json.Linq;
+using System.Security.Policy;
+using System.Text;
+using Tipoul.Framework.DataAccessLayer.Migrations;
+
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Tipoul.Console.WebApi.Utilities;
+using Tipoul.Shaparak.Switch.Model.GetToken;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Tipoul.Framework.StorageModels;
+using Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpInquiryRequest;
+
+
 //using SharedModels = Tipoul.Services.Shared.Models;
 
 namespace Tipoul.Services.WebApiii.Controllers
@@ -19,45 +42,48 @@ namespace Tipoul.Services.WebApiii.Controllers
     [Route("[controller]/v1")]
     public class PayController : ControllerBase
     {
+        private readonly IHttpContextAccessor contextAccessor;
 
-        private readonly IConfiguration configuration;     
-        private readonly RequestLogService requestLogService;      
+
+        private readonly IConfiguration configuration;
+
         private static Random rand = new Random((int)DateTime.Now.Ticks);
         protected readonly TipoulFrameworkDbContext _TipouldbContext;
-        private readonly Tipoul.Shaparak.Services.Data.Context _dbContext;
+        private readonly JsonSerializerOptions camelCaseSettings = new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, PropertyNameCaseInsensitive = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+
         private readonly string TokenUrl;
         private readonly string ApiUrl;
         private readonly string UserName;
         private readonly string Password;
 
-        private readonly IUnitOfWork _unitOfWork;       
-
-        public PayController(IConfiguration config, Tipoul.Shaparak.Services.Data.Context dbContext)
+        private readonly IUnitOfWork _unitOfWork;
+        private ShaparakContext _shaparakcontext;
+        private TipoulFrameworkDbContext _tipoulframeworkdbcontext;
+        private readonly IHttpContextAccessor _contextAccessor;
+        public PayController(IConfiguration config, IUnitOfWork unitOfWork, ShaparakContext shaparakcontext, TipoulFrameworkDbContext tipoulframeworkbbcontext, IHttpContextAccessor contextAccessor)
         {
-              
-
-            _dbContext = dbContext;
-            
+            _shaparakcontext = shaparakcontext;
+            _unitOfWork = unitOfWork;
+            _contextAccessor = contextAccessor;
+            _tipoulframeworkdbcontext = tipoulframeworkbbcontext;
         }
 
         [HttpPost("getToken")]
-        public async Task<GetTokenResult> GetToken([FromServices] IConfiguration configuration, [FromBody] GetTokenModel model)
-        {
-
-            
+        public async Task<Tipoul.Shaparak.Switch.Model.GetToken.ResultModelUser> GetToken([FromServices] IConfiguration configuration, [FromForm] Tipoul.Console.WebApi.GetTokenModel model)
+        { 
+            string GTTN = Utility.GTTN();
             try
             {
-                var traceNumber = DateTime.Now.TimeOfDay.TotalMilliseconds.ToString().Substring(DateTime.Now.TimeOfDay.TotalMilliseconds.ToString().Length - 4);
-                traceNumber += rand.Next(1000, 9999);
-                traceNumber += new PersianCalendar().GetDayOfMonth(DateTime.Now).ToString().PadLeft(2, '0');
-                traceNumber += rand.Next(1000, 9999);
-               
+
+
                 Tipoul.Shaparak.Switch.Model.GetToken.InModel modelipg = new Shaparak.Switch.Model.GetToken.InModel();
 
+
+                modelipg.TraceNumber = Utility.GTTN();
                 modelipg.IPG = model.IPG;
                 modelipg.BlankForTransaction = model.BlankForTransaction;
                 modelipg.BlankForPayer = model.BlankForPayer;
-                modelipg.ValidCardNum = model.ValidCardNum;
+                //modelipg.ValidCardNum = model.ValidCardNum;
                 modelipg.Amount = model.Amount;
                 modelipg.PayerUserId = model.PayerUserId;
                 modelipg.FactorNumber = model.FactorNumber;
@@ -67,172 +93,257 @@ namespace Tipoul.Services.WebApiii.Controllers
                 modelipg.CallBackUrl = model.CallBackUrl;
                 modelipg.PayerMobile = model.PayerMobile;
 
-                
+                Tipoul.Console.WebApi.Entity.Request _r = new Tipoul.Console.WebApi.Entity.Request();
+                _r.IPG = model.IPG;
+                _r.PayerMobile = model.PayerMobile;
+                _r.PayerUserId = long.Parse(model.PayerUserId);
+                _r.BlankForPayer = model.BlankForPayer;
+                string ValidCardNum = "";
+                //if (model.ValidCardNum != null)
+                //{
+                //    foreach (var item in model.ValidCardNum)
+                //    {
+                //        ValidCardNum += item;
+                //    }
+                //    _r.ValidCardNum = ValidCardNum;
+                //}
+                //else
+                    _r.ValidCardNum = "";
+                _r.FactorNumber = long.Parse(model.FactorNumber);
+                _r.Amount = model.Amount;
+                _r.BlankForTransaction = model.BlankForTransaction;
+                _r.CallBackUrl = model.CallBackUrl;
+                _r.PayerName = model.PayerName;
+                _r.Description = model.Description;
+                _r.GateToken = model.GateToken;
+                string Token = Utility.GenerateToken(256);
+                string HashedToken = Utility.GenerateHash(Token);
+                _r.AccessToken = Token;
+                _r.HashedToken = HashedToken;
+
+                HomeController sw = new HomeController(_shaparakcontext);
+
+                Task<ResultModel> _res = sw.IPGParameter(model.IPG, modelipg, null);
 
 
-                HomeController sw=new HomeController(_dbContext);
-                Task<string>a= sw.IPGParameter(model.IPG, modelipg, null);
 
-               GetTokenResult gr = new GetTokenResult();
-                gr.AccessToken = a.Result;      
+                _r.IPG = _res.Result.IPG;
+                _r.IPGToken = _res.Result.resCode;
+                _r.AccessToken = _res.Result.accessToken;
+                _r.GTTN = GTTN;
+                _r.RegisterDate = DateTime.Now;
+
+                var result = _unitOfWork.RequestRepo.Insert(_r);
+                _unitOfWork.Save();
+
+              
+                ResultModelUser _resuser = new ResultModelUser();
+                _resuser.IPG = _res.Result.IPG;
+               
+                _resuser.accessToken = HashedToken;
+                _resuser.amount = _res.Result.amount;
+                _resuser.callbackurl = _res.Result.callbackurl;
+                _resuser.orderId = _res.Result.orderId;
 
 
+                return _resuser;
 
-                return gr;
+
             }
             catch (Exception ex)
             {
+               
                 return null;
-                //return new SharedModels.Common.ApiResult<SharedModels.Pay.GetTokenResult>(ex, -1);
+
             }
         }
-
-        [HttpPost("start")]
-        public async Task Start()
-        {
-            try
-            {
-                //    var transaction = await dbContext.Transactions.Include(f => f.GetTokenModel).Include(f => f.GateWay).FirstOrDefaultAsync(f => f.GetTokenResult.TipoulAccessToken == model.TipoulAccessToken);
-
-                //    if (transaction == null)
-                //        throw new Exception("Token not provided");
-
-                //    transaction.RequestId = requestLogService.RequestId;
-
-                //    transaction.RedirectToGateWay = DateTime.Now;
-
-                //    await iranKishService.Redirect(responseUtilities, transaction.ISPAccessToken, JsonSerializer.Serialize(new { transactionId = transaction.Id, requestLogService.RequestId, gateWayId = transaction.GateWay.Id, transaction.ISPAccessToken }));
-            }
-            catch (Exception ex)
-            {
-                await Response.WriteAsJsonAsync(new { Success = false, Error = ex.Message });
-            }
-        }
-
-        [HttpGet]
-        [Route("/Pay/v2/start")]
-        public async Task StartGet()
-        {
-            try
-            {
-                //string TokenHashed = "";
-                //if (HttpContext.Request.Query.ContainsKey("TokenHashed"))
-                //    TokenHashed = HttpContext.Request.Query["TokenHashed"].ToString();
-                //var transaction = await dbContext.Transactions.Include(f => f.GetTokenModel).Include(f => f.GateWay).FirstOrDefaultAsync(f => f.GetTokenResult.TipoulAccessTokenHashed == TokenHashed);
-
-                //if (transaction == null)
-                //    throw new Exception("Token not provided");
-
-                //transaction.RequestId = requestLogService.RequestId;
-                //transaction.RedirectToGateWay = DateTime.Now;
-                //await dbContext.SaveChangesAsync();
-
-                //await iranKishService.Redirect(responseUtilities, transaction.ISPAccessToken, JsonSerializer.Serialize(new { transactionId = transaction.Id, requestLogService.RequestId, gateWayId = transaction.GateWay.Id, transaction.ISPAccessToken }));
-            }
-            catch (Exception ex)
-            {
-                await Response.WriteAsJsonAsync(new { Success = false, Error = ex.Message });
-            }
-        }
-
         [HttpPost("callback")]
-        //[HttpGet("callback")]
-        public async Task Callback()
+        public CallbackModel Callback()
         {
-            long.TryParse(HttpContext.Request.Form["RefId"].ToString(), out long RequestID);
-            //var transaction = await dbContext.Transactions.Include(f => f.GetTokenModel).OrderByDescending(f => f.CreateDate).FirstOrDefaultAsync(f => f.InvoiceId == RequestID.ToString());
+            var SaleReferenceId = HttpContext.Request.Form["SaleReferenceId"].ToString();
+            var RefId = HttpContext.Request.Form["RefId"].ToString();
+            var ResCode = HttpContext.Request.Form["ResCode"].ToString();
+            var FinalAmount = HttpContext.Request.Form["FinalAmount"].ToString();
+            var CardHolderInfo = HttpContext.Request.Form["CardHolderInfo"].ToString();
+            var CardHolderPan = HttpContext.Request.Form["CardHolderPan"].ToString();
+            var SaleOrderId = HttpContext.Request.Form["SaleOrderId"].ToString();
 
-            //transaction.TransactionResponse = new Framework.StorageModels.TransactionResponse();
-            //long.TryParse(HttpContext.Request.Form["Amount"], out long Amount);
-            //transaction.TransactionResponse.Amount = Amount;
-            //transaction.TransactionResponse.CardNumber = HttpContext.Request.Form["maskedPan"];
-            //transaction.TransactionResponse.DatePaid = HttpContext.Request.Form["DatePaid"];
-            //transaction.TransactionResponse.SAN = HttpContext.Request.Form["systemTraceAuditNumber"];
-            //transaction.TransactionResponse.IssuerBank = HttpContext.Request.Form["IssuerBank"];
-            //int.TryParse(HttpContext.Request.Form["responseCode"].ToString(), out int responseCode);
-            //transaction.TransactionResponse.RespCode = responseCode;
-            //transaction.TransactionResponse.RespMsg = HttpContext.Request.Form["RespMsg"];
-            //transaction.TransactionResponse.RRN = HttpContext.Request.Form["retrievalReferenceNumber"];
-            //transaction.TransactionResponse.TraceNumber = RequestID;
-            //transaction.TransactionResponse.TerminalId = transaction.GateWayId.Value;
-            //transaction.TransactionResponse.TipoulTrackNumber = rand.Next(1000000, 9999999) + transaction.GateWayId.ToString() + rand.Next(1000000, 9999999);
+            CallbackModel _rcm = new CallbackModel();
+            
 
-            //await dbContext.SaveChangesAsync();
+            _rcm.CardNumber = CardHolderPan;
+            _rcm.FactorNumber = SaleOrderId;
+            _rcm.RRN = SaleReferenceId;
+            _rcm.Amount = long.Parse(FinalAmount);
+            _rcm.RespCode = int.Parse(ResCode);
+            _rcm.GTRN = Utility.TrackNumber(long.Parse(SaleOrderId));
+            _rcm.DatePaid = Utility.ConvertDate(DateTime.Now);
+            _rcm.TraceNumber = null;
+            string BankName = Utility.Bankrecogntion(CardHolderPan.Substring(0, 6));
+            _rcm.IssuerBank = BankName;
+            var Objs = _unitOfWork.RequestRepo.GetByFactorNo(long.Parse(HttpContext.Request.Form["SaleOrderId"].ToString()));
+            if (Objs != null)
+                _rcm.GTTN = Objs.GTTN;
+            else
+                _rcm.GTTN = null;
 
-            //await responseUtilities.RedirectUsingPost(transaction.GetTokenModel.CallBackUrl, new SharedModels.Pay.CallbackModel
-            //{
-            //    Amount = transaction.TransactionResponse.Amount,
-            //    CardNumber = transaction.TransactionResponse.CardNumber,
-            //    IssuerBank = transaction.TransactionResponse.IssuerBank,
-            //    RRN = transaction.TransactionResponse.RRN,
-            //    DatePaid = transaction.TransactionResponse.DatePaid,
-            //    TraceNumber = transaction.TransactionResponse.TraceNumber,
-            //    FactorNumber = transaction.GetTokenModel.FactorNumber,
-            //    RespCode = transaction.TransactionResponse.RespCode,
-            //    RespMsg = transaction.TransactionResponse.RespMsg,
-            //    TipoulTrackNumber = transaction.TransactionResponse.TipoulTrackNumber,
-            //    TipoulTraceNumber = transaction.TipoulTraceNumber
-            //});
+            Transactionv1 _trans = new Transactionv1();
+
+            _trans.IssuerBank = BankName;
+            _trans.CardNumber = CardHolderPan;
+
+            _trans.Amount = long.Parse(FinalAmount);
+            _trans.TraceNumber = null;
+            _trans.FactorNumber = long.Parse(SaleOrderId);
+            _trans.DatePaid = DateTime.Now;
+            _trans.RRN = SaleReferenceId;
+            _trans.RespCode = int.Parse(ResCode);
+            _trans.GTRN = _rcm.GTRN;
+            _trans.GTTN = _rcm.GTTN;            
+
+            try
+            {
+                var results = _tipoulframeworkdbcontext.Transactionv1.Add(_trans);
+                _tipoulframeworkdbcontext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+            }
+           
+            return _rcm;
+
         }
+
 
         [HttpPost("confirm")]
-        public async Task<int> Confirm()
+        public async Task<Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpVerifyRequest.OutModel> Confirm([FromForm] string GTTN)
         {
-            return 1;
-            try
+            Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpVerifyRequest.OutModel _modelsOutModel = new Shaparak.Services.BehPardakhtGateWay.Model.BpVerifyRequest.OutModel();
+
+            var ObjTrans = _tipoulframeworkdbcontext.Transactionv1.FirstOrDefault(r => r.GTTN == GTTN);
+            if (ObjTrans != null)
             {
-                //var transaction = await dbContext.Transactions
-                //    //.Include(f => f.TransactionResponse)
-                //    //.Include(f => f.GetTokenModel)
-                //    //.Include(f => f.GateWay).ThenInclude(f => f.Wallet)
-                //    .OrderByDescending(f => f.CreateDate)
-                //    //.FirstOrDefaultAsync(f => f.TipoulTraceNumber == model.TipoulTraceNumber);
+                var ObjsRequest = _unitOfWork.RequestRepo.GetByGTTN(GTTN);
+                if (ObjsRequest != null)
+                {
+                    switch (ObjsRequest.IPG)
+                    {
+                        case "BPT":
+                            {
+                                var ObjsBank = _shaparakcontext.BehpardakhtSource.FirstOrDefault();
+                                if (ObjsBank != null)
+                                {
 
-                //var transaction = await dbContext.Transactions
+                                    Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpVerifyRequest.InModel _models = new Shaparak.Services.BehPardakhtGateWay.Model.BpVerifyRequest.InModel();
 
-                //.OrderByDescending(f => f.CreateDate)
-                //    .FirstOrDefault(f => f.TipoulTraceNumber == model.TipoulTraceNumber);
+                                    _models.saleReferenceId = long.Parse(ObjTrans.RRN);
+                                    _models.terminalId = long.Parse(ObjsBank.TerminalId);
+                                    _models.saleOrderId = ObjTrans.FactorNumber.Value;
+                                    _models.userName = ObjsBank.Username;
+                                    _models.orderId = ObjTrans.FactorNumber.Value;
+                                    _models.userPassword = ObjsBank.Password;
 
-                //transaction.TransactionConfirmModel = new Framework.StorageModels.TransactionConfirmModel
-                //{
-                //    TipoulTraceNumber = model.TipoulTraceNumber
-                //};
 
-                //await dbContext.SaveChangesAsync();
-                //Framework.Services.IranKishGateWay.Models.ConfirmModel confirmModel = new Framework.Services.IranKishGateWay.Models.ConfirmModel(transaction.GateWay.TerminalNumber,
-                //    transaction.TransactionResponse.RRN.ToString(), transaction.TransactionResponse.SAN.ToString(), transaction.ISPAccessToken);
-                //var confirmResult = await iranKishService.Confirm(confirmModel, JsonSerializer.Serialize(new { transactionId = transaction.Id, requestLogService.RequestId }));
+                                    Tipoul.Shaparak.Services.BehPardakhtGateWay.Services _Behver = new Shaparak.Services.BehPardakhtGateWay.Services();
 
-                //transaction.TransactionConfirmResult = new Framework.StorageModels.TransactionConfirmResult();
-                //transaction.TransactionConfirmResult.Message = confirmResult.Description;
-                //transaction.TransactionConfirmResult.ReturnId = confirmResult.ResponseCode;
-                //SharedModels.Pay.ConfirmResult.ConfirmStatus status = confirmResult.Status ? SharedModels.Pay.ConfirmResult.ConfirmStatus.OK : SharedModels.Pay.ConfirmResult.ConfirmStatus.NOK;
-                //transaction.TransactionConfirmResult.Status = Enum.Parse<Framework.StorageModels.TransactionConfirmResult.ConfirmStatus>(status.ToString(), true);
-                //transaction.TransactionConfirmResult.TipoulTrackNumber = rand.Next(1000000, 9999999) + transaction.GateWayId.ToString() + rand.Next(1000000, 9999999);
 
-                //if (transaction.TransactionConfirmResult.Status == Framework.StorageModels.TransactionConfirmResult.ConfirmStatus.OK)
-                //{
-                //    transaction.GateWay.Wallet.Amount += transaction.GetTokenModel.Amount;
-                //    transaction.GateWay.Wallet.AmountInHand += transaction.GetTokenModel.Amount;
-                //    //if (transaction.GateWay.Settlement == Framework.StorageModels.CommertialGateWay.SettlementType.Manual)
-                //    transaction.GateWay.Wallet.AmountSettlementable += transaction.GetTokenModel.Amount;
-                //}
+                                    
 
-                //await dbContext.SaveChangesAsync();
-                //SharedModels.Pay.ConfirmResult confirmResultPay = new SharedModels.Pay.ConfirmResult();
-                //confirmResultPay.Message = confirmResult.Description;
-                //confirmResultPay.ReturnId = confirmResult.ResponseCode;
-                //SharedModels.Pay.ConfirmResult.ConfirmStatus statusPay = confirmResult.Status ? SharedModels.Pay.ConfirmResult.ConfirmStatus.OK : SharedModels.Pay.ConfirmResult.ConfirmStatus.NOK;
-                //confirmResultPay.Status = Enum.Parse<SharedModels.Pay.ConfirmResult.ConfirmStatus>(statusPay.ToString(), true);
-                //confirmResultPay.TipoulTrackNumber = transaction.TransactionConfirmResult.TipoulTrackNumber;
-                //return new SharedModels.Common.ApiResult<SharedModels.Pay.ConfirmResult>(confirmResultPay);
+                                    Shaparak.Services.BehPardakhtGateWay.Model.BpVerifyRequest.ResultObject _finalresult = new Shaparak.Services.BehPardakhtGateWay.Model.BpVerifyRequest.ResultObject();
 
+                                    ResultObject _robject = new ResultObject();
+
+                                    var ObjsVerify = await _Behver.bpVerifyRequest(_models);
+                                    if (ObjsVerify.messagecode == "10000")
+                                    {
+                                        Tipoul.Shaparak.Services.BehPardakhtGateWay.Model.BpSettleRequest.InModel _modelsSettle = new Shaparak.Services.BehPardakhtGateWay.Model.BpSettleRequest.InModel();
+
+                                        _modelsSettle.saleReferenceId = long.Parse(ObjTrans.RRN);
+                                        _modelsSettle.terminalId = long.Parse(ObjsBank.TerminalId);
+                                        _modelsSettle.saleOrderId = ObjTrans.FactorNumber.Value;
+                                        _modelsSettle.userName = ObjsBank.Username;
+                                        _modelsSettle.orderId = ObjTrans.FactorNumber.Value;
+                                        _modelsSettle.userPassword = ObjsBank.Password;
+
+                                        var ObjsSettle = await _Behver.bpSettleRequest(_modelsSettle);
+                                        if (ObjsSettle.messagecode == "10000")
+                                        {
+                                            _modelsOutModel.tracenumber = ObjsSettle.tracenumber;
+                                            _modelsOutModel.message = ObjsSettle.message;
+                                            _modelsOutModel.messagecode = ObjsSettle.messagecode;
+                                            _modelsOutModel.statuscode = ObjsSettle.statuscode;
+                                            _finalresult.ResCode = ObjsSettle.resultobject.ResCode;
+                                            _modelsOutModel.resultobject = _finalresult;
+                                        }
+                                        else
+                                        {
+                                            _modelsOutModel.tracenumber = 0;
+                                            _modelsOutModel.message = "تراکنش موفقیت آمیز نبود";
+                                            _modelsOutModel.messagecode = "2000";
+                                            _modelsOutModel.statuscode = "-1";
+
+                                            _modelsOutModel.resultobject = null;
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        _modelsOutModel.tracenumber = 0;
+                                        _modelsOutModel.message = "تراکنش موفقیت آمیز نبود";
+                                        _modelsOutModel.messagecode = "2000";
+                                        _modelsOutModel.statuscode = "-1";
+
+                                        _modelsOutModel.resultobject = null;
+
+                                    }
+                                    return _modelsOutModel;
+                                }
+                                else
+                                {
+                                    _modelsOutModel.tracenumber = 0;
+                                    _modelsOutModel.message = "بانک یافت نشد";
+                                    _modelsOutModel.messagecode = "2001";
+                                    _modelsOutModel.statuscode = "-1";
+
+                                    _modelsOutModel.resultobject = null;
+                                }
+                            }
+                            break;
+                        default:
+                            {
+                                _modelsOutModel.tracenumber = 0;
+                                _modelsOutModel.message = "توکن یافت نشد";
+                                _modelsOutModel.messagecode = "2002";
+                                _modelsOutModel.statuscode = "-1";
+
+                                _modelsOutModel.resultobject = null;
+                            }
+                            break;
+
+                    }
+                }
+                else
+                {
+                    _modelsOutModel.tracenumber = 0;
+                    _modelsOutModel.message = "توکن یافت نشد";
+                    _modelsOutModel.messagecode = "2003";
+                    _modelsOutModel.statuscode = "-1";
+
+                    _modelsOutModel.resultobject = null;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                return 0;
-                //return new SharedModels.Common.ApiResult<SharedModels.Pay.ConfirmResult>(ex, -1);
+
+                _modelsOutModel.tracenumber = 0;
+                _modelsOutModel.message = "توکن یافت نشد";
+                _modelsOutModel.messagecode = "2004";
+                _modelsOutModel.statuscode = "-1";
+
+                _modelsOutModel.resultobject = null;
             }
+            return _modelsOutModel;
         }
     }
 }

@@ -13,8 +13,8 @@ namespace Tipoul.Shaparak.Services.Services
 {
     public class BehpardakhtRepo : IBehpardakhtSourceRepo
     {
-        private Context _context;
-        public BehpardakhtRepo(Context context)
+        private ShaparakContext _context;
+        public BehpardakhtRepo(ShaparakContext context)
         {
             _context = context;
         }

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -26,11 +28,12 @@ namespace Tipoul.Wallet.Controllers
         private readonly string ApiUrl;
         private readonly string UserName;
         private readonly string Password;
+        private readonly IHttpContextAccessor _contextAccessor;
 
         private readonly JsonSerializerOptions camelCaseSettings = new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, PropertyNameCaseInsensitive = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
 
 
-        public HomeController(IConfiguration iConfig)
+        public HomeController(IConfiguration iConfig, IHttpContextAccessor contextAccessor)
         {
             // _logger = logger;
             configuration = iConfig;
@@ -38,12 +41,9 @@ namespace Tipoul.Wallet.Controllers
             ApiUrl = configuration.GetSection("shahin").GetSection("ApiUrl").Value;
             UserName = configuration.GetSection("shahin").GetSection("UserName").Value;
             Password = configuration.GetSection("shahin").GetSection("Password").Value;
-
+            _contextAccessor = contextAccessor;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
 
         public IActionResult Privacy()
         {
@@ -65,7 +65,7 @@ namespace Tipoul.Wallet.Controllers
             model.Amount = data.amount;
             model.FactorNumber = "";
             model.IPG = "BPT";
-            model.ValidCardNum = null;
+            //model.ValidCardNum = null;
             model.PayerName = "";
             model.PayerUserId = null;
             model.BlankForPayer = data.nationalcode;

@@ -1208,30 +1208,6 @@
         "runtime": {
           "bin/placeholder/Tipoul.Infrastructure.RequestLog.dll": {}
         }
-      },
-      "Tipoul.Services.Agent/1.0.1": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Tipoul.Framework.Utilities": "1.0.0",
-          "Tipoul.Services.Shared": "1.0.1"
-        },
-        "compile": {
-          "bin/placeholder/Tipoul.Services.Agent.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Tipoul.Services.Agent.dll": {}
-        }
-      },
-      "Tipoul.Services.Shared/1.0.1": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "compile": {
-          "bin/placeholder/Tipoul.Services.Shared.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Tipoul.Services.Shared.dll": {}
-        }
       }
     }
   },
@@ -2949,16 +2925,6 @@
       "type": "project",
       "path": "../../Infrastructure/Tipoul.Infrastructure.RequestLog/Tipoul.Infrastructure.RequestLog.csproj",
       "msbuildProject": "../../Infrastructure/Tipoul.Infrastructure.RequestLog/Tipoul.Infrastructure.RequestLog.csproj"
-    },
-    "Tipoul.Services.Agent/1.0.1": {
-      "type": "project",
-      "path": "../../Services/Tipoul.Services.Agent/Tipoul.Services.Agent.csproj",
-      "msbuildProject": "../../Services/Tipoul.Services.Agent/Tipoul.Services.Agent.csproj"
-    },
-    "Tipoul.Services.Shared/1.0.1": {
-      "type": "project",
-      "path": "../../Services/Tipoul.Services.Shared/Tipoul.Services.Shared.csproj",
-      "msbuildProject": "../../Services/Tipoul.Services.Shared/Tipoul.Services.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2968,8 +2934,7 @@
       "Tipoul.Framework.DataAccessLayer >= 1.0.0",
       "Tipoul.Framework.StorageModels >= 1.0.0",
       "Tipoul.Framework.Utilities >= 1.0.0",
-      "Tipoul.Infrastructure.RequestLog >= 1.0.0",
-      "Tipoul.Services.Agent >= 1.0.1"
+      "Tipoul.Infrastructure.RequestLog >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3015,9 +2980,6 @@
             },
             "D:\\Samodi\\V2\\src\\src\\Infrastructure\\Tipoul.Infrastructure.RequestLog\\Tipoul.Infrastructure.RequestLog.csproj": {
               "projectPath": "D:\\Samodi\\V2\\src\\src\\Infrastructure\\Tipoul.Infrastructure.RequestLog\\Tipoul.Infrastructure.RequestLog.csproj"
-            },
-            "D:\\Samodi\\V2\\src\\src\\Services\\Tipoul.Services.Agent\\Tipoul.Services.Agent.csproj": {
-              "projectPath": "D:\\Samodi\\V2\\src\\src\\Services\\Tipoul.Services.Agent\\Tipoul.Services.Agent.csproj"
             }
           }
         }

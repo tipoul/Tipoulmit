@@ -579,10 +579,10 @@
           }
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
+      "Microsoft.Extensions.Configuration.Abstractions/6.0.0-preview.7.21377.19": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "6.0.0"
+          "Microsoft.Extensions.Primitives": "6.0.0-preview.7.21377.19"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
@@ -721,10 +721,10 @@
           }
         }
       },
-      "Microsoft.Extensions.Primitives/6.0.0": {
+      "Microsoft.Extensions.Primitives/6.0.0-preview.7.21377.19": {
         "type": "package",
         "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0-preview.7.21377.19"
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {
@@ -1101,10 +1101,10 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "System.Runtime.CompilerServices.Unsafe/6.0.0-preview.7.21377.19": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll": {
+          "ref/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
         },
@@ -1381,23 +1381,6 @@
         },
         "runtime": {
           "bin/placeholder/Tipoul.Framework.Services.RequestLog.dll": {}
-        }
-      },
-      "Tipoul.Framework.ShahinService/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "6.0.0-preview.5.21301.9",
-          "Microsoft.EntityFrameworkCore.Relational": "6.0.0-preview.5.21301.9",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.0-preview.5.21301.9",
-          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0",
-          "Tipoul.Framework.Utilities": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Tipoul.Framework.ShahinService.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Tipoul.Framework.ShahinService.dll": {}
         }
       },
       "Tipoul.Framework.StorageModels/1.0.0": {
@@ -2159,10 +2142,10 @@
         "microsoft.extensions.caching.memory.nuspec"
       ]
     },
-    "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
-      "sha512": "qWzV9o+ZRWq+pGm+1dF+R7qTgTYoXvbyowRoBxQJGfqTpqDun2eteerjRQhq5PQ/14S+lqto3Ft4gYaRyl4rdQ==",
+    "Microsoft.Extensions.Configuration.Abstractions/6.0.0-preview.7.21377.19": {
+      "sha512": "E7jldErD3SGhDuxilC2H7UaATGpJJc+pYpYpsiSEhIveM6ldSwjRCqg3iousXnF1zdDMRESsCROYwPIVygoyVQ==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.abstractions/6.0.0",
+      "path": "microsoft.extensions.configuration.abstractions/6.0.0-preview.7.21377.19",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2173,7 +2156,7 @@
         "lib/net461/Microsoft.Extensions.Configuration.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.xml",
-        "microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.abstractions.6.0.0-preview.7.21377.19.nupkg.sha512",
         "microsoft.extensions.configuration.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -2344,10 +2327,10 @@
         "microsoft.extensions.options.nuspec"
       ]
     },
-    "Microsoft.Extensions.Primitives/6.0.0": {
-      "sha512": "9+PnzmQFfEFNR9J2aDTfJGGupShHjOuGw4VUv+JB044biSHrnmCIMD+mJHmb2H7YryrfBEXDurxQ47gJZdCKNQ==",
+    "Microsoft.Extensions.Primitives/6.0.0-preview.7.21377.19": {
+      "sha512": "dbYTaKld3fbZETLzYknl5np8/rnas3isR3RQi0xvZNrz4S1bhn7lsEbu8ACwMAQxPxiKBgl59RKUNVmqjJ4Aww==",
       "type": "package",
-      "path": "microsoft.extensions.primitives/6.0.0",
+      "path": "microsoft.extensions.primitives/6.0.0-preview.7.21377.19",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2364,7 +2347,7 @@
         "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.xml",
-        "microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+        "microsoft.extensions.primitives.6.0.0-preview.7.21377.19.nupkg.sha512",
         "microsoft.extensions.primitives.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -2961,10 +2944,10 @@
         "version.txt"
       ]
     },
-    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
-      "sha512": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+    "System.Runtime.CompilerServices.Unsafe/6.0.0-preview.7.21377.19": {
+      "sha512": "G9eKxgKE5UoyJdB4tpBFCWlgky34N11QDIjn92g6BwqII03yra4raegNNt3y3lmN6k+VDLIzgVMuddZ7LT6TEw==",
       "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0-preview.7.21377.19",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2981,7 +2964,17 @@
         "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/net6.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/net6.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.6.0.0-preview.7.21377.19.nupkg.sha512",
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3531,11 +3524,6 @@
       "path": "../../Framework/Tipoul.Framework.Services.RequestLog/Tipoul.Framework.Services.RequestLog.csproj",
       "msbuildProject": "../../Framework/Tipoul.Framework.Services.RequestLog/Tipoul.Framework.Services.RequestLog.csproj"
     },
-    "Tipoul.Framework.ShahinService/1.0.0": {
-      "type": "project",
-      "path": "../../Tipoul.Framework.ShahinService/Tipoul.Framework.ShahinService.csproj",
-      "msbuildProject": "../../Tipoul.Framework.ShahinService/Tipoul.Framework.ShahinService.csproj"
-    },
     "Tipoul.Framework.StorageModels/1.0.0": {
       "type": "project",
       "path": "../../Framework/Tipoul.Framework.StorageModels/Tipoul.Framework.StorageModels.csproj",
@@ -3565,7 +3553,6 @@
       "Microsoft.EntityFrameworkCore.Design >= 6.0.0-preview.5.21301.9",
       "Tipoul.Athentication.Agent >= 1.0.0",
       "Tipoul.Framework.DataAccessLayer >= 1.0.0",
-      "Tipoul.Framework.ShahinService >= 1.0.0",
       "Tipoul.Framework.Utilities >= 1.0.0",
       "Tipoul.Infrastructure.RequestLog >= 1.0.0",
       "Tipoul.Shaparak.Services >= 1.0.0"
@@ -3617,9 +3604,6 @@
             },
             "D:\\Samodi\\V2\\src\\src\\Infrastructure\\Tipoul.Infrastructure.RequestLog\\Tipoul.Infrastructure.RequestLog.csproj": {
               "projectPath": "D:\\Samodi\\V2\\src\\src\\Infrastructure\\Tipoul.Infrastructure.RequestLog\\Tipoul.Infrastructure.RequestLog.csproj"
-            },
-            "D:\\Samodi\\V2\\src\\src\\Tipoul.Framework.ShahinService\\Tipoul.Framework.ShahinService.csproj": {
-              "projectPath": "D:\\Samodi\\V2\\src\\src\\Tipoul.Framework.ShahinService\\Tipoul.Framework.ShahinService.csproj"
             }
           }
         }
